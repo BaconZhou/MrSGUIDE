@@ -1,8 +1,8 @@
-# Mr.S
+# Mr.SI
 
-**M**ultiplre **R**esponse **S**ubgroup identification
+**M**ultiplre **R**esponse **S**ubgroup **I**dentification
 
-The current package is still under heavily devolpment.
+The current package is still under heavily devolopment.
 
 For subgroup identification use [GUIDE](https://www.stat.wisc.edu/~loh/guide.html) algorithm.
 
@@ -12,7 +12,7 @@ Loh, W.-Y., Man, M. and Wang, S. (2019), [Subgroups from regression trees with a
 
 Loh, W.-Y., Fu, H., Man, M., Champion, V. and Yu, M. (2016), [Identification of subgroups with differential treatment effects for longitudinal and multiresponse variables](http://www.stat.wisc.edu/~loh/treeprogs/guide/LFMCY16.pdf), Statistics in Medicine
 
-# Package install
+# Package install **No test in windows**
 
 - OpenMP support is required.
 
