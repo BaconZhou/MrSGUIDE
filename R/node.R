@@ -10,6 +10,7 @@
 }
 
 ## Missing data support
+#' @importFrom stats as.formula lm
 .node <- function(termList, data, ynames, trtname) {
     model <- list()
     yp = length(ynames)
@@ -38,6 +39,6 @@
         termNodeMap[[naID]][['model']] = .node(treeTmp, dataframe[ind, ], ynames, trtname)
     }
     return(termNodeMap)
-} 
+}
 
 ## tmp = node.guide(res_subguide$treeRes, res_subguide$node, train_data, yname, "Z")

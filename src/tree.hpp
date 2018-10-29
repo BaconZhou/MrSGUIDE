@@ -31,7 +31,7 @@ using Node::node;
  */
 class tree {
    protected:
-    std::shared_ptr<spdlog::logger> logger;
+    // std::shared_ptr<spdlog::logger> logger;
     // Data info
     uword N, yp, np, cp;
 

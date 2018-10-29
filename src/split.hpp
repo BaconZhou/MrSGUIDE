@@ -33,7 +33,7 @@ namespace SplitSol {
  */
     class Split {
     protected:
-        std::shared_ptr<spdlog::logger> logger;
+        // std::shared_ptr<spdlog::logger> logger;
         // Setting
         int batchNum = 1;
         int minData = 10;

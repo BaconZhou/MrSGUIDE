@@ -14,7 +14,7 @@ namespace SubGuide {
                    const int &CVFold_, const double &CVSE_)
         : maxDepth(maxDepth_), minData(minData_), batchNum(batchNum_),
         CVFold(CVFold_), CVSE(CVSE_) {
-            logger = spdlog::get("tree");
+            // logger = spdlog::get("tree");
         };
         
         /**

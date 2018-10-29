@@ -61,11 +61,11 @@ namespace SubGuide {
             this->BootAlpha.fill(this->alphaLevel);
 
             if (this->bootNum > 10) {
-                logger->info("Start bootstrap confidence interval\nbootstrap sample: {}, alpha: {}", this->bootNum, this->alphaLevel);
+                //logger->info("Start bootstrap confidence interval\nbootstrap sample: {}, alpha: {}", this->bootNum, this->alphaLevel);
                 if (this->root->terminal) {
-                    logger->info("Tree only has one node. No need bootstrap!");
+                    //logger->info("Tree only has one node. No need bootstrap!");
                 } else {
-                    logger->info("Use Bootstarp for confidence interval! SLOW!");
+                    //logger->info("Use Bootstarp for confidence interval! SLOW!");
                     this->BootAlpha = this->boostrapCI(numX, catX, Y, Trt, this->bootNum, this->alphaLevel);
                 }
             }    
@@ -89,7 +89,7 @@ namespace SubGuide {
             node *result = new node(id);
             stepNodeModel *nodeFit = new stepNodeModel(fitMethod);
             
-            logger->debug("NodeID: {}, bestK: {}", id, this->bestK);
+            //logger->debug("NodeID: {}, bestK: {}", id, this->bestK);
             
             nodeFit->fit(imputeValue(comX, Xmean), Y, this->fixIndex, this->fitIndex,
                          this->bestK, Xmean);
@@ -104,11 +104,11 @@ namespace SubGuide {
             result->trainLoss = nodeFit->trainLoss;
             result->N = Y.n_rows;
             
-            logger->debug("Tree Id: {}, depth: {}, loss: {}", id, depth,
-                          result->trainLoss);
+            //logger->debug("Tree Id: {}, depth: {}, loss: {}", id, depth,
+            //              result->trainLoss);
             
             if (depth >= this->maxDepth || Trt.n_elem < 2 * this->minData) {
-                logger->debug("Terminal due to maxDepth and minData");
+            //    logger->debug("Terminal due to maxDepth and minData");
                 return result;
             }
             
@@ -118,9 +118,9 @@ namespace SubGuide {
                                     this->faster);
             
             if (splitMethod->getLoss() >= nodeFit->trainLoss) {
-                logger->debug(
-                             "Terminal due to loss not smaller. Original loss {}, split loss {}",
-                             nodeFit->trainLoss, splitMethod->getLoss());
+                //logger->debug(
+                //             "Terminal due to loss not smaller. Original loss {}, split loss {}",
+                //             nodeFit->trainLoss, splitMethod->getLoss());
                 return result;
             }
             
@@ -131,11 +131,11 @@ namespace SubGuide {
             if (result->SplitRole == 'n') {
                 result->threshold = splitMethod->getThreshold();
                 if (!is_finite(result->threshold) && result->misDirection != 'A') {
-                    logger->debug("Terminal due to can not find threshold");
+                    //logger->debug("Terminal due to can not find threshold");
                     return result;
                 }
-                logger->debug("Split Var: {}, Split Threshold: {}", result->SplitID,
-                             result->threshold);
+                //logger->debug("Split Var: {}, Split Threshold: {}", result->SplitID,
+                //             result->threshold);
                 
             } else {
                 result->threshSet = splitMethod->getThreshSet();
@@ -193,7 +193,7 @@ namespace SubGuide {
             
             for (int i = 0; i < CVFold; i++) {
                 // Rcpp::checkUserInterrupt();
-                logger->debug("Start CV: {}", i);
+                //logger->debug("Start CV: {}", i);
                 
                 uvec trainIndex = arma::find(SampleIndex != i);
                 uvec testIndex = arma::find(SampleIndex == i);
@@ -216,9 +216,9 @@ namespace SubGuide {
             vec aveLoss = arma::mean(CVRthat, 0).t();
             vec stdLoss = arma::stddev(CVRthat, 0).t() / std::sqrt(double(CVFold - 1));
             
-            logger->debug("Node Size: {}", nodeSize.t());
-            logger->debug("Average Loss: {}", aveLoss.t());
-            logger->debug("Std Loss: {}", stdLoss.t());
+            //logger->debug("Node Size: {}", nodeSize.t());
+            //logger->debug("Average Loss: {}", aveLoss.t());
+            //logger->debug("Std Loss: {}", stdLoss.t());
             
             auto minInd = arma::index_min(aveLoss);
             double minMSE = aveLoss(minInd) + CVSE * stdLoss(minInd);
@@ -228,8 +228,8 @@ namespace SubGuide {
             
             Node::pruneAlpha(cvroot, minAlpha);
             
-            logger->debug("Minimal Alpha: {}", minAlpha);
-            logger->debug("Finish Cross-validation.");
+            //logger->debug("Minimal Alpha: {}", minAlpha);
+            //logger->debug("Finish Cross-validation.");
         }
         
         mat GiTree::boostrapCI(const arma::mat &numX, const arma::imat &catX,

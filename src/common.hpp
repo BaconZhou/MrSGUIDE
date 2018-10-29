@@ -24,10 +24,11 @@ using std::endl;
 #include <omp.h>
 #endif
 
+/*
 #include "../inst/include/spdlog/spdlog.h"
 #include "../inst/include/spdlog/fmt/ostr.h"
 #include "../inst/include/spdlog/sinks/basic_file_sink.h"
 #include "../inst/include/spdlog/sinks/stdout_sinks.h"
-
+*/
 
 #endif //SUBGUIDE_SUBGUIDE_H

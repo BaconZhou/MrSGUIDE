@@ -46,3 +46,4 @@ src/*.o
 src/*.so
 .Rproj.user
 inst/dev.md
+MrS.Rproj

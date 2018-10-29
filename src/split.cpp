@@ -19,7 +19,7 @@ namespace SubGuide {
         
         Split::Split(const int &batchNum_, const int &minData_)
         : batchNum(batchNum_), minData(minData_) {
-            logger = spdlog::get("split");
+            //logger = spdlog::get("split");
         }
         
         void Split::clear() {
@@ -82,22 +82,22 @@ namespace SubGuide {
             assert(trt.n_rows == Y.n_rows);
             
             for (auto i = 0; i < yp; i++) {
-                logger->info("Start {}th outcomes", i);
+                //logger->info("Start {}th outcomes", i);
                 
                 const vec& Yi = Y.col(i);
                 uvec bInd = bestInd_.at(i);
-                logger->info("bInd: {}", bInd.t());
+                // logger->info("bInd: {}", bInd.t());
                                 
                 for (auto jn = 0; jn < SplitIndex.n_elem; jn++) {
                     
-                    logger->info("Start {}th numerical variable", jn);
+                    // logger->info("Start {}th numerical variable", jn);
                     
                     const vec &nX = numX.col(SplitIndex(jn));
                     
                     if (!arma::is_finite(nX)) {
                         const arma::uvec &ninf_v = arma::find_finite(nX);
                         if (!checkNodeData(ninf_v, trt(ninf_v), this->trtLevel, this->minData, this->minTrt)) {
-                            logger->debug("Skip {}th numerical variable, due to missing data is too much", jn);
+                            // logger->debug("Skip {}th numerical variable, due to missing data is too much", jn);
                             continue;
                         }
                     }
@@ -107,29 +107,29 @@ namespace SubGuide {
                     
                     this->chiN(jn) += lackOfFit(numX.cols(bInd), DcNx, Yi, this->trtDes);
                 }
-                logger->debug("ChiN: {}", chiN.t());
-                logger->info("Finish numerical variables in {}th outcome", i);
+                // logger->debug("ChiN: {}", chiN.t());
+                // logger->info("Finish numerical variables in {}th outcome", i);
                 
                 for (auto jc = 0; jc < cp; jc++) {
-                    logger->info("Start {}th categorical variable", jc);
+                    // logger->info("Start {}th categorical variable", jc);
                     
                     const ivec& Cx = catX.col(jc);
                     ivec levels = arma::unique(Cx);
                     
                     if (levels.n_elem == 1) {
-                        logger->info("Skip due to unique levels");
+                        // logger->info("Skip due to unique levels");
                         this->chiC(jc) += 0.0;
                     } else {
                         mat DcCx = hotCoding(Cx, true);
                         this->chiC(jc) += lackOfFit(numX.cols(bInd), DcCx, Yi, this->trtDes);
                     }
                 }
-                logger->debug("ChiC: {}", chiC.t());
+                // logger->debug("ChiC: {}", chiC.t());
             }
             
             if ((this->np > 0) && (this->cp > 0)) {
                 bool wNC = chiN.max() >= chiC.max();
-                logger->info("wNC {}", wNC);
+                // logger->info("wNC {}", wNC);
                 this->varID = wNC ? arma::index_max(chiN) : arma::index_max(chiC) + np;
                 this->role = wNC ? 'n' : 'c';
                 
@@ -137,7 +137,7 @@ namespace SubGuide {
                 this->varID = this->np != 0 ? arma::index_max(chiN) : arma::index_max(chiC) + np;
                 this->role = this->np != 0 ? 'n' : 'c';
             }
-            logger->info("The selected variable ID: {}, role: {}", varID, role);
+            // logger->info("The selected variable ID: {}, role: {}", varID, role);
         }
         
         void GiSplit::findThresh(const mat &numX, const imat &catX, const mat &Y, const ivec trt, 
@@ -150,13 +150,13 @@ namespace SubGuide {
             this->optRight.clear();
             
             if (role == 'n') {
-                logger->debug("Start Finding best threshold: {}", varID);
+                // logger->debug("Start Finding best threshold: {}", varID);
                 this->threshold = findNumThresh(numX.col(varID), trt, Y, comX, fixIndex, fitIndex, bestK, bestInd_, faster);
-                logger->info("Best threshold: {}", threshold);
+                // logger->info("Best threshold: {}", threshold);
             }
             
             if (role == 'c') {
-                logger->debug("Start Finding best threshSet: {}", varID - np);
+                // logger->debug("Start Finding best threshSet: {}", varID - np);
                 this->threshSet = findCateThresh(catX.col(varID - np), trt, Y, comX, fixIndex, fitIndex, bestK, bestInd_, faster);
             }
         }
@@ -290,7 +290,7 @@ namespace SubGuide {
                     updateLRres(LRes, RRes, missInd, nonMiss, this->nodeFitMethod, conX, comX, yi,  fixIndex, fitIndex, bestK, faster);
 
                     missLoss += LRes.loss + RRes.loss;
-                    logger->debug("missing onside Loss: {}", missLoss);
+                    // logger->debug("missing onside Loss: {}", missLoss);
                 }
                 
                 for (int i = 1; i < N - missInd.n_elem; i += batchNum) {
@@ -309,8 +309,8 @@ namespace SubGuide {
                         threshLossL(i, 0) += LRes.loss + RRes.loss;
                         threshLossL(i, 1) = i;
 
-                        logger->debug("Current i: {}, x ind: {}, loss: {}, Left: {}", i,
-                                      threshLossL(i, 1), threshLossL(i, 0), left.n_elem);
+                        // logger->debug("Current i: {}, x ind: {}, loss: {}, Left: {}", i,
+                        //              threshLossL(i, 1), threshLossL(i, 0), left.n_elem);
                     } else {
                         const uvec &leftNew = join_cols(left, missInd);
                         const uvec &rightNew = join_cols(right, missInd);
@@ -324,8 +324,8 @@ namespace SubGuide {
      
                             threshLossL(i, 0) += LRes.loss + RRes.loss;
                             threshLossL(i, 1) = i;
-                            logger->debug("Current i: {}, x ind: {}, loss: {}, Left: {}", i,
-                                          threshLossL(i, 1), threshLossL(i, 0), left.n_elem);
+                            // logger->debug("Current i: {}, x ind: {}, loss: {}, Left: {}", i,
+                            //              threshLossL(i, 1), threshLossL(i, 0), left.n_elem);
                         }
                         
                         if (checkNodeData(left, trt(left), trtLevel, minData, minTrt) &&
@@ -335,15 +335,15 @@ namespace SubGuide {
 
                             threshLossR(i, 0) += LRes.loss + RRes.loss;
                             threshLossR(i, 1) = i;
-                            logger->debug("Current i: {}, x ind: {}, loss: {}, right: {}", i,
-                                          threshLossR(i, 1), threshLossR(i, 0), right.n_elem);
+                            // logger->debug("Current i: {}, x ind: {}, loss: {}, right: {}", i,
+                            //               threshLossR(i, 1), threshLossR(i, 0), right.n_elem);
                         }
                     }
                 }
             }
             
             threshLossL = threshLossL.rows(arma::find(threshLossL.col(0) > 0));
-            logger->debug("missStatus: {}", missStatue);
+            // logger->debug("missStatus: {}", missStatue);
             
             /**
              If has missing value:
@@ -420,8 +420,8 @@ namespace SubGuide {
                 }
             }
             
-            logger->debug("loss: {}. this->optLeft n: {}, this->optRight n: {}", loss, this->optLeft.n_elem,
-                          this->optRight.n_elem);
+            // logger->debug("loss: {}. this->optLeft n: {}, this->optRight n: {}", loss, this->optLeft.n_elem,
+            //               this->optRight.n_elem);
             
             assert(checkNodeData(this->optLeft, trt(this->optLeft), trtLevel, minData, minTrt));
             assert(checkNodeData(this->optRight, trt(this->optRight), trtLevel, minData, minTrt));
