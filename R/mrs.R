@@ -147,9 +147,9 @@ MrSFit <- function(dataframe, role, bestK = 1,
                 yp = NCOL(Y),
                 tp = length(tLevels),
                 role = role, varName = varName, numName = numVarName, catName = catVarName, nodeMap = nodeMap, TrtL = TrtL)
-    if(bootNum > 50) {
+    if(bootNum > 10) {
         bootAlpha = read.table(bootName, header = FALSE)
-        colnames(bootAlpha) = ynames
+        colnames(bootAlpha) = c("gamma", "theta")
         res$bootAlpha = bootAlpha
     }
     class(res) <- c('guide', 'mrs')

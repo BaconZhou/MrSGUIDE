@@ -52,7 +52,7 @@ namespace Node {
         for (auto i = 0; i < Y.n_cols; i++) {
             RegSol::RegParm parm;
             parm = this->fitMethod->fit(X.cols(this->bestInds.at(i)), Y.col(i)); // original index to fit.
-        
+
             // parm = stepWiseF(this->fitMethod, X, Y.col(i), holdIndex, fitIndex, bestK, bestInd); // step wise to fit
             result.push_back(parm.beta.tail(tailn));
         }
@@ -400,13 +400,13 @@ namespace Node {
                 }
 
                 if (leaf->SplitRole == 'n') {
-                    
+
                     if (indent) {
                         treeOut << std::setw(indent) << ' ';
                     }
-                    
+
                     treeOut << "Role: 'num' \n";
-                    
+
                     if (indent) {
                         treeOut << std::setw(indent) << ' ';
                     }
@@ -422,10 +422,10 @@ namespace Node {
                     if (indent) {
                         treeOut << std::setw(indent) << ' ';
                     }
-                    
+
                     treeOut << "Role: 'char' \n";
-                    
-                    
+
+
                     if (indent) {
                         treeOut << std::setw(indent) << ' ';
                     }

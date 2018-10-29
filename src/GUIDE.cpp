@@ -151,7 +151,7 @@ void GiStepWisePure(const arma::mat &numX, const arma::imat &catX,
     myfile << resTree.predictNode(numX, catX);
     myfile.close();
 
-    if (bootNum > 50) {
+    if (bootNum > 10) {
         myfile.open(bootName);
         myfile << resTree.getBootAlpha();
         myfile.close();

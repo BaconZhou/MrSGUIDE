@@ -56,7 +56,7 @@ namespace Tree {
         const std::vector<vec>& center,
         const std::vector<vec>& se, const vec& Alpha);
 
-    mat GetBootAlpha(const mat& gamma, const mat& theta, const double& alphaL,
+    mat GetBootAlpha(const vec& gamma, const vec& theta, const double& alphaL,
         const vec& alphaK);
     
     inline arma::mat createFitMatrix(const arma::mat& numX, const arma::ivec& Trt, const arma::ivec &trtlevel);

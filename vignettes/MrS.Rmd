@@ -1,0 +1,40 @@
+---
+title: "Mr.S multiple responses Subgroup Identification"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Put the title of your vignette here}
+  %\VignetteEngine{knitr::rmarkdown}
+  \usepackage[utf8]{inputenc}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Data settings
+
+```{r}
+set.seed(1234)
+
+N = 300
+np = 3
+cp = 3
+numX <- matrix(rnorm(N * np), N, np)
+catX <- matrix(sample(5, N * cp, replace = TRUE), N, cp)
+z <- sample(2, N, replace = TRUE) - 1
+y1 <- numX[, 1] + 2 * z * (numX[, 3] < 0) + rnorm(N)
+y2 <- numX[, 2] + 2 * z * (numX[, 3] < 0) + rnorm(N)
+
+train <- data.frame(numX, catX, z, y1, y2)
+colnames(train) <- c(paste0('n', 1:3), paste0('c', 1:3), 'z', 'Y1', 'Y2')
+
+role <- c(rep('n', 3), rep('c', 3), 'r', 'd', 'd')
+```
+
+```{r}
+fit <- MrSFit(dataframe = train, role = role, bestK = 1, 
+              maxDepth = 3, CVFolds = 10, CVSE = 0.5, 
+              bootNum = 50, alpha = 0.05, display = TRUE)
+fit$bootAlpha
+```
+
