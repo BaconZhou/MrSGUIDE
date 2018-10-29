@@ -32,9 +32,9 @@ role <- c(rep('n', 3), rep('c', 3), 'r', 'd', 'd')
 ```
 
 ```{r}
+library(MrS)
 fit <- MrSFit(dataframe = train, role = role, bestK = 1, 
               maxDepth = 3, CVFolds = 10, CVSE = 0.5, 
-              bootNum = 50, alpha = 0.05, display = TRUE)
-fit$bootAlpha
+              bootNum = 0, alpha = 0.05, display = TRUE) ## Change bootNum
 ```
 

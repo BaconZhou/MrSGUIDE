@@ -62,11 +62,11 @@ MrSFit <- function(dataframe, role, bestK = 1,
     fitIndex = which(nr %in% fr) - 1
     holdIndex = which(nr %in% hr) - 1
 
-    if (display) {
-        cat(' SplitIndex: ', splitIndex)
-        cat(' fitIndex: ', fitIndex)
-        cat(' holdIndex: ', holdIndex)
-    }
+    # if (display) {
+    #     cat(' SplitIndex: ', splitIndex)
+    #     cat(' fitIndex: ', fitIndex)
+    #     cat(' holdIndex: ', holdIndex)
+    # }
 
     cr = which(role %in% "c")
     xr = which(role == "x")
