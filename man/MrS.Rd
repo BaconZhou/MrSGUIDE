@@ -47,9 +47,11 @@ MrSFit(dataframe, role, bestK = 1, maxDepth = 5, minTrt = 5,
 
 \item{bootName}{boostrap calibrate alpha}
 
-\item{seed}{random seed}
+\item{seed}{random seed control cross-validation}
 
-\item{writeTo}{debug option}
+\item{writeTo}{debug option reserve for author...}
+
+\item{remove}{whether to remove extra files}
 
 \item{bathNum}{related with exhaustive search for numerical split variable}
 }
