@@ -27,7 +27,7 @@
     }
 }
 
-predict.subguide <- function(subguideobj, dataframe, type = 'response') {
+predict.guide <- function(subguideobj, dataframe, type = 'response') {
     n = NROW(dataframe)
     yp = subguideobj$yp
     tp = subguideobj$tp
