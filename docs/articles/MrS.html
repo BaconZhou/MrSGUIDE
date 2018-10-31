@@ -93,8 +93,8 @@ fit &lt;-<span class="st"> </span><span class="kw"><a href="../reference/MrS.htm
               <span class="dt">maxDepth =</span> <span class="dv">3</span>, <span class="dt">CVFolds =</span> <span class="dv">10</span>, <span class="dt">CVSE =</span> <span class="fl">0.5</span>, 
               <span class="dt">bootNum =</span> <span class="dv">0</span>, <span class="dt">alpha =</span> <span class="fl">0.05</span>, <span class="dt">display =</span> <span class="ot">TRUE</span>, <span class="dt">remove=</span><span class="ot">TRUE</span>) ## Change bootNum</code></pre></div>
 <pre><code>## Start data processing: 
-## Finish processing, start call main function.  0.008548975 s
-## Finish tree build.  0.3895051 s</code></pre>
+## Finish processing, start call main function.  0.007662058 s
+## Finish tree build.  0.3653128 s</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">gender &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="kw">c</span>(<span class="st">'Male'</span>, <span class="st">'Female'</span>), N, <span class="dt">replace =</span> <span class="ot">TRUE</span>)
 country &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="kw">c</span>(<span class="st">'US'</span>, <span class="st">'UK'</span>, <span class="st">'China'</span>, <span class="st">'Japan'</span>), N, <span class="dt">replace =</span> <span class="ot">TRUE</span>)
 
@@ -107,12 +107,12 @@ fit2 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/MrS.ht
               <span class="dt">maxDepth =</span> <span class="dv">3</span>, <span class="dt">CVFolds =</span> <span class="dv">10</span>, <span class="dt">CVSE =</span> <span class="fl">0.5</span>, 
               <span class="dt">bootNum =</span> <span class="dv">0</span>, <span class="dt">alpha =</span> <span class="fl">0.05</span>, <span class="dt">display =</span> <span class="ot">TRUE</span>, <span class="dt">remove=</span><span class="ot">TRUE</span>)</code></pre></div>
 <pre><code>## Start data processing: 
-## Finish processing, start call main function.  0.003309011 s
-## Finish tree build.  0.1590199 s</code></pre>
+## Finish processing, start call main function.  0.002349138 s
+## Finish tree build.  0.180383 s</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">print</span>(fit2)</code></pre></div>
 <pre><code>## ID: 1, gender = { Female }
 ##     ID: 2, Size: 145 [Terminal]
-## ID: 1, gender = { MaleNA }
+## ID: 1, gender = { Male, NA }
 ##     ID: 3, Size: 155 [Terminal]</code></pre>
 <p>You can also print details about each node fitting.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">print</span>(fit2, <span class="dt">details =</span> <span class="ot">TRUE</span>, <span class="dt">digits =</span> <span class="dv">3</span>)</code></pre></div>
@@ -120,19 +120,23 @@ fit2 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/MrS.ht
 ##     ID: 2, Size: 145 [Terminal]
 ##     Outcome Models: 
 ##         y3        Est        SE
-##         z.c("0", "1")    0.077    0.121
+##         z.0    0.077    0.121
+##         z.1    2.343    0.12
 ##     - - - - - - - - - - - - - - 
 ##         y4        Est        SE
-##         z.c("0", "1")    -0.131    0.12
+##         z.0    -0.131    0.12
+##         z.1    2.156    0.12
 ##     - - - - - - - - - - - - - - 
-## ID: 1, gender = { MaleNA }
+## ID: 1, gender = { Male, NA }
 ##     ID: 3, Size: 155 [Terminal]
 ##     Outcome Models: 
 ##         y3        Est        SE
-##         z.c("0", "1")    -0.316    0.115
+##         z.0    -0.316    0.115
+##         z.1    -0.03    0.105
 ##     - - - - - - - - - - - - - - 
 ##         y4        Est        SE
-##         z.c("0", "1")    -0.008    0.126
+##         z.0    -0.008    0.126
+##         z.1    0.167    0.115
 ##     - - - - - - - - - - - - - -</code></pre>
 </div>
   </div>

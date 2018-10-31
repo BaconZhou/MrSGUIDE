@@ -72,7 +72,7 @@ print.node <- function(node, depth = 0, digits = 3, long = TRUE, yName, trtName,
         } else {
             if (node$MisDirection != 'A') {
                 varLevel = clevels[[node$SplitVar]]
-                cat(node$SplitVar, ' = { ', paste0(varLevel[which(!varLevel %in% node$ThreshSet)], collapse = ', '), ifelse(node$MisDirection == 'L', '', 'NA'), ' }\n', sep = '', ...)
+                cat(node$SplitVar, ' = { ', paste0(varLevel[which(!varLevel %in% node$ThreshSet)], collapse = ', '), ifelse(node$MisDirection == 'L', '', ', NA'), ' }\n', sep = '', ...)
             } else {
                 cat(node$SplitVar, ' != ', 'NA\n', sep = '', ...)
             }
