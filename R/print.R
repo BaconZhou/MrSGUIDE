@@ -15,8 +15,8 @@
 print.node <- function(node, depth = 0, digits = 3, long = TRUE, yName, trtName, tlevels, clevels, ...) {
     if (node$Type == 'Terminal') {
         cat(rep(' ', depth), 'ID: ', node$ID, ', Size: ', node$Size, ' [Terminal]\n', sep = '', ...)
-        cat(rep(' ', depth), 'Outcome Models: \n', sep = '', ...)
         if (long) {
+            cat(rep(' ', depth), 'Outcome Models: \n', sep = '', ...)
             for(i in seq_along(yName)) {
                 cat(rep(' ', depth + 4), yName[i], rep(' ', 8), 'Est', rep(' ', 8), 'SE\n', sep = '', ...)
                 # cat(rep(' ', depth + 4), format(c(yName[i], 'Estimate', 'SE'), justify = 'centre'), '\n', sep = '', ...)
@@ -89,5 +89,6 @@ print.node <- function(node, depth = 0, digits = 3, long = TRUE, yName, trtName,
 #'
 #' @export
 print.guide <- function(mrsobj, digits = 3, details = FALSE, ...) {
-    print.node(guideobj$treeRes, depth = 0, digits, details, guideobj$ynames, guideobj$trtname, guideobj$tLevels, guideobj$cLevels, ...)
+    print.node(mrsobj$treeRes, depth = 0, digits, details,
+               mrsobj$ynames, mrsobj$trtname, mrsobj$tLevels, mrsobj$cLevels, ...)
 }
