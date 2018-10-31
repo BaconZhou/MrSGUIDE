@@ -35,6 +35,22 @@ role <- c(rep('n', 3), rep('c', 3), 'r', 'd', 'd')
 library(MrS)
 fit <- MrSFit(dataframe = train, role = role, bestK = 1, 
               maxDepth = 3, CVFolds = 10, CVSE = 0.5, 
-              bootNum = 0, alpha = 0.05, display = TRUE) ## Change bootNum
+              bootNum = 0, alpha = 0.05, display = TRUE, remove=TRUE) ## Change bootNum
 ```
+
+```{r}
+gender <- sample(c('Male', 'Female'), N, replace = TRUE)
+country <- sample(c('US', 'UK', 'China', 'Japan'), N, replace = TRUE)
+
+y3 <- numX[, 1] + numX[, 2] + 2 * z * (gender == 'Female') + rnorm(N)
+y4 <- numX[, 3] + numX[, 1] + 2 * z * (gender == 'Female') + rnorm(N)
+train <- data.frame(numX, gender, country, z, y3, y4)
+role <- c(rep('n', 3), rep('c', 2), 'r', 'd', 'd')
+
+fit2 <- MrSFit(dataframe = train, role = role, bestK = 3, 
+              maxDepth = 3, CVFolds = 10, CVSE = 0.5, 
+              bootNum = 0, alpha = 0.05, display = TRUE, remove=TRUE)
+
+```
+
 

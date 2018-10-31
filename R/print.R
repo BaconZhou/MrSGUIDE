@@ -80,3 +80,14 @@ print.node <- function(node, depth = 0, digits = 3, long = TRUE, yName, trtName,
         print.node(node$Right, depth + 4, digits, long, yName, trtName, tlevels, clevels, ...)
     }
 }
+
+#' Print fitted regression tree
+#'
+#' @param mrsobj MrS object
+#' @param digits digits pass to coefficent
+#' @param details whether to print fitting details
+#'
+#' @export
+print.guide(mrsobj, digits = 3, details = FALSE, ...) {
+    print.node(guideobj$treeRes, depth = 0, digits, details, guideobj$ynames, guideobj$trtname, guideobj$tLevels, guideobj$cLevels, ...)
+}
