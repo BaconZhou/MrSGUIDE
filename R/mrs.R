@@ -23,9 +23,9 @@
 #' @param treeName yaml file for save the tree
 #' @param nodeName file same for each node
 #' @param bootName boostrap calibrate alpha
-#' @param seed random seed
-#' @param writeTo debug option
-#'
+#' @param seed random seed control cross-validation
+#' @param writeTo debug option reserve for author...
+#' @param remove whether to remove extra files
 #' @importFrom utils read.table write.table
 #' @export
 MrSFit <- function(dataframe, role, bestK = 1,
@@ -36,7 +36,7 @@ MrSFit <- function(dataframe, role, bestK = 1,
                         treeName = paste0("tree_", format(Sys.time(), "%m%d"), ".yaml"),
                         nodeName = paste0("node_", format(Sys.time(), "%m%d"), ".txt"),
                         bootName = paste0("boot_", format(Sys.time(), "%m%d"), ".txt"),
-                        seed = 123, writeTo = FALSE) {
+                        seed = 123, writeTo = FALSE, remove = FALSE) {
     t1 = Sys.time()
 
     if(display) cat("Start data processing: \n")
@@ -131,11 +131,12 @@ MrSFit <- function(dataframe, role, bestK = 1,
                      holdIndex = holdIndex, bk = bestK, maxDepth = maxDepth,
                      minTrt = minTrt, minData = minData, batchNum = batchNum,
                      CVFolds = CVFolds, CVSE = CVSE, bootNum = bootNum,
-                     alpha = alpha, faster = faster, display = display, varName = newVar,
+                     alpha = alpha, faster = faster, display = FALSE, varName = newVar,
                      treeName = treeName, nodeName = nodeName, bootName = bootName, seed = seed
                      )
-    if(display) cat("Finish tree build. ", difftime(Sys.time(), t2, units = "secs"), "s\n")
+
     node <- read.table(nodeName, header = TRUE)$node
+    treeRes <- .yamlpretty(treeRes, cLevels, node)
 
     ynames = varName[dr]
     trtname = varName[rr]
@@ -146,12 +147,20 @@ MrSFit <- function(dataframe, role, bestK = 1,
                 cLevels = cLevels, tLevels = tLevels,
                 yp = NCOL(Y),
                 tp = length(tLevels),
-                role = role, varName = varName, numName = numVarName, catName = catVarName, nodeMap = nodeMap, TrtL = TrtL)
+                role = role, varName = varName, numName = numVarName,
+                catName = catVarName, ynames = ynames, trtname = trtname, nodeMap = nodeMap, TrtL = TrtL)
+    if(display) {
+        cat("Finish tree build. ", difftime(Sys.time(), t2, units = "secs"), "s\n")
+        print.node(node = treeRes, yName = ynames, trtName = trtname, tlevels = tLevels[[1]], clevels = cLevels)
+    }
     if(bootNum > 10) {
         bootAlpha = read.table(bootName, header = FALSE)
         colnames(bootAlpha) = c("gamma", "theta")
         res$bootAlpha = bootAlpha
+
+        if(remove) file.remove(bootName)
     }
+    if (remove) file.remove(nodeName, treeName)
     class(res) <- c('guide', 'mrs')
     return(res)
 }
