@@ -47,3 +47,7 @@ src/*.so
 .Rproj.user
 inst/dev.md
 MrS.Rproj
+
+*.yaml
+*.txt
+.vscode/
