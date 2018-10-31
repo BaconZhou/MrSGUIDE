@@ -51,7 +51,10 @@ namespace Node {
 
         for (auto i = 0; i < Y.n_cols; i++) {
             RegSol::RegParm parm;
-            parm = this->fitMethod->fit(X.cols(this->bestInds.at(i)), Y.col(i)); // original index to fit.
+            mat tmp = X.cols(this->bestInds.at(i));
+            tmp = imputeValue(tmp, this->XMean(this->bestInds.at(i)));
+
+            parm = this->fitMethod->fit(tmp, Y.col(i)); // original index to fit.
 
             // parm = stepWiseF(this->fitMethod, X, Y.col(i), holdIndex, fitIndex, bestK, bestInd); // step wise to fit
             result.push_back(parm.beta.tail(tailn));
