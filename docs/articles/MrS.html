@@ -91,20 +91,29 @@ role &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="kw">re
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(MrS)
 fit &lt;-<span class="st"> </span><span class="kw"><a href="../reference/MrS.html">MrSFit</a></span>(<span class="dt">dataframe =</span> train, <span class="dt">role =</span> role, <span class="dt">bestK =</span> <span class="dv">1</span>, 
               <span class="dt">maxDepth =</span> <span class="dv">3</span>, <span class="dt">CVFolds =</span> <span class="dv">10</span>, <span class="dt">CVSE =</span> <span class="fl">0.5</span>, 
-              <span class="dt">bootNum =</span> <span class="dv">0</span>, <span class="dt">alpha =</span> <span class="fl">0.05</span>, <span class="dt">display =</span> <span class="ot">TRUE</span>) ## Change bootNum</code></pre></div>
+              <span class="dt">bootNum =</span> <span class="dv">0</span>, <span class="dt">alpha =</span> <span class="fl">0.05</span>, <span class="dt">display =</span> <span class="ot">TRUE</span>, <span class="dt">remove=</span><span class="ot">TRUE</span>) ## Change bootNum</code></pre></div>
 <pre><code>## Start data processing: 
-## Finish processing, start call main function.  0.05004001 s
-## Tree file write in : tree_1029.yaml .
-## Node ID: 1, Critical Alpha: 102.54, Split Var: 2, Role: n, Threshold: -0.0218283, Miss Dir: L
-##     Node ID: 2, Critical Alpha: 9.35698, [Terminal] n = 157
-##     Parm: 
-##        1.0783   0.0144   1.8839
-##        0.9589   0.0050   2.0467
-##     Node ID: 3, Critical Alpha: 12.4308, [Terminal] n = 143
-##     Parm: 
-##        1.0330  -0.1311   0.1026
-##        0.9879   0.1614   0.0430
-## Finish tree build.  0.3825209 s</code></pre>
+## Finish processing, start call main function.  0.01381421 s
+## Finish tree build.  0.3565669 s</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">gender &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="kw">c</span>(<span class="st">'Male'</span>, <span class="st">'Female'</span>), N, <span class="dt">replace =</span> <span class="ot">TRUE</span>)
+country &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="kw">c</span>(<span class="st">'US'</span>, <span class="st">'UK'</span>, <span class="st">'China'</span>, <span class="st">'Japan'</span>), N, <span class="dt">replace =</span> <span class="ot">TRUE</span>)
+
+y3 &lt;-<span class="st"> </span>numX[, <span class="dv">1</span>] <span class="op">+</span><span class="st"> </span>numX[, <span class="dv">2</span>] <span class="op">+</span><span class="st"> </span><span class="dv">2</span> <span class="op">*</span><span class="st"> </span>z <span class="op">*</span><span class="st"> </span>(gender <span class="op">==</span><span class="st"> 'Female'</span>) <span class="op">+</span><span class="st"> </span><span class="kw">rnorm</span>(N)
+y4 &lt;-<span class="st"> </span>numX[, <span class="dv">3</span>] <span class="op">+</span><span class="st"> </span>numX[, <span class="dv">1</span>] <span class="op">+</span><span class="st"> </span><span class="dv">2</span> <span class="op">*</span><span class="st"> </span>z <span class="op">*</span><span class="st"> </span>(gender <span class="op">==</span><span class="st"> 'Female'</span>) <span class="op">+</span><span class="st"> </span><span class="kw">rnorm</span>(N)
+train &lt;-<span class="st"> </span><span class="kw">data.frame</span>(numX, gender, country, z, y3, y4)
+role &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="kw">rep</span>(<span class="st">'n'</span>, <span class="dv">3</span>), <span class="kw">rep</span>(<span class="st">'c'</span>, <span class="dv">2</span>), <span class="st">'r'</span>, <span class="st">'d'</span>, <span class="st">'d'</span>)
+
+fit2 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/MrS.html">MrSFit</a></span>(<span class="dt">dataframe =</span> train, <span class="dt">role =</span> role, <span class="dt">bestK =</span> <span class="dv">3</span>, 
+              <span class="dt">maxDepth =</span> <span class="dv">3</span>, <span class="dt">CVFolds =</span> <span class="dv">10</span>, <span class="dt">CVSE =</span> <span class="fl">0.5</span>, 
+              <span class="dt">bootNum =</span> <span class="dv">0</span>, <span class="dt">alpha =</span> <span class="fl">0.05</span>, <span class="dt">display =</span> <span class="ot">TRUE</span>, <span class="dt">remove=</span><span class="ot">TRUE</span>)</code></pre></div>
+<pre><code>## Start data processing: 
+## Finish processing, start call main function.  0.003007889 s
+## Finish tree build.  0.1598389 s</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">print</span>(fit2)</code></pre></div>
+<pre><code>## ID: 1, gender = { Female }
+##     ID: 2, Size: 145 [Terminal]
+## ID: 1, gender = { MaleNA }
+##     ID: 3, Size: 155 [Terminal]</code></pre>
 </div>
   </div>
 

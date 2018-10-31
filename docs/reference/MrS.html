@@ -114,7 +114,8 @@ Mr.S identification use GUIDE algorithm" />
   <span class='kw'>faster</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>display</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>treeName</span> <span class='kw'>=</span> <span class='fu'>paste0</span>(<span class='st'>"tree_"</span>,
   <span class='fu'>format</span>(<span class='fu'>Sys.time</span>(), <span class='st'>"%m%d"</span>), <span class='st'>".yaml"</span>), <span class='kw'>nodeName</span> <span class='kw'>=</span> <span class='fu'>paste0</span>(<span class='st'>"node_"</span>,
   <span class='fu'>format</span>(<span class='fu'>Sys.time</span>(), <span class='st'>"%m%d"</span>), <span class='st'>".txt"</span>), <span class='kw'>bootName</span> <span class='kw'>=</span> <span class='fu'>paste0</span>(<span class='st'>"boot_"</span>,
-  <span class='fu'>format</span>(<span class='fu'>Sys.time</span>(), <span class='st'>"%m%d"</span>), <span class='st'>".txt"</span>), <span class='kw'>seed</span> <span class='kw'>=</span> <span class='fl'>123</span>, <span class='kw'>writeTo</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+  <span class='fu'>format</span>(<span class='fu'>Sys.time</span>(), <span class='st'>"%m%d"</span>), <span class='st'>".txt"</span>), <span class='kw'>seed</span> <span class='kw'>=</span> <span class='fl'>123</span>, <span class='kw'>writeTo</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>remove</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -181,11 +182,15 @@ Mr.S identification use GUIDE algorithm" />
     </tr>
     <tr>
       <th>seed</th>
-      <td><p>random seed</p></td>
+      <td><p>random seed control cross-validation</p></td>
     </tr>
     <tr>
       <th>writeTo</th>
-      <td><p>debug option</p></td>
+      <td><p>debug option reserve for author...</p></td>
+    </tr>
+    <tr>
+      <th>remove</th>
+      <td><p>whether to remove extra files</p></td>
     </tr>
     <tr>
       <th>bathNum</th>
