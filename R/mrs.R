@@ -151,7 +151,7 @@ MrSFit <- function(dataframe, role, bestK = 1,
                 catName = catVarName, ynames = ynames, trtname = trtname, nodeMap = nodeMap, TrtL = TrtL)
     if(display) {
         cat("Finish tree build. ", difftime(Sys.time(), t2, units = "secs"), "s\n")
-        print.node(node = treeRes, yName = ynames, trtName = trtname, tlevels = tLevels[[1]], clevels = cLevels)
+        # print.node(node = treeRes, yName = ynames, trtName = trtname, tlevels = tLevels[[1]], clevels = cLevels)
     }
     if(bootNum > 10) {
         bootAlpha = read.table(bootName, header = FALSE)
