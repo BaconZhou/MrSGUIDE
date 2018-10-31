@@ -53,4 +53,10 @@ fit2 <- MrSFit(dataframe = train, role = role, bestK = 3,
 print(fit2)
 ```
 
+You can also print details about each node fitting.
+
+```{r}
+print(fit2, details = TRUE, digits = 3)
+```
+
 

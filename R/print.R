@@ -90,5 +90,5 @@ print.node <- function(node, depth = 0, digits = 3, long = TRUE, yName, trtName,
 #' @export
 print.guide <- function(mrsobj, digits = 3, details = FALSE, ...) {
     print.node(mrsobj$treeRes, depth = 0, digits, details,
-               mrsobj$ynames, mrsobj$trtname, mrsobj$tLevels, mrsobj$cLevels, ...)
+               mrsobj$ynames, mrsobj$trtname, mrsobj$tLevels[[1]], mrsobj$cLevels, ...)
 }
