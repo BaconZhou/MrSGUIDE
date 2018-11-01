@@ -286,7 +286,7 @@ namespace SubGuide {
             const uword &nonN = nonMiss.n_elem;
             bool missOnSide =
             checkNodeData(missInd, trt(missInd), trtLevel, minData, minTrt);
-            
+
             bool missStatue = missInd.n_elem > 0;
             double missLoss = missStatue ? -1.0 : 0.0;
 
@@ -412,7 +412,7 @@ namespace SubGuide {
                         minIndT = threshLossR(arma::index_min(threshLossR.col(0)), 1);
                         this->optLeft = splitSort.head(minIndT);
                         this->optRight =
-                        join_cols(splitSort(arma::span(minIndT, nonN - 1));, missInd);
+                        join_cols(splitSort(arma::span(minIndT, nonN - 1)), missInd);
                     }
                     this->threshold = (x(splitSort(minIndT - 1)) + x(splitSort(minIndT))) / 2.0;
                 }
