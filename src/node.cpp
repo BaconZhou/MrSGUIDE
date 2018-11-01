@@ -252,7 +252,7 @@ namespace Node {
     {
         out << "[";
         for (auto i = 0; i < vec.n_elem; i++) {
-            out << vec[i];
+            out << std::fixed << std::setprecision(6) << vec[i];
             if (i < vec.n_elem - 1) {
                 out << ", ";
             }
