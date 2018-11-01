@@ -90,7 +90,7 @@ void GiTree::fit(const mat &numX, const imat &catX, const mat &Y,
 node *GiTree::buildTree(const mat &numX, const imat &catX, const mat &Y,
                         const ivec &Trt, const size_t &id, const int &depth)
 {
-    // Rcpp::checkUserInterrupt();
+    Rcpp::checkUserInterrupt();
     // combine X: numX + 1 + trt2 + .. + trt_tp
     mat comX = createFitMatrix(numX, Trt, this->trtLevel);
 
@@ -122,7 +122,7 @@ node *GiTree::buildTree(const mat &numX, const imat &catX, const mat &Y,
         //    logger->debug("Terminal due to maxDepth and minData");
         return result;
     }
-
+    // cout << "Node ID: " << id << endl;
     splitMethod->findSplit(numX, catX, Y, Trt, result->fitInds, this->splitIndex);
     splitMethod->findThresh(numX, catX, Y, Trt, comX, this->fixIndex,
                             this->fitIndex, bestK, nodeFit->bestInds,
@@ -158,7 +158,7 @@ node *GiTree::buildTree(const mat &numX, const imat &catX, const mat &Y,
 
     uvec left = splitMethod->getSplitVec('L');
     uvec right = splitMethod->getSplitVec('R');
-
+    // cout << "left :" << left.n_elem << "right: " << right.n_elem << endl;
     splitMethod->clear();
     result->terminal = false;
 
@@ -211,7 +211,7 @@ void GiTree::crossValidation(node *cvroot, const arma::mat &numX,
 
     for (int i = 0; i < CVFold; i++)
     {
-        // Rcpp::checkUserInterrupt();
+        Rcpp::checkUserInterrupt();
         //logger->debug("Start CV: {}", i);
 
         uvec trainIndex = arma::find(SampleIndex != i);
@@ -264,7 +264,7 @@ mat GiTree::boostrapCI(const arma::mat &numX, const arma::imat &catX,
     // arma::mat gamma(K, this->yp, arma::fill::zeros),
     //    theta(K, this->yp, arma::fill::zeros);
     arma::vec gamma(K, arma::fill::zeros), theta(K, arma::fill::zeros);
-    
+
     // omp_set_num_threads(2);
     // # pragma omp parallel for schedule(static)
     for (int bi = 0; bi < bootNum; bi++)
