@@ -62,6 +62,8 @@ MrSFit <- function(dataframe, role, bestK = 1,
     fitIndex = which(nr %in% fr) - 1
     holdIndex = which(nr %in% hr) - 1
 
+
+
     # if (display) {
     #     cat(' SplitIndex: ', splitIndex)
     #     cat(' fitIndex: ', fitIndex)
@@ -125,6 +127,7 @@ MrSFit <- function(dataframe, role, bestK = 1,
     if(display) cat("Finish processing, start call main function. ", Sys.time() - t1, "s\n")
     t2 = Sys.time()
     stopifnot(NROW(Y) > 0)
+
     treeRes = mrs.pure(nX = nX, cX = cXL$intX,
                      Y = Y, Trt = TrtL$intX,
                      splitIndex = splitIndex, fitIndex = fitIndex,
@@ -141,14 +144,16 @@ MrSFit <- function(dataframe, role, bestK = 1,
     ynames = varName[dr]
     trtname = varName[rr]
     nodeMap = .node.guide(treeRes, node, dataframe[non_miss, ], ynames, trtname)
-
+    Settings <- list(CVFolds = CVFolds, CVSE = CVSE, bestK = bestK, maxDepth = maxDepth,
+                    minData = minData, minTrt = minTrt, seed = seed)
     res <- list(treeRes = treeRes,
                 node = node,
                 cLevels = cLevels, tLevels = tLevels,
                 yp = NCOL(Y),
                 tp = length(tLevels),
                 role = role, varName = varName, numName = numVarName,
-                catName = catVarName, ynames = ynames, trtname = trtname, nodeMap = nodeMap, TrtL = TrtL)
+                catName = catVarName, ynames = ynames,
+                trtname = trtname, nodeMap = nodeMap, TrtL = TrtL, Settings = Settings)
     if(display) {
         cat("Finish tree build. ", difftime(Sys.time(), t2, units = "secs"), "s\n")
         # print.node(node = treeRes, yName = ynames, trtName = trtname, tlevels = tLevels[[1]], clevels = cLevels)
@@ -205,7 +210,9 @@ mrs.pure <- function(nX, cX, Y, Trt,
     if (is.null(treeName)) { treeName = paste0("tree_", format(Sys.time(), "%m%d"), ".yaml")}
 
     GiStepWisePure(nX, cX, Y, Trt,
-               splitIndex, fitIndex, holdIndex,
+               splitIndex = splitIndex,
+               fitIndex = fitIndex,
+               holdIndex = holdIndex,
                as.integer(bk), as.integer(maxDepth),
                as.integer(minData), as.integer(minTrt),
                as.integer(batchNum), as.integer(CVFolds),
