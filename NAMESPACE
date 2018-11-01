@@ -2,6 +2,7 @@
 
 S3method(print,guide)
 export(MrSFit)
+export(writeTex)
 exportPattern("^[[:alpha:]]+")
 import(Rcpp)
 importFrom(Rcpp,evalCpp)
