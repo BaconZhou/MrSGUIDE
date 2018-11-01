@@ -1,5 +1,7 @@
 ---
 title: "Mr.S multiple responses Subgroup Identification"
+author: "Peigen Zhou"
+date: `r Sys.Date()`
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Put the title of your vignette here}
@@ -11,52 +13,44 @@ vignette: >
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+```{r}
+library(MrS)
+```
+
+
 ## Data settings
+
+To illustrate the idea of how `MrS` 
 
 ```{r}
 set.seed(1234)
 
 N = 300
 np = 3
-cp = 3
+
 numX <- matrix(rnorm(N * np), N, np)
-catX <- matrix(sample(5, N * cp, replace = TRUE), N, cp)
 z <- sample(2, N, replace = TRUE) - 1
-y1 <- numX[, 1] + 2 * z * (numX[, 3] < 0) + rnorm(N)
-y2 <- numX[, 2] + 2 * z * (numX[, 3] < 0) + rnorm(N)
-
-train <- data.frame(numX, catX, z, y1, y2)
-colnames(train) <- c(paste0('n', 1:3), paste0('c', 1:3), 'z', 'Y1', 'Y2')
-
-role <- c(rep('n', 3), rep('c', 3), 'r', 'd', 'd')
-```
-
-```{r}
-library(MrS)
-fit <- MrSFit(dataframe = train, role = role, bestK = 1, 
-              maxDepth = 3, CVFolds = 10, CVSE = 0.5, 
-              bootNum = 0, alpha = 0.05, display = TRUE, remove=TRUE) ## Change bootNum
-```
-
-```{r}
 gender <- sample(c('Male', 'Female'), N, replace = TRUE)
 country <- sample(c('US', 'UK', 'China', 'Japan'), N, replace = TRUE)
 
-y3 <- numX[, 1] + numX[, 2] + 2 * z * (gender == 'Female') + rnorm(N)
-y4 <- numX[, 3] + numX[, 1] + 2 * z * (gender == 'Female') + rnorm(N)
-train <- data.frame(numX, gender, country, z, y3, y4)
-role <- c(rep('n', 3), rep('c', 2), 'r', 'd', 'd')
+y1 <- numX[, 1] + numX[, 2] + 2 * z * (gender == 'Female') + rnorm(N)
+y2 <- numX[, 3] + numX[, 1] + 2 * z * (gender == 'Female') + rnorm(N)
 
-fit2 <- MrSFit(dataframe = train, role = role, bestK = 3, 
+train <- data.frame(numX, gender, country, z, y1, y2)
+role <- c(rep('n', 3), 'c', 'c', 'r', 'd', 'd')
+```
+
+```{r}
+fit <- MrSFit(dataframe = train, role = role, bestK = 3, 
               maxDepth = 3, CVFolds = 10, CVSE = 0.5, 
               bootNum = 0, alpha = 0.05, display = TRUE, remove=TRUE)
-print(fit2)
+print(fit)
 ```
 
 You can also print details about each node fitting.
 
 ```{r}
-print(fit2, details = TRUE, digits = 3)
+print(fit, details = TRUE, digits = 3)
 ```
 
 
