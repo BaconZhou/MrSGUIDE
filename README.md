@@ -1,6 +1,6 @@
-# Mr.S
+# Mr.SI
 
-**M**ultiplre **R**esponse **S**ubgroup identification
+**M**ultiplre **R**esponse **S**ubgroup **I**dentification
 
 The current package is still under heavily devolopment.
 
