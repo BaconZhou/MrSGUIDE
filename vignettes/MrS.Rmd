@@ -29,7 +29,7 @@ N = 300
 np = 3
 
 numX <- matrix(rnorm(N * np), N, np)
-z <- sample(2, N, replace = TRUE) - 1
+z <- sample(3, N, replace = TRUE) - 1
 gender <- sample(c('Male', 'Female'), N, replace = TRUE)
 country <- sample(c('US', 'UK', 'China', 'Japan'), N, replace = TRUE)
 
