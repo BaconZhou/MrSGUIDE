@@ -1,12 +1,10 @@
 ---
-title: "Mr.S multiple responses Subgroup Identification"
-author: "Peigen Zhou"
-date: `r Sys.Date()`
+title: "Mr.Si multiple responses Subgroup Identification"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Put the title of your vignette here}
+  %\VignetteIndexEntry{Mr.Si multiple responses Subgroup Identification}
   %\VignetteEngine{knitr::rmarkdown}
-  \usepackage[utf8]{inputenc}
+  %\VignetteEncoding{UTF-8}
 ---
 
 ```{r setup, include=FALSE}
@@ -51,6 +49,15 @@ You can also print details about each node fitting.
 
 ```{r}
 print(fit, details = TRUE, digits = 3)
+```
+
+```{r}
+plotme <- plot(fit)
+plotme$treeplot
+```
+
+```{r, fig.align='center', fig.width=5, fig.height=5}
+plotme$trtPlot
 ```
 
 
