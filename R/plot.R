@@ -75,46 +75,46 @@
 
 .edge_df <- function(node, node_df, clevels, digits = 3,
                      color = "#8181F7", font.size = 16, font.align = "horizontal") {
-  settings <- data.frame(color = color, font.size = font.size, font.align = font.align,
-                         smooth.enabled = TRUE, smooth.type = "cubicBezier",
-                         smooth.roundess = 0.5)
+    settings <- data.frame(color = color, font.size = font.size, font.align = font.align,
+                           smooth.enabled = TRUE, smooth.type = "cubicBezier",
+                           smooth.roundess = 0.5)
 
-  .edge_helper <- function(node, node_df, clevels, digits) {
-      if (node$Type == 'Terminal') {
-          return()
-      } else {
-          id = node$ID
-          lid = id * 2
-          rid = id * 2 + 1
-          if (node$Role == 'num') {
-              if (node$MisDirection != 'A') {
-                  ldis = paste0('<=', ifelse(node$MisDirection == 'L', '* ', ' '), round(node$Threshold, digits))
-                  rdis = paste0('>', ifelse(node$MisDirection == 'L', ' ', '* '), round(node$Threshold, digits))
-              } else {
-                  ldis = paste0(' = NA')
-                  rdis = paste0(' != NA')
-              }
-          } else {
-              if (node$MisDirection != 'A') {
-                  ldis = paste0("{ ", paste0(node$ThreshSet, collapse = ', '),
-                                ifelse(node$MisDirection == 'L', ', NA }', ' }'))
-                  varLevel = clevels[[node$SplitVar]]
-                  rdis = paste0("{ ", paste0(varLevel[which(!varLevel %in% node$ThreshSet)], collapse = ', '),
-                                ifelse(node$MisDirection == 'L', ' }', ', NA }'))
-              } else {
-                  ldis = paste0(' = NA')
-                  rdis = paste0(' != NA')
-              }
-          }
-          edf <- data.frame(from = c(id, id), to = c(lid, rid),
-                            label = c(ldis, rdis))
-          edf <- rbind(edf,
-                       .edge_helper(node$Left, node_df, clevels, digits),
-                       .edge_helper(node$Right, node_df, clevels, digits))
-      }
-  }
-  edf <- .edge_helper(node, node_df, clevels, digits)
-  return(cbind(edf, settings))
+    .edge_helper <- function(node, node_df, clevels, digits) {
+        if (node$Type == 'Terminal') {
+            return()
+        } else {
+            id = node$ID
+            lid = id * 2
+            rid = id * 2 + 1
+            if (node$Role == 'num') {
+                if (node$MisDirection != 'A') {
+                    ldis = paste0('<=', ifelse(node$MisDirection == 'L', '* ', ' '), round(node$Threshold, digits))
+                    rdis = paste0('>', ifelse(node$MisDirection == 'L', ' ', '* '), round(node$Threshold, digits))
+                } else {
+                    ldis = paste0(' = NA')
+                    rdis = paste0(' != NA')
+                }
+            } else {
+                if (node$MisDirection != 'A') {
+                    ldis = paste0("{ ", paste0(node$ThreshSet, collapse = ', '),
+                                  ifelse(node$MisDirection == 'L', ', NA }', ' }'))
+                    varLevel = clevels[[node$SplitVar]]
+                    rdis = paste0("{ ", paste0(varLevel[which(!varLevel %in% node$ThreshSet)], collapse = ', '),
+                                  ifelse(node$MisDirection == 'L', ' }', ', NA }'))
+                } else {
+                    ldis = paste0(' = NA')
+                    rdis = paste0(' != NA')
+                }
+            }
+            edf <- data.frame(from = c(id, id), to = c(lid, rid),
+                              label = c(ldis, rdis))
+            edf <- rbind(edf,
+                         .edge_helper(node$Left, node_df, clevels, digits),
+                         .edge_helper(node$Right, node_df, clevels, digits))
+        }
+    }
+    edf <- .edge_helper(node, node_df, clevels, digits)
+    return(cbind(edf, settings))
 }
 
 #' Plot Mr.Si regression tree
@@ -132,7 +132,6 @@
 #' @param highlightNearest choose node will highligh nearby
 #' @param collapse list, collapse or not using double click on a node
 #'
-#' @return
 #' @export
 #'
 #' @importFrom visNetwork visNetwork visHierarchicalLayout visPhysics visInteraction visEvents visOptions visEdges
@@ -184,9 +183,4 @@ plot.guide <- function(msobj, digits = 3, height = "600px", width = "100%",
         ggplot2::theme(legend.text=ggplot2::element_text(size=14))
 
     list(treeplot = tree, nodeTreat = treatNode, trtPlot = trtPlot)
-    }
-
-
-#' @importFrom magrittr %>%
-#' @export
-magrittr::`%>%`
+}

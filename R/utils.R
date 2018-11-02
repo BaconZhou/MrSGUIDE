@@ -13,11 +13,15 @@
         }
         return(x)
     }
-    
+
     lapply(dictList, .naTchar)
 }
 
 check <- function(logicstatus, message) {
-    if (!logicstatus) 
+    if (!logicstatus)
         stop(message, call. = FALSE)
 }
+
+#' @importFrom magrittr %>%
+#' @export
+magrittr::`%>%`
