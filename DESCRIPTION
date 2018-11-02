@@ -11,7 +11,12 @@ LinkingTo: Rcpp, RcppArmadillo, BH
 Depends: R (>= 3.1.0)
 Imports: 
     Rcpp (>= 0.12.19), 
-    yaml (>= 2.0.0)
+    yaml (>= 2.0.0),
+    visNetwork,
+    ggpubr,
+    ggplot2,
+    dplyr,
+    magrittr
 RoxygenNote: 6.1.0
 Suggests: knitr,
     rmarkdown
