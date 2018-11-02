@@ -95,8 +95,8 @@ role &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="kw">re
               <span class="dt">maxDepth =</span> <span class="dv">3</span>, <span class="dt">CVFolds =</span> <span class="dv">10</span>, <span class="dt">CVSE =</span> <span class="fl">0.5</span>, 
               <span class="dt">bootNum =</span> <span class="dv">0</span>, <span class="dt">alpha =</span> <span class="fl">0.05</span>, <span class="dt">display =</span> <span class="ot">TRUE</span>, <span class="dt">remove=</span><span class="ot">TRUE</span>)</code></pre></div>
 <pre><code>## Start data processing: 
-## Finish processing, start call main function.  0.009160995 s
-## Finish tree build.  0.3463509 s</code></pre>
+## Finish processing, start call main function.  0.009232044 s
+## Finish tree build.  0.344491 s</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">print</span>(fit)</code></pre></div>
 <pre><code>## ID: 1, gender = { Female, NA }
 ##     ID: 2, Size: 152 [Terminal]
@@ -149,7 +149,25 @@ plotme<span class="op">$</span>treeplot</code></pre></div>
 <p><img src="MrS_files/figure-html/unnamed-chunk-6-1.png" width="480" style="display: block; margin: auto;"></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/writeTex.html">writeTex</a></span>(fit, <span class="dt">file =</span> <span class="st">'test.tex'</span>)</code></pre></div>
 <p>Follow GUIDE, use <code>latex</code></p>
-<pre class="shell"><code>cat test.tex</code></pre>
+<pre class="shell"><code>$ cat test.tex</code></pre>
+<pre><code>\documentclass[12pt]{article}
+ %File creation date:2018-11-02 18:07:49
+\usepackage{pstricks,pst-node,pst-tree}
+\usepackage{geometry}
+\usepackage{lscape}
+\pagestyle{empty}
+\begin{document}
+%\begin{landscape}
+\begin{center}
+\psset{linecolor=black,tnsep=1pt,tndepth=0cm,tnheight=0cm,treesep=.8cm,levelsep=50pt,radius=10pt}
+   \pstree[treemode=D]{\Tcircle{ 1 }~[tnpos=l]{\shortstack[r]{\texttt{\detokenize{gender}}\\$\in$ { Female, NA\}}}
+   }{
+       \Tcircle[fillstyle=solid]{ 2 }~{\makebox[0pt][c]{\em 152 }}
+       \Tcircle[fillstyle=solid]{ 3 }~{\makebox[0pt][c]{\em 148 }}
+   }
+\end{center}
+%\end{landscape}
+\end{document}</code></pre>
 </div>
   </div>
 

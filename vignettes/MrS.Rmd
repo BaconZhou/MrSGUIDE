@@ -67,6 +67,10 @@ writeTex(fit, file = 'test.tex')
 Follow GUIDE, use `latex`
 
 ```{shell}
+$ cat test.tex
+```
+
+```{r, engine='bash', echo=FALSE, comment=NULL}
 cat test.tex
 ```
 
