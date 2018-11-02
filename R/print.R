@@ -50,13 +50,13 @@ print.node <- function(node, depth = 0, digits = 3, long = TRUE, yName, trtName,
             if (node$MisDirection != 'A') {
                 cat(node$SplitVar, ' <=', ifelse(node$MisDirection == 'L', '* ', ' '), round(node$Threshold, digits), '\n', sep = '', ...)
             } else {
-                cat(node$SplitVar, ' = ', 'NA\n', sep = '', ...)
+                cat(node$SplitVar, ' = NA\n', sep = '', ...)
             }
         } else {
             if (node$MisDirection != 'A') {
                 cat(node$SplitVar, ' = { ', paste0(node$ThreshSet, collapse = ', '), ifelse(node$MisDirection == 'L', ', NA', ''), ' }\n', sep = '', ...)
             } else {
-                cat(node$SplitVar, ' = ', 'NA\n', sep = '', ...)
+                cat(node$SplitVar, ' = NA\n', sep = '', ...)
             }
 
         }
@@ -67,14 +67,14 @@ print.node <- function(node, depth = 0, digits = 3, long = TRUE, yName, trtName,
             if (node$MisDirection != 'A') {
                 cat(node$SplitVar, ' >', ifelse(node$MisDirection == 'L', ' ', '* '), round(node$Threshold, digits), '\n', sep = '', ...)
             } else {
-                cat(node$SplitVar, ' != ', 'NA\n', sep = '', ...)
+                cat(node$SplitVar, ' != NA\n', sep = '', ...)
             }
         } else {
             if (node$MisDirection != 'A') {
                 varLevel = clevels[[node$SplitVar]]
                 cat(node$SplitVar, ' = { ', paste0(varLevel[which(!varLevel %in% node$ThreshSet)], collapse = ', '), ifelse(node$MisDirection == 'L', '', ', NA'), ' }\n', sep = '', ...)
             } else {
-                cat(node$SplitVar, ' != ', 'NA\n', sep = '', ...)
+                cat(node$SplitVar, ' != NA\n', sep = '', ...)
             }
         }
         print.node(node$Right, depth + 4, digits, long, yName, trtName, tlevels, clevels, ...)
