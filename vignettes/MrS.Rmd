@@ -60,4 +60,16 @@ plotme$treeplot
 plotme$trtPlot
 ```
 
+```{r}
+writeTex(fit, file = 'test.tex')
+```
+
+Follow GUIDE, use `latex`
+
+```{shell}
+cat test.tex
+```
+
+
+
 
