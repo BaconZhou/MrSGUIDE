@@ -11,7 +11,7 @@
                 SE = c(SE, trtse[j])
             }
             resT <- data.frame(Estimate = Effect, SE = SE, Assignment = tLevels, Outcome = Yname[i])
-            res <- rbind(res, resT)
+            res <- rbind(res, resT[-1, ])
         }
         return(res)
     }
