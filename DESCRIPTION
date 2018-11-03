@@ -12,11 +12,11 @@ Depends: R (>= 3.1.0)
 Imports: 
     Rcpp (>= 0.12.19), 
     yaml (>= 2.0.0),
-    visNetwork,
-    ggpubr,
-    ggplot2,
-    dplyr,
-    magrittr
+    visNetwork (>= 2.0),
+    ggpubr (>= 0.1),
+    ggplot2 (>= 3.0),
+    dplyr (>= 0.7),
+    magrittr (>= 1.0)
 RoxygenNote: 6.1.0
 Suggests: knitr,
     rmarkdown

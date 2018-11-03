@@ -56,7 +56,7 @@
                               shape = 'square')
             return(ndf)
         } else {
-            text = paste("Nodes ", node$ID, ":\n", node$SplitVar, sep = '')
+            text = paste("Node ", node$ID, ":\n", node$SplitVar, sep = '')
             ndf <- data.frame(id = node$ID, level = level,
                               type = node$Type,
                               label = text,
@@ -134,7 +134,7 @@
 #'
 #' @export
 #'
-#' @importFrom visNetwork visNetwork visHierarchicalLayout visPhysics visInteraction visEvents visOptions visEdges
+#' @importFrom visNetwork visNetwork visHierarchicalLayout visPhysics visInteraction visEvents visOptions visEdges visExport
 #' @importFrom ggpubr ggdotchart theme_pubr
 #' @importFrom ggplot2 theme labs geom_hline element_text
 #' @importFrom dplyr mutate arrange
@@ -168,7 +168,9 @@ plot.guide <- function(msobj, digits = 3, height = "600px", width = "100%",
         visNetwork::visEdges(scaling = list(label = list(enabled = FALSE))) %>%
         visNetwork::visEvents(type = "once", stabilized = "function() {
                               this.setOptions({layout:{hierarchical:false}, physics:{solver:'barnesHut', enabled:true, stabilization : false}, nodes : {physics : false, fixed : true}});
-}")
+}") %>%
+        visNetwork::visExport()
+
     trtPlot <- treatNode %>%
         dplyr::mutate(Quantity = paste0(Outcome, '.', gsub('Node: ', '', Node))) %>%
         dplyr::arrange(Quantity) %>%
