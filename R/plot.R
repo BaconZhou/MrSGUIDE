@@ -177,7 +177,7 @@ plot.guide <- function(msobj, digits = 3, height = "600px", width = "100%",
         ggpubr::ggdotchart(x = 'Quantity', y = 'Estimate',
                            color = 'Node', palette = "aaas",
                            add.params = list(color = "lightgray", size = 2),
-                           add = 'segments',
+                           add = 'segments', shape = 'Assignment',
                            group = 'Node', rotate = TRUE, dot.size = 6,
                            ggthem = ggpubr::theme_pubr()) +
         ggplot2::labs(y = 'Treatment Effect') +
