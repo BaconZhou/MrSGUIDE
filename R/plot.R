@@ -146,7 +146,8 @@ plot.guide <- function(msobj, digits = 3, height = "600px", width = "100%",
                                                 degree = list(from = 50000, to = 0), hover = FALSE,
                                                 algorithm = "hierarchical"),
                        collapse = list(enabled = FALSE, fit = TRUE, resetHighlight = TRUE,
-                                       clusterOptions = list(fixed = TRUE, physics = FALSE))) {
+                                       clusterOptions = list(fixed = TRUE, physics = FALSE)),
+                       alphaInd = 3) {
 
     treatNode <- .getTrt(msobj$nodeMap, msobj$ynames, msobj$tLevels[[1]])
     ndf1 <- .node_df(msobj$treeRes, treatNode, digits = digits, font.size = nodefontSize,
@@ -183,8 +184,11 @@ plot.guide <- function(msobj, digits = 3, height = "600px", width = "100%",
         ggplot2::labs(y = 'Treatment Effect') +
         ggplot2::geom_hline(yintercept = 0, linetype = 2, color = "lightgray") +
         ggplot2::theme(legend.text=ggplot2::element_text(size=14))
-        ## ggplot2::geom_errorbar(ggplot2::aes(x = Quantity, ymin = Estimate - palpha * SE, ymax = Estimate + palpha * SE), width=0.1, size=1)
-
+    if (!is.null(msobj$bootAlpha)) {
+        palpha <- msobj$bootAlpha[alphaInd]
+        trtPlot <- trtPlot +
+            ggplot2::geom_errorbar(ggplot2::aes(x = Quantity, ymin = Estimate - palpha * SE, ymax = Estimate + palpha * SE), width=0.1, size=1)
+    }
 
     list(treeplot = tree, nodeTreat = treatNode, trtPlot = trtPlot)
 }
