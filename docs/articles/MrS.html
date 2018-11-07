@@ -95,11 +95,11 @@ role &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="kw">re
               <span class="dt">maxDepth =</span> <span class="dv">3</span>, <span class="dt">CVFolds =</span> <span class="dv">10</span>, <span class="dt">CVSE =</span> <span class="fl">0.5</span>, 
               <span class="dt">bootNum =</span> <span class="dv">30</span>, <span class="dt">alpha =</span> <span class="fl">0.05</span>, <span class="dt">display =</span> <span class="ot">TRUE</span>, <span class="dt">remove=</span><span class="ot">TRUE</span>)</code></pre></div>
 <pre><code>## Start data processing: 
-## Finish processing, start call main function.  0.009445906 s
+## Finish processing, start call main function.  0.009366035 s
 ## Use bootstrap for confidence interval! SLOW!
 ## finish 10 bootstrap samples.
 ## finish 20 bootstrap samples.
-## Finish tree build.  6.623832 s</code></pre>
+## Finish tree build.  6.66591 s</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">print</span>(fit)</code></pre></div>
 <pre><code>## ID: 1, gender = { Female, NA }
 ##     ID: 2, Size: 152 [Terminal]
@@ -154,7 +154,7 @@ plotme<span class="op">$</span>treeplot</code></pre></div>
 <p>Follow GUIDE, use <code>latex</code></p>
 <pre class="shell"><code>$ cat test.tex</code></pre>
 <pre><code>\documentclass[12pt]{article}
- %File creation date:2018-11-07 12:09:14
+ %File creation date:2018-11-07 12:12:24
 \usepackage{pstricks,pst-node,pst-tree}
 \usepackage{geometry}
 \usepackage{lscape}
