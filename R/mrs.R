@@ -162,7 +162,7 @@ MrSFit <- function(dataframe, role, bestK = 1,
         bootAlpha = read.table(bootName, header = FALSE)
         colnames(bootAlpha) = c("alphaVec", "gamma", "theta")
         res$bootAlpha = .getAlpha(bootAlpha)
-
+        names(res$bootAlpha) <- c('original', 'individual', 'overall')
         if(remove) file.remove(bootName)
     }
     if (remove) file.remove(nodeName, treeName)
