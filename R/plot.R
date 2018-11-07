@@ -136,8 +136,8 @@
 #'
 #' @importFrom visNetwork visNetwork visHierarchicalLayout visPhysics visInteraction visEvents visOptions visEdges visExport
 #' @importFrom ggpubr ggdotchart theme_pubr
-#' @importFrom ggplot2 theme labs geom_hline element_text
-#' @importFrom dplyr mutate arrange
+#' @importFrom ggplot2 theme labs geom_hline element_text geom_errorbar aes
+#' @importFrom dplyr mutate arrange group_by
 plot.guide <- function(msobj, digits = 3, height = "600px", width = "100%",
                        nodefontSize = 16, edgefontSize = 14,
                        minNodeSize = 15, maxNodeSize = 30,
@@ -177,12 +177,14 @@ plot.guide <- function(msobj, digits = 3, height = "600px", width = "100%",
         ggpubr::ggdotchart(x = 'Quantity', y = 'Estimate',
                            color = 'Node', palette = "aaas",
                            add.params = list(color = "lightgray", size = 2),
-                           add = 'segments', shape = 'Assignment',
+                           add = 'none', shape = ifelse(length(unique(treatNode$Assignment)) == 1, 19, 'Assignment'),
                            group = 'Node', rotate = TRUE, dot.size = 6,
                            ggthem = ggpubr::theme_pubr()) +
         ggplot2::labs(y = 'Treatment Effect') +
         ggplot2::geom_hline(yintercept = 0, linetype = 2, color = "lightgray") +
         ggplot2::theme(legend.text=ggplot2::element_text(size=14))
+        ## ggplot2::geom_errorbar(ggplot2::aes(x = Quantity, ymin = Estimate - palpha * SE, ymax = Estimate + palpha * SE), width=0.1, size=1)
+
 
     list(treeplot = tree, nodeTreat = treatNode, trtPlot = trtPlot)
 }

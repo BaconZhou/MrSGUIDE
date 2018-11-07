@@ -111,15 +111,18 @@ writeTex <- function(mrsobj, file, digits = 3, ...) {
 %\\begin{landscape}
 \\begin{center}
 \\psset{linecolor=black,tnsep=1pt,tndepth=0cm,tnheight=0cm,treesep=.8cm,levelsep=50pt,radius=10pt}\n',  file = file, append = TRUE, sep = "", ...)
-    .writetex(mrsobj$treeRes, file, digits, ...)
+    treatNode <- .getTrt(mrsobj$nodeMap, mrsobj$ynames, mrsobj$tLevels[[1]])
+    .writetex(mrsobj$treeRes, file, treatNode, digits, ...)
     cat("\\end{center}
 %\\end{landscape}
 \\end{document}\n", file = file, append = TRUE, sep = "", ...)
 }
 
-.writetex <- function(node, texfile, depth = 0, digits = 3, ...) {
+.writetex <- function(node, texfile, treatNode, depth = 0, digits = 3, ...) {
     if (node$Type == 'Terminal') {
-        cat(rep(' ', depth), "\\Tcircle[fillstyle=solid]{ ", node$ID, " }~{\\makebox[0pt][c]{\\em ",
+        trt = treatNode[treatNode$Node == node$ID, 'Estimate']
+        fillcolor = ifelse(mean(trt) > 0, "red", "yellow")
+        cat(rep(' ', depth), "\\Tcircle[fillcolor=",fillcolor,",fillstyle=solid]{ ", node$ID, " }~{\\makebox[0pt][c]{\\em ",
             node$Size, " }}\n", file = texfile, append = TRUE, sep = "", ...)
         return()
     } else {
@@ -142,8 +145,8 @@ writeTex <- function(mrsobj, file, digits = 3, ...) {
             }
         }
         cat(rep(' ', depth), "}{\n", file = texfile, sep = '', append = TRUE, ...)
-        .writetex(node$Left, texfile, depth = depth + 4,  digits = 3, ...)
-        .writetex(node$Right, texfile, depth = depth + 4, digits = 3, ...)
+        .writetex(node$Left, texfile, treatNode, depth = depth + 4,  digits = 3, ...)
+        .writetex(node$Right, texfile, treatNode, depth = depth + 4, digits = 3, ...)
         cat(rep(' ', depth), "}\n", file = texfile, sep = '', append = TRUE, ...)
     }
 }
