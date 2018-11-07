@@ -329,7 +329,7 @@ mat GiTree::boostrapCI(const arma::mat &numX, const arma::imat &catX,
     gamma /= (double)bootNum;
     theta /= (double)bootNum;
     // logger->debug("Gamma: \n{}\n Theta: {}\n", gamma, theta);
-    return arma::join_rows(gamma, theta);
+    return arma::join_rows(alphaK, arma::join_rows(gamma, theta));
 }
 
 mat GiTree::predictY(node *leaf, const mat &numX, const imat &catX,
@@ -469,7 +469,7 @@ inline arma::mat createFitMatrix(const arma::mat &numX, const arma::ivec &trt, c
     const arma::uword &tp = trtLevel.n_elem;
     const arma::mat &tmp = hotCoding(trt, trtLevel, false);
 
-    // combine X: numX + trt1 + trt2 + .. + trt_tp
+    // combine X: numX + 1 + trt2 + .. + trt_tp
     arma::mat comX(tmp.n_rows, np + tp);
 
     for (arma::uword i = 0; i < np + tp; i++)
@@ -477,6 +477,10 @@ inline arma::mat createFitMatrix(const arma::mat &numX, const arma::ivec &trt, c
         if (i < np)
         {
             comX.col(i) = numX.col(i);
+        }
+        else if (i == np)
+        {
+            comX.col(i).fill(1);
         }
         else
         {
