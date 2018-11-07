@@ -93,10 +93,13 @@ train &lt;-<span class="st"> </span><span class="kw">data.frame</span>(numX, gen
 role &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="kw">rep</span>(<span class="st">'n'</span>, <span class="dv">3</span>), <span class="st">'c'</span>, <span class="st">'c'</span>, <span class="st">'r'</span>, <span class="st">'d'</span>, <span class="st">'d'</span>)</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">fit &lt;-<span class="st"> </span><span class="kw"><a href="../reference/MrS.html">MrSFit</a></span>(<span class="dt">dataframe =</span> train, <span class="dt">role =</span> role, <span class="dt">bestK =</span> <span class="dv">3</span>, 
               <span class="dt">maxDepth =</span> <span class="dv">3</span>, <span class="dt">CVFolds =</span> <span class="dv">10</span>, <span class="dt">CVSE =</span> <span class="fl">0.5</span>, 
-              <span class="dt">bootNum =</span> <span class="dv">0</span>, <span class="dt">alpha =</span> <span class="fl">0.05</span>, <span class="dt">display =</span> <span class="ot">TRUE</span>, <span class="dt">remove=</span><span class="ot">TRUE</span>)</code></pre></div>
+              <span class="dt">bootNum =</span> <span class="dv">30</span>, <span class="dt">alpha =</span> <span class="fl">0.05</span>, <span class="dt">display =</span> <span class="ot">TRUE</span>, <span class="dt">remove=</span><span class="ot">TRUE</span>)</code></pre></div>
 <pre><code>## Start data processing: 
-## Finish processing, start call main function.  0.009857893 s
-## Finish tree build.  0.3503401 s</code></pre>
+## Finish processing, start call main function.  0.009445906 s
+## Use bootstrap for confidence interval! SLOW!
+## finish 10 bootstrap samples.
+## finish 20 bootstrap samples.
+## Finish tree build.  6.623832 s</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">print</span>(fit)</code></pre></div>
 <pre><code>## ID: 1, gender = { Female, NA }
 ##     ID: 2, Size: 152 [Terminal]
@@ -112,16 +115,16 @@ role &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="kw">re
 ##         X2    0.952
 ##         X3    -0.002
 ##         z.0    0.134    0.134
-##         z.1    2.024    0.154
-##         z.2    4.063    0.135
+##         z.1    1.89    0.205
+##         z.2    3.929    0.19
 ##     - - - - - - - - - - - - - - 
 ##         y2        Est        SE
 ##         X1    1.052
 ##         X2    -0.106
 ##         X3    1.003
 ##         z.0    -0.058    0.137
-##         z.1    2.076    0.157
-##         z.2    4.098    0.138
+##         z.1    2.134    0.209
+##         z.2    4.155    0.194
 ##     - - - - - - - - - - - - - - 
 ## ID: 1, gender = { Male }
 ##     ID: 3, Size: 148 [Terminal]
@@ -131,27 +134,27 @@ role &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="kw">re
 ##         X2    0.897
 ##         X3    -0.023
 ##         z.0    0.075    0.137
-##         z.1    -0.164    0.128
-##         z.2    -0.202    0.157
+##         z.1    -0.238    0.188
+##         z.2    -0.277    0.208
 ##     - - - - - - - - - - - - - - 
 ##         y2        Est        SE
 ##         X1    1.027
 ##         X2    0.039
 ##         X3    1.021
 ##         z.0    -0.065    0.15
-##         z.1    0.085    0.141
-##         z.2    0.093    0.173
+##         z.1    0.151    0.207
+##         z.2    0.159    0.229
 ##     - - - - - - - - - - - - - -</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">plotme &lt;-<span class="st"> </span><span class="kw">plot</span>(fit)
 plotme<span class="op">$</span>treeplot</code></pre></div>
-<div id="htmlwidget-c802c7baa17b2802737e" style="width:100%;height:600px;" class="visNetwork html-widget"></div>
-<script type="application/json" data-for="htmlwidget-c802c7baa17b2802737e">{"x":{"nodes":{"id":[1,2,3],"level":[1,2,2],"type":["Intermediate","Terminal","Terminal"],"label":["Node 1:\ngender","Node 2: 152","Node 3: 148"],"color":["lightblue","#FC4E07","#00AFBB"],"shape":["dot","square","square"],"font.size":[16,16,16],"font.color":["black","black","black"],"fixed":[false,false,false],"font.multi":[true,true,true],"scaling.min":[22.5,22.5,22.5],"scaling.max":[22.5,22.5,22.5]},"edges":{"from":[1,1],"to":[2,3],"label":["{ Female, NA }","{ Male }"],"color":["#8181F7","#8181F7"],"font.size":[14,14],"font.align":["horizontal","horizontal"],"smooth.enabled":[true,true],"smooth.type":["cubicBezier","cubicBezier"],"smooth.roundess":[0.5,0.5]},"nodesToDataframe":true,"edgesToDataframe":true,"options":{"width":"100%","height":"100%","nodes":{"shape":"dot"},"manipulation":{"enabled":false},"layout":{"hierarchical":{"enabled":true,"direction":"UD"}},"physics":{"barnesHut":{"avoidOverlap":1}},"interaction":{"dragNodes":true,"selectConnectedEdges":false},"edges":{"scaling":{"label":{"enabled":false}}}},"groups":null,"width":"100%","height":"600px","idselection":{"enabled":false},"byselection":{"enabled":false},"main":null,"submain":null,"footer":null,"background":"rgba(0, 0, 0, 0)","tooltipStay":300,"tooltipStyle":"position: fixed;visibility:hidden;padding: 5px;\n                                   white-space: nowrap;\n                                   font-family: cursive;font-size:12px;font-color:purple;background-color: #E6E6E6;\n                                   border-radius: 15px;","OnceEvents":{"stabilized":"function() {\n                              this.setOptions({layout:{hierarchical:false}, physics:{solver:'barnesHut', enabled:true, stabilization : false}, nodes : {physics : false, fixed : true}});\n}"},"export":{"type":"png","css":"float:right;-webkit-border-radius: 10;\n                  -moz-border-radius: 10;\n                  border-radius: 10px;\n                  font-family: Arial;\n                  color: #ffffff;\n                  font-size: 12px;\n                  background: #090a0a;\n                  padding: 4px 8px 4px 4px;\n                  text-decoration: none;","background":"#fff","name":"network.png","label":"Export as png"}},"evals":["OnceEvents.stabilized"],"jsHooks":[]}</script><div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">plotme<span class="op">$</span>trtPlot</code></pre></div>
+<div id="htmlwidget-f5485ca03bd2f79bee38" style="width:100%;height:600px;" class="visNetwork html-widget"></div>
+<script type="application/json" data-for="htmlwidget-f5485ca03bd2f79bee38">{"x":{"nodes":{"id":[1,2,3],"level":[1,2,2],"type":["Intermediate","Terminal","Terminal"],"label":["Node 1:\ngender","Node 2: 152","Node 3: 148"],"color":["lightblue","#FC4E07","#00AFBB"],"shape":["dot","square","square"],"font.size":[16,16,16],"font.color":["black","black","black"],"fixed":[false,false,false],"font.multi":[true,true,true],"scaling.min":[22.5,22.5,22.5],"scaling.max":[22.5,22.5,22.5]},"edges":{"from":[1,1],"to":[2,3],"label":["{ Female, NA }","{ Male }"],"color":["#8181F7","#8181F7"],"font.size":[14,14],"font.align":["horizontal","horizontal"],"smooth.enabled":[true,true],"smooth.type":["cubicBezier","cubicBezier"],"smooth.roundess":[0.5,0.5]},"nodesToDataframe":true,"edgesToDataframe":true,"options":{"width":"100%","height":"100%","nodes":{"shape":"dot"},"manipulation":{"enabled":false},"layout":{"hierarchical":{"enabled":true,"direction":"UD"}},"physics":{"barnesHut":{"avoidOverlap":1}},"interaction":{"dragNodes":true,"selectConnectedEdges":false},"edges":{"scaling":{"label":{"enabled":false}}}},"groups":null,"width":"100%","height":"600px","idselection":{"enabled":false},"byselection":{"enabled":false},"main":null,"submain":null,"footer":null,"background":"rgba(0, 0, 0, 0)","tooltipStay":300,"tooltipStyle":"position: fixed;visibility:hidden;padding: 5px;\n                                   white-space: nowrap;\n                                   font-family: cursive;font-size:12px;font-color:purple;background-color: #E6E6E6;\n                                   border-radius: 15px;","OnceEvents":{"stabilized":"function() {\n                              this.setOptions({layout:{hierarchical:false}, physics:{solver:'barnesHut', enabled:true, stabilization : false}, nodes : {physics : false, fixed : true}});\n}"},"export":{"type":"png","css":"float:right;-webkit-border-radius: 10;\n                  -moz-border-radius: 10;\n                  border-radius: 10px;\n                  font-family: Arial;\n                  color: #ffffff;\n                  font-size: 12px;\n                  background: #090a0a;\n                  padding: 4px 8px 4px 4px;\n                  text-decoration: none;","background":"#fff","name":"network.png","label":"Export as png"}},"evals":["OnceEvents.stabilized"],"jsHooks":[]}</script><div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">plotme<span class="op">$</span>trtPlot</code></pre></div>
 <p><img src="MrS_files/figure-html/unnamed-chunk-6-1.png" width="480" style="display: block; margin: auto;"></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/writeTex.html">writeTex</a></span>(fit, <span class="dt">file =</span> <span class="st">'test.tex'</span>)</code></pre></div>
 <p>Follow GUIDE, use <code>latex</code></p>
 <pre class="shell"><code>$ cat test.tex</code></pre>
 <pre><code>\documentclass[12pt]{article}
- %File creation date:2018-11-02 21:10:04
+ %File creation date:2018-11-07 12:09:14
 \usepackage{pstricks,pst-node,pst-tree}
 \usepackage{geometry}
 \usepackage{lscape}
@@ -162,8 +165,8 @@ plotme<span class="op">$</span>treeplot</code></pre></div>
 \psset{linecolor=black,tnsep=1pt,tndepth=0cm,tnheight=0cm,treesep=.8cm,levelsep=50pt,radius=10pt}
    \pstree[treemode=D]{\Tcircle{ 1 }~[tnpos=l]{\shortstack[r]{\texttt{\detokenize{gender}}\\$\in$ { Female, NA\}}}
    }{
-       \Tcircle[fillstyle=solid]{ 2 }~{\makebox[0pt][c]{\em 152 }}
-       \Tcircle[fillstyle=solid]{ 3 }~{\makebox[0pt][c]{\em 148 }}
+       \Tcircle[fillcolor=red,fillstyle=solid]{ 2 }~{\makebox[0pt][c]{\em 152 }}
+       \Tcircle[fillcolor=yellow,fillstyle=solid]{ 3 }~{\makebox[0pt][c]{\em 148 }}
    }
 \end{center}
 %\end{landscape}
