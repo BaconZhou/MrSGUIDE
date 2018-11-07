@@ -185,7 +185,7 @@ plot.guide <- function(msobj, digits = 3, height = "600px", width = "100%",
         ggplot2::geom_hline(yintercept = 0, linetype = 2, color = "lightgray") +
         ggplot2::theme(legend.text=ggplot2::element_text(size=14))
     if (!is.null(msobj$bootAlpha)) {
-        palpha <- msobj$bootAlpha[alphaInd]
+        palpha <- abs(qnorm(msobj$bootAlpha[alphaInd]))
         trtPlot <- trtPlot +
             ggplot2::geom_errorbar(ggplot2::aes(x = Quantity, ymin = Estimate - palpha * SE, ymax = Estimate + palpha * SE), width=0.1, size=1)
     }
