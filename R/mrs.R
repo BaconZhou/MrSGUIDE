@@ -160,8 +160,8 @@ MrSFit <- function(dataframe, role, bestK = 1,
     }
     if(bootNum > 10) {
         bootAlpha = read.table(bootName, header = FALSE)
-        colnames(bootAlpha) = c("gamma", "theta")
-        res$bootAlpha = bootAlpha
+        colnames(bootAlpha) = c("alphaVec", "gamma", "theta")
+        res$bootAlpha = .getAlpha(bootAlpha)
 
         if(remove) file.remove(bootName)
     }
