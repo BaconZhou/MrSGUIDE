@@ -40,6 +40,11 @@ void GiTree::fit(const mat &numX, const imat &catX, const mat &Y,
     this->tp = trtLevel.n_elem;
     this->np = numX.n_cols;
 
+    importanceScoreN.resize(np);
+    importanceScoreC.resize(cp);
+    importanceScoreN.zeros();
+    importanceScoreC.zeros();
+
     const uword &hp = holdIndex.n_elem;
 
     this->fixIndex.resize(hp + this->tp);
@@ -124,6 +129,9 @@ node *GiTree::buildTree(const mat &numX, const imat &catX, const mat &Y,
     }
     // cout << "Node ID: " << id << endl;
     splitMethod->findSplit(numX, catX, Y, Trt, result->fitInds, this->splitIndex);
+    this->importanceScoreN += splitMethod->chiN * Trt.n_elem;
+    this->importanceScoreC += splitMethod->chiC * Trt.n_elem;
+
     splitMethod->findThresh(numX, catX, Y, Trt, comX, this->fixIndex,
                             this->fitIndex, bestK, nodeFit->bestInds,
                             this->faster);

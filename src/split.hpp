@@ -54,8 +54,6 @@ namespace SplitSol {
 
         double loss = 0;
 
-        vec chiN, chiC;
-
         void dataCheck(const mat& nx_, const imat& cx_, const mat& ys_);
 
     public:
@@ -76,6 +74,7 @@ namespace SplitSol {
         {
             return dir == 'L' ? this->optLeft : this->optRight;
         }
+        vec chiN, chiC;
     };
 
     /**

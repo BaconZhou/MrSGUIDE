@@ -42,8 +42,8 @@ BEGIN_RCPP
 END_RCPP
 }
 // GiStepWisePure
-void GiStepWisePure(const arma::mat& numX, const arma::imat& catX, const arma::mat& Y, const arma::ivec trt, const arma::uvec& splitIndex, const arma::uvec& fitIndex, const arma::uvec& holdIndex, const int& bestK, const int& maxDepth, const int& minData, const int& minTrt, const int& batchNum, const int& CVFold, const double& CVSE, const int& bootNum, const double& alpha, const bool& faster, const bool& display, const std::vector<std::string>& varName, const std::string& treeName, const std::string& nodeName, const std::string& bootName);
-RcppExport SEXP _MrS_GiStepWisePure(SEXP numXSEXP, SEXP catXSEXP, SEXP YSEXP, SEXP trtSEXP, SEXP splitIndexSEXP, SEXP fitIndexSEXP, SEXP holdIndexSEXP, SEXP bestKSEXP, SEXP maxDepthSEXP, SEXP minDataSEXP, SEXP minTrtSEXP, SEXP batchNumSEXP, SEXP CVFoldSEXP, SEXP CVSESEXP, SEXP bootNumSEXP, SEXP alphaSEXP, SEXP fasterSEXP, SEXP displaySEXP, SEXP varNameSEXP, SEXP treeNameSEXP, SEXP nodeNameSEXP, SEXP bootNameSEXP) {
+void GiStepWisePure(const arma::mat& numX, const arma::imat& catX, const arma::mat& Y, const arma::ivec trt, const arma::uvec& splitIndex, const arma::uvec& fitIndex, const arma::uvec& holdIndex, const int& bestK, const int& maxDepth, const int& minData, const int& minTrt, const int& batchNum, const int& CVFold, const double& CVSE, const int& bootNum, const double& alpha, const bool& faster, const bool& display, const std::vector<std::string>& varName, const std::string& treeName, const std::string& nodeName, const std::string& bootName, const std::string& impName);
+RcppExport SEXP _MrS_GiStepWisePure(SEXP numXSEXP, SEXP catXSEXP, SEXP YSEXP, SEXP trtSEXP, SEXP splitIndexSEXP, SEXP fitIndexSEXP, SEXP holdIndexSEXP, SEXP bestKSEXP, SEXP maxDepthSEXP, SEXP minDataSEXP, SEXP minTrtSEXP, SEXP batchNumSEXP, SEXP CVFoldSEXP, SEXP CVSESEXP, SEXP bootNumSEXP, SEXP alphaSEXP, SEXP fasterSEXP, SEXP displaySEXP, SEXP varNameSEXP, SEXP treeNameSEXP, SEXP nodeNameSEXP, SEXP bootNameSEXP, SEXP impNameSEXP) {
 BEGIN_RCPP
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< const arma::mat& >::type numX(numXSEXP);
@@ -68,7 +68,8 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< const std::string& >::type treeName(treeNameSEXP);
     Rcpp::traits::input_parameter< const std::string& >::type nodeName(nodeNameSEXP);
     Rcpp::traits::input_parameter< const std::string& >::type bootName(bootNameSEXP);
-    GiStepWisePure(numX, catX, Y, trt, splitIndex, fitIndex, holdIndex, bestK, maxDepth, minData, minTrt, batchNum, CVFold, CVSE, bootNum, alpha, faster, display, varName, treeName, nodeName, bootName);
+    Rcpp::traits::input_parameter< const std::string& >::type impName(impNameSEXP);
+    GiStepWisePure(numX, catX, Y, trt, splitIndex, fitIndex, holdIndex, bestK, maxDepth, minData, minTrt, batchNum, CVFold, CVSE, bootNum, alpha, faster, display, varName, treeName, nodeName, bootName, impName);
     return R_NilValue;
 END_RCPP
 }
@@ -77,7 +78,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_MrS_characterToInterger", (DL_FUNC) &_MrS_characterToInterger, 2},
     {"_MrS_dataFramToNumeric", (DL_FUNC) &_MrS_dataFramToNumeric, 1},
     {"_MrS_characterDict", (DL_FUNC) &_MrS_characterDict, 2},
-    {"_MrS_GiStepWisePure", (DL_FUNC) &_MrS_GiStepWisePure, 22},
+    {"_MrS_GiStepWisePure", (DL_FUNC) &_MrS_GiStepWisePure, 23},
     {NULL, NULL, 0}
 };
 

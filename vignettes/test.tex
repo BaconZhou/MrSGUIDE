@@ -1,0 +1,18 @@
+\documentclass[12pt]{article}
+ %File creation date:2018-11-07 12:16:00
+\usepackage{pstricks,pst-node,pst-tree}
+\usepackage{geometry}
+\usepackage{lscape}
+\pagestyle{empty}
+\begin{document}
+%\begin{landscape}
+\begin{center}
+\psset{linecolor=black,tnsep=1pt,tndepth=0cm,tnheight=0cm,treesep=.8cm,levelsep=50pt,radius=10pt}
+   \pstree[treemode=D]{\Tcircle{ 1 }~[tnpos=l]{\shortstack[r]{\texttt{\detokenize{gender}}\\$\in$ { Female, NA\}}}
+   }{
+       \Tcircle[fillcolor=red,fillstyle=solid]{ 2 }~{\makebox[0pt][c]{\em 152 }}
+       \Tcircle[fillcolor=yellow,fillstyle=solid]{ 3 }~{\makebox[0pt][c]{\em 148 }}
+   }
+\end{center}
+%\end{landscape}
+\end{document}

@@ -47,12 +47,12 @@ class tree {
     uvec holdIndex = {};     // Numerical Variable keep in fit model
 
     uvec fixIndex = {};    //  For provided comX, which are fixed.
-
     int bestK;
 
     // Results
     node* root = nullptr;
     std::vector<node*> mainTreeMap;
+
 
     // Methods
     node* predict(node* leaf, const rowvec& numX, const irowvec& catX);
@@ -75,6 +75,10 @@ class tree {
     node* predict(const rowvec& numX, const irowvec& catX) {
         return predict(root, numX, catX);
     };
+    void getImportance() {
+        Rcpp::Rcout << importanceScoreN << '\n'
+                    << importanceScoreC << std::endl;
+    }
 
     // Get function
     node* getRoot() { return root; }
@@ -82,6 +86,9 @@ class tree {
         return predictNode(this->root, numX, catX);
     };
     ~tree() = default;
+
+    vec importanceScoreN = {};
+    vec importanceScoreC = {};
    private:
     void pruneAlpha(node* leaf, const double& alpha);
 };

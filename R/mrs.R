@@ -36,6 +36,7 @@ MrSFit <- function(dataframe, role, bestK = 1,
                         treeName = paste0("tree_", format(Sys.time(), "%m%d"), ".yaml"),
                         nodeName = paste0("node_", format(Sys.time(), "%m%d"), ".txt"),
                         bootName = paste0("boot_", format(Sys.time(), "%m%d"), ".txt"),
+                        impName = paste0("imp_", format(Sys.time(), "%m%d"), ".txt"),
                         seed = 123, writeTo = FALSE, remove = FALSE) {
     t1 = Sys.time()
 
@@ -140,6 +141,8 @@ MrSFit <- function(dataframe, role, bestK = 1,
 
     node <- read.table(nodeName, header = TRUE)$node
     treeRes <- .yamlpretty(treeRes, cLevels, node)
+    impRes <- cbind(read.table(impName), newVar)
+    colnames(impRes) = c('Importance', 'Feature')
 
     ynames = varName[dr]
     trtname = varName[rr]
@@ -148,6 +151,7 @@ MrSFit <- function(dataframe, role, bestK = 1,
                     minData = minData, minTrt = minTrt, seed = seed)
     res <- list(treeRes = treeRes,
                 node = node,
+                imp = impRes,
                 cLevels = cLevels, tLevels = tLevels,
                 yp = NCOL(Y),
                 tp = length(tLevels),
@@ -165,7 +169,7 @@ MrSFit <- function(dataframe, role, bestK = 1,
         names(res$bootAlpha) <- c('original', 'individual', 'overall')
         if(remove) file.remove(bootName)
     }
-    if (remove) file.remove(nodeName, treeName)
+    if (remove) file.remove(nodeName, treeName, impName)
     class(res) <- c('guide', 'mrs')
     return(res)
 }
@@ -184,6 +188,7 @@ mrs.pure <- function(nX, cX, Y, Trt,
                           treeName = paste0("tree_", format(Sys.time(), "%m%d"), ".yaml"),
                           nodeName = paste0("node_", format(Sys.time(), "%m%d"), ".txt"),
                           bootName = paste0("boot_", format(Sys.time(), "%m%d"), ".txt"),
+                          impName = paste0("imp_", format(Sys.time(), "%m%d"), ".txt"),
                           seed = 123) {
     if(display) cat("Tree file write in :", treeName, ".\n")
     set.seed(seed)
@@ -217,7 +222,8 @@ mrs.pure <- function(nX, cX, Y, Trt,
                as.integer(minData), as.integer(minTrt),
                as.integer(batchNum), as.integer(CVFolds),
                CVSE, as.integer(bootNum), alpha, faster, display, varName,
-               treeName = treeName, nodeName = nodeName, bootName = bootName)
+               treeName = treeName, nodeName = nodeName, bootName = bootName,
+               impName = impName)
 
     treeRes <- yaml::read_yaml(treeName)
 

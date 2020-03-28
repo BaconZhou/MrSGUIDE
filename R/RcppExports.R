@@ -35,7 +35,7 @@ characterDict <- function(charX, levels) {
 
 #' Multiple response subgroup identification use GUIDE Gi option with step wise regression
 #'
-GiStepWisePure <- function(numX, catX, Y, trt, splitIndex, fitIndex, holdIndex, bestK, maxDepth, minData, minTrt, batchNum, CVFold, CVSE, bootNum, alpha, faster, display, varName, treeName, nodeName, bootName) {
-    invisible(.Call(`_MrS_GiStepWisePure`, numX, catX, Y, trt, splitIndex, fitIndex, holdIndex, bestK, maxDepth, minData, minTrt, batchNum, CVFold, CVSE, bootNum, alpha, faster, display, varName, treeName, nodeName, bootName))
+GiStepWisePure <- function(numX, catX, Y, trt, splitIndex, fitIndex, holdIndex, bestK, maxDepth, minData, minTrt, batchNum, CVFold, CVSE, bootNum, alpha, faster, display, varName, treeName, nodeName, bootName, impName) {
+    invisible(.Call(`_MrS_GiStepWisePure`, numX, catX, Y, trt, splitIndex, fitIndex, holdIndex, bestK, maxDepth, minData, minTrt, batchNum, CVFold, CVSE, bootNum, alpha, faster, display, varName, treeName, nodeName, bootName, impName))
 }
 

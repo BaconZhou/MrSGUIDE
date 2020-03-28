@@ -5,7 +5,7 @@
         alphaVec <- bootAlpha[, 1]
         ind <- bootAlpha[, 2]
         ove <- bootAlpha[, 3]
-        alpha <- max(alphaVec)
+        alpha <- max(alphaVec) * 2
         .helper <- function(gamma, alphaVec, alpha = 0.05) {
             p <- which(gamma < 1 - alpha)
             if (p[1] == 1) return(alpha)
@@ -18,6 +18,6 @@
         }
         indAlpha = .helper(ind, alphaVec, alpha)
         oveAlpha = .helper(ove, alphaVec, alpha)
-        res <- c(alpha, indAlpha, oveAlpha)
+        res <- c(alpha / 2, indAlpha, oveAlpha)
     }
 }

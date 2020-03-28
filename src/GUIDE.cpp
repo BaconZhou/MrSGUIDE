@@ -131,7 +131,7 @@ void GiStepWisePure(const arma::mat &numX, const arma::imat &catX,
                 const bool &faster, const bool &display,
                 const std::vector<std::string>&varName,
                 const std::string &treeName, const std::string &nodeName,
-                const std::string &bootName) {
+                const std::string &bootName, const std::string &impName) {
     SubGuide::RegSol::RegFun *linearNode;
     linearNode = new SubGuide::RegSol::LinReg;
 
@@ -141,7 +141,14 @@ void GiStepWisePure(const arma::mat &numX, const arma::imat &catX,
 
     if (display) resTree.display();
 
+
     std::ofstream myfile;
+
+    myfile.open(impName);
+    myfile << resTree.importanceScoreN;
+    myfile << resTree.importanceScoreC;
+    myfile.close();
+
     myfile.open(treeName);
     myfile << resTree.writeTree(varName);
     myfile.close();
