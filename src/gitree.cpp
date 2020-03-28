@@ -103,15 +103,20 @@ node *GiTree::buildTree(const mat &numX, const imat &catX, const mat &Y,
 
     node *result = new node(id);
     stepNodeModel *nodeFit = new stepNodeModel(fitMethod);
-
+    //Rcpp::Rcout << "NodeId: " << id << '\n';
     //logger->debug("NodeID: {}, bestK: {}", id, this->bestK);
 
     nodeFit->fit(imputeValue(comX, Xmean), Y, this->fixIndex, this->fitIndex,
                  this->bestK, Xmean);
-
     result->nodeModel = nodeFit;
     result->fitInds = refineFit(nodeFit->bestInds, this->np);
     result->trtBeta = refineTrt(nodeFit->parms, this->tp, true); // for beta
+    
+    // for (int vi = 0; vi < Y.n_cols; vi++) {
+    //   Rcpp::Rcout << result->fitInds[vi] << '\n'
+    //   << result->trtBeta[vi] << '\n';
+    // }
+
     result->trtSE = refineTrt(nodeFit->parms, this->tp, false);  // for SE
 
     // To make alpha sample size irrelevant

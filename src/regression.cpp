@@ -89,7 +89,9 @@ namespace RegSol {
         double minBIC = parmT.BIC;
 
         arma::uword findp = 0;
+        // Rcpp::Rcout << "p + 1 " << p + 1 <<  "BestInd:" << bestInd << '\n';
         for (arma::uword i = nhp; i < nhp + K; i++) {
+            // Rcpp::Rcout << "i: " << i << '\n';
             for (arma::uword j = 0; j < p; j++) {
 
                 if (arma::any(bestInd == j))
@@ -101,21 +103,25 @@ namespace RegSol {
 
                 bestInd[i] = j;
                 parmT = fitMethod->fit(X.cols(bestInd.head(i + 1)), Y);
-
                 if (parmT.BIC < minBIC) {
                     minInd = j;
                     minBIC = parmT.BIC;
                 }
             }
-            if (minInd == p + 1)
-                break;
             bestInd[i] = minInd;
+            if (minInd == p + 1) {
+                break;
+            }
+            // Rcpp::Rcout << i << ", BIC " <<minBIC << ", minInd " << minInd <<  '\n';
             minInd = p + 1;
             findp++;
             if (findp == K)
                 break;
         }
+        // Rcpp::Rcout << "p + 1 " << p + 1 <<  "BestInd:" << bestInd << '\n';
         bestInd = arma::sort(bestInd.rows(arma::find(bestInd < p + 1)));
+        // Rcpp::Rcout << "BestInd:" << bestInd << '\n';
+
         parm = fitMethod->fit(X.cols(bestInd), Y);
         return parm;
     }

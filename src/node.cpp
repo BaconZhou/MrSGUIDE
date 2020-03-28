@@ -24,12 +24,12 @@ namespace Node {
         const vec& XMean_)
     {
         this->XMean = XMean_;
+        this->bestInds.resize(0);
         for (auto i = 0; i < Y.n_cols; i++) {
             RegSol::RegParm parm;
             arma::uvec bestInd;
 
-            parm = stepWiseF(this->fitMethod, X, Y.col(i), holdIndex, fitIndex, bestK,
-                bestInd);
+            parm = stepWiseF(this->fitMethod, X, Y.col(i), holdIndex, fitIndex, bestK, bestInd);
             this->bestInds.push_back(bestInd);
 
             const mat& tmpX = X.cols(this->bestInds.at(i));
