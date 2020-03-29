@@ -1,10 +1,11 @@
+#' @export
 .yamlpretty <- function(node, clevels, nodeID) {
     if (node$Type == 'Terminal') {
         node$Size = sum(nodeID == node$ID)
         return(node)
     } else {
         if (node$Role != 'num') {
-            node$ThreshSet = clevels[[node$SplitVar]][node$ThreshSet]
+            node$ThreshSet = clevels[[node$SplitVar]][as.integer(node$ThreshSet) + 1]
         }
         node$Left = .yamlpretty(node$Left, clevels, nodeID)
         node$Right = .yamlpretty(node$Right, clevels, nodeID)

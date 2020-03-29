@@ -4,17 +4,30 @@
 \name{MrS}
 \alias{MrS}
 \alias{MrSFit}
-\alias{MrS-package}
 \title{MrS}
 \usage{
-MrSFit(dataframe, role, bestK = 1, maxDepth = 5, minTrt = 5,
-  minData = max(c(minTrt * maxDepth, NROW(Y)/20)), batchNum = 1L,
-  CVFolds = 10L, CVSE = 0, bootNum = 0L, alpha = 0.05,
-  faster = FALSE, display = FALSE, treeName = paste0("tree_",
-  format(Sys.time(), "\%m\%d"), ".yaml"), nodeName = paste0("node_",
-  format(Sys.time(), "\%m\%d"), ".txt"), bootName = paste0("boot_",
-  format(Sys.time(), "\%m\%d"), ".txt"), seed = 123, writeTo = FALSE,
-  remove = FALSE)
+MrSFit(
+  dataframe,
+  role,
+  bestK = 1,
+  maxDepth = 5,
+  minTrt = 5,
+  minData = max(c(minTrt * maxDepth, NROW(Y)/20)),
+  batchNum = 1L,
+  CVFolds = 10L,
+  CVSE = 0,
+  bootNum = 0L,
+  alpha = 0.05,
+  faster = FALSE,
+  display = FALSE,
+  treeName = paste0("tree_", format(Sys.time(), "\%m\%d"), ".yaml"),
+  nodeName = paste0("node_", format(Sys.time(), "\%m\%d"), ".txt"),
+  bootName = paste0("boot_", format(Sys.time(), "\%m\%d"), ".txt"),
+  impName = paste0("imp_", format(Sys.time(), "\%m\%d"), ".txt"),
+  seed = 123,
+  writeTo = FALSE,
+  remove = FALSE
+)
 }
 \arguments{
 \item{dataframe}{train data frame}

@@ -4,9 +4,31 @@
 \alias{GiStepWisePure}
 \title{Multiple response subgroup identification use GUIDE Gi option with step wise regression}
 \usage{
-GiStepWisePure(numX, catX, Y, trt, splitIndex, fitIndex, holdIndex, bestK,
-  maxDepth, minData, minTrt, batchNum, CVFold, CVSE, bootNum, alpha,
-  faster, display, varName, treeName, nodeName, bootName)
+GiStepWisePure(
+  numX,
+  catX,
+  Y,
+  trt,
+  splitIndex,
+  fitIndex,
+  holdIndex,
+  bestK,
+  maxDepth,
+  minData,
+  minTrt,
+  batchNum,
+  CVFold,
+  CVSE,
+  bootNum,
+  alpha,
+  faster,
+  display,
+  varName,
+  treeName,
+  nodeName,
+  bootName,
+  impName
+)
 }
 \description{
 Multiple response subgroup identification use GUIDE Gi option with step wise regression

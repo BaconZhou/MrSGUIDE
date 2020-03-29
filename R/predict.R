@@ -18,7 +18,7 @@
                 }
             }
         } else {
-            if (val %in% cLevels[[node$SplitVar]][node$ThreshSet]) {
+            if (val %in% cLevels[[node$SplitVar]][as.integer(node$ThreshSet) + 1]) {
                 return(.predictNode(node$Left, dataframe, cLevels))
             } else {
                 return(.predictNode(node$Right, dataframe, cLevels))

@@ -4,13 +4,23 @@
 \alias{plot.guide}
 \title{Plot Mr.Si regression tree}
 \usage{
-\method{plot}{guide}(msobj, digits = 3, height = "600px",
-  width = "100\%", nodefontSize = 16, edgefontSize = 14,
-  minNodeSize = 15, maxNodeSize = 30, nodeFixed = FALSE,
-  edgeColor = "#8181F7", highlightNearest = list(enabled = TRUE, degree
-  = list(from = 50000, to = 0), hover = FALSE, algorithm = "hierarchical"),
-  collapse = list(enabled = FALSE, fit = TRUE, resetHighlight = TRUE,
-  clusterOptions = list(fixed = TRUE, physics = FALSE)))
+\method{plot}{guide}(
+  msobj,
+  digits = 3,
+  height = "600px",
+  width = "100\%",
+  nodefontSize = 16,
+  edgefontSize = 14,
+  minNodeSize = 15,
+  maxNodeSize = 30,
+  nodeFixed = FALSE,
+  edgeColor = "#8181F7",
+  highlightNearest = list(enabled = TRUE, degree = list(from = 50000, to = 0), hover =
+    FALSE, algorithm = "hierarchical"),
+  collapse = list(enabled = FALSE, fit = TRUE, resetHighlight = TRUE, clusterOptions =
+    list(fixed = TRUE, physics = FALSE)),
+  alphaInd = 3
+)
 }
 \arguments{
 \item{msobj}{Mr.Si object}

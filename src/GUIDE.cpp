@@ -145,8 +145,8 @@ void GiStepWisePure(const arma::mat &numX, const arma::imat &catX,
     std::ofstream myfile;
 
     myfile.open(impName);
-    myfile << resTree.importanceScoreN;
-    myfile << resTree.importanceScoreC;
+    if (resTree.importanceScoreN.n_rows > 0)    myfile << resTree.importanceScoreN;
+    if (resTree.importanceScoreC.n_rows > 0)    myfile << resTree.importanceScoreC;
     myfile.close();
 
     myfile.open(treeName);

@@ -105,7 +105,7 @@ MrSFit <- function(dataframe, role, bestK = 1,
     }
 
     Y = as.matrix(Yori[non_miss, ])
-    cLevels = lapply(dataframe[non_miss, cr], .charLevels)
+    cLevels = lapply(dataframe[non_miss,][cr], .charLevels)
     cXL = characterDict(dataframe[non_miss, cr], cLevels)
     nX = dataFramToNumeric(dataframe[non_miss, nr])
 
