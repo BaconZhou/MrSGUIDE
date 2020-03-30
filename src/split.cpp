@@ -130,7 +130,10 @@ namespace SubGuide {
                         this->chiC(jc) += 0.0;
                     } else {
                         mat DcCx = hotCoding(Cx, true);
-                        this->chiC(jc) += lackOfFit(numX.cols(bInd), DcCx, Yi, this->trtDes);
+                        double lchi = lackOfFit(numX.cols(bInd), DcCx, Yi, this->trtDes);
+                        this->chiC(jc) += lchi;
+                        // Rcpp::Rcout << "bind: " << bInd.t() << '\n';
+                        // Rcpp::Rcout << "jc: " << jc << ", cp: " << cp << ", lackoffit" << lchi << '\n';
                     }
                     /*
                     if (this->chiC(jc) > maxChi) {
@@ -239,10 +242,14 @@ namespace SubGuide {
             const uword &ind = arma::index_min(threshLoss.col(0));
 
             this->threshSet = levels.elem(arma::find(xL.row(threshLoss(ind, 1)) == 1));
+            // Rcpp::Rcout << "Levels: " << levels << '\n';
+            // Rcpp::Rcout << "Threshset" << this->threshSet << '\n';
             uvec Tind = SubGuide::match(x, this->threshSet);
 
             this->optLeft = arma::find(Tind == 1);
             this->optRight = arma::find(Tind == 2);
+            // Rcpp::Rcout << "Left size: " << this->optLeft.n_elem << '\n';
+            // Rcpp::Rcout << "Right size: " << this->optRight.n_elem << '\n';
 
             if (arma::any(arma::find(levels == miss))) {
                 this->misDirection = arma::any(arma::find(this->threshSet == miss)) ? 'L' : 'R';

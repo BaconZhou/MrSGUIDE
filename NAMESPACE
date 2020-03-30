@@ -3,6 +3,7 @@
 S3method(plot,guide)
 S3method(print,guide)
 export("%>%")
+export(.yamlpretty)
 export(MrSFit)
 export(writeTex)
 exportPattern("^[[:alpha:]]+")

@@ -136,7 +136,9 @@ MrSFit <- function(dataframe, role, bestK = 1,
                      minTrt = minTrt, minData = minData, batchNum = batchNum,
                      CVFolds = CVFolds, CVSE = CVSE, bootNum = bootNum,
                      alpha = alpha, faster = faster, display = FALSE, varName = newVar,
-                     treeName = treeName, nodeName = nodeName, bootName = bootName, seed = seed
+                     treeName = treeName, nodeName = nodeName, bootName = bootName,
+                     impName = impName,
+                     seed = seed
                      )
 
     node <- read.table(nodeName, header = TRUE)$node

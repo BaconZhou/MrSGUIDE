@@ -5,7 +5,7 @@
         return(node)
     } else {
         if (node$Role != 'num') {
-            node$ThreshSet = clevels[[node$SplitVar]][as.integer(node$ThreshSet) + 1]
+            node$ThreshSet = clevels[[node$SplitVar]][as.integer(node$ThreshSet)]
         }
         node$Left = .yamlpretty(node$Left, clevels, nodeID)
         node$Right = .yamlpretty(node$Right, clevels, nodeID)

@@ -90,6 +90,7 @@ namespace RegSol {
 
         arma::uword findp = 0;
         // Rcpp::Rcout << "p + 1 " << p + 1 <<  "BestInd:" << bestInd << '\n';
+        // Rcpp::Rcout << "nhp:" << nhp << ", K: " << K << '\n';
         for (arma::uword i = nhp; i < nhp + K; i++) {
             // Rcpp::Rcout << "i: " << i << '\n';
             for (arma::uword j = 0; j < p; j++) {
@@ -103,6 +104,7 @@ namespace RegSol {
 
                 bestInd[i] = j;
                 parmT = fitMethod->fit(X.cols(bestInd.head(i + 1)), Y);
+                // Rcpp::Rcout << "(i, j) = (" << i << "," << j << "), BIC: " << parmT.BIC << '\n';
                 if (parmT.BIC < minBIC) {
                     minInd = j;
                     minBIC = parmT.BIC;

@@ -105,13 +105,13 @@ node *GiTree::buildTree(const mat &numX, const imat &catX, const mat &Y,
     stepNodeModel *nodeFit = new stepNodeModel(fitMethod);
     //Rcpp::Rcout << "NodeId: " << id << '\n';
     //logger->debug("NodeID: {}, bestK: {}", id, this->bestK);
-
+    // Rcpp::Rcout << "fitIndex" << this->fitIndex << "\n";
     nodeFit->fit(imputeValue(comX, Xmean), Y, this->fixIndex, this->fitIndex,
                  this->bestK, Xmean);
     result->nodeModel = nodeFit;
     result->fitInds = refineFit(nodeFit->bestInds, this->np);
     result->trtBeta = refineTrt(nodeFit->parms, this->tp, true); // for beta
-    
+
     // for (int vi = 0; vi < Y.n_cols; vi++) {
     //   Rcpp::Rcout << result->fitInds[vi] << '\n'
     //   << result->trtBeta[vi] << '\n';
@@ -133,6 +133,7 @@ node *GiTree::buildTree(const mat &numX, const imat &catX, const mat &Y,
         return result;
     }
     // cout << "Node ID: " << id << endl;
+    // Rcpp::Rcout << "Fitinds: " << result->fitInds[0] << '\n';
     splitMethod->findSplit(numX, catX, Y, Trt, result->fitInds, this->splitIndex);
     this->importanceScoreN += splitMethod->chiN * Trt.n_elem;
     this->importanceScoreC += splitMethod->chiC * Trt.n_elem;
@@ -211,7 +212,7 @@ void GiTree::crossValidation(node *cvroot, const arma::mat &numX,
     const uword &alphap = alphaVec.n_elem;
     vec nodeSize(alphap, arma::fill::zeros);
 
-    for (int i = 1; i < alphap; i++)
+    for (int i = 0; i < alphap; i++)
     {
         alphaVec(i) = (i < alphap - 1) ? std::sqrt(alphaVec(i) * alphaVec(i + 1))
                                        : alphaVec(i) + 1.0;
@@ -254,11 +255,22 @@ void GiTree::crossValidation(node *cvroot, const arma::mat &numX,
     //logger->debug("Std Loss: {}", stdLoss.t());
 
     auto minInd = arma::index_min(aveLoss);
+    // Rcpp::Rcout << "aveLoss: " << aveLoss.t() << '\n';
+    // Rcpp::Rcout << "CVSE: " << CVSE << ", aveLoss(minInd): " << aveLoss(minInd) << '\n';
     double minMSE = aveLoss(minInd) + CVSE * stdLoss(minInd);
+    // Rcpp::Rcout << "minMSE: " << minMSE << '\n';
+
     const uvec &lossInd = arma::find(aveLoss <= minMSE + 1e-4);
-
-    double minAlpha = alphaVec(lossInd(arma::index_min(nodeSize(lossInd))));
-
+    // Rcpp::Rcout << "aveLoss: " << aveLoss.t() << '\n';
+    // Rcpp::Rcout << "nodeSize: " << nodeSize.t() << '\n';
+    // Rcpp::Rcout << "AlphaVec: " << alphaVec.t() << '\n';
+    // Rcpp::Rcout << "lossInd: " << lossInd.t() << '\n';
+    auto mid = lossInd(arma::index_min(nodeSize(lossInd)));
+    // if (mid == 0) mid++;
+    // Rcpp::Rcout << "Mid: " << mid << '\n';
+    // Rcpp::Rcout << "nodeSize(lossInd): "<< nodeSize(lossInd) << '\n';
+    double minAlpha = alphaVec(mid);
+    // Rcpp::Rcout << "minAlpha: " << minAlpha << '\n';
     Node::pruneAlpha(cvroot, minAlpha);
 
     //logger->debug("Minimal Alpha: {}", minAlpha);
