@@ -7,7 +7,7 @@
             Effect = c()
             SE = c()
             for (j in seq_along(trt)) {
-                Effect = c(Effect, trt[j] - trt[1])
+                Effect = c(Effect, trt[j])
                 SE = c(SE, trtse[j])
             }
             resT <- data.frame(Estimate = Effect, SE = SE, Assignment = tLevels, Outcome = Yname[i])
@@ -154,7 +154,7 @@ plot.guide <- function(msobj, digits = 3, height = "600px", width = "100%",
                      nodesPopSize = FALSE, fixed = nodeFixed,
                      minNodeSize = minNodeSize,
                      maxNodeSize = maxNodeSize)
-    edf1 <- .edge_df(msobj$treeRes, ndf1, fit$cLevels, digits = digits, color = edgeColor,
+    edf1 <- .edge_df(msobj$treeRes, ndf1, msobj$cLevels, digits = digits, color = edgeColor,
                      font.size = edgefontSize, font.align = "horizontal")
 
     tree <- visNetwork::visNetwork(nodes = ndf1, edges = edf1, height = height, width = width) %>%

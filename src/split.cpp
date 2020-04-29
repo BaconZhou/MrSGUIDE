@@ -106,8 +106,9 @@ namespace SubGuide {
 
                     ivec cNx = quartileX(nX, 4);
                     mat DcNx = hotCoding(cNx, true);
-
-                    this->chiN(SplitIndex(jn)) += lackOfFit(numX.cols(bInd), DcNx, Yi, this->trtDes);
+                    double lchi = lackOfFit(numX.cols(bInd), DcNx, Yi, this->trtDes);
+                    this->chiN(SplitIndex(jn)) += lchi;
+                    // Rcpp::Rcout << "jn: " << jn << ", cp: " << cp << ", lackoffit" << lchi << '\n';
                     /*
                     if (this->chiN(jn) > maxChi) {
                         maxChi = this->chiN(jn);
@@ -493,8 +494,12 @@ namespace SubGuide {
             if (parmPe.loss > parmTotal.loss)
                 return 0.0;
 
+            if (parmPe.loss == arma::datum::inf || parmTotal.loss == arma::datum::inf) 
+                return 0;
+            
+            // Rcpp::Rcout << "Total loss: " << parmTotal.loss << ", Pe loss: " << parmPe.loss << ", Total df: " << parmTotal.df << ", Pe df: " << parmPe.df << '\n';
             double result =
-            chiApproximate(parmTotal.loss, parmPe.loss, parmTotal.df, parmPe.df);
+            chiApproximate(parmTotal.loss, parmPe.loss, parmTotal.df + 2, parmPe.df + 1);
             // logger->info("Chi-value: {}", result);
             return result;
         }

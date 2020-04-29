@@ -140,7 +140,7 @@ writeTex <- function(mrsobj, file, digits = 3, ...) {
             }
         } else {
             if (node$MisDirection != 'A') {
-                cat('$\\in$ { ', paste0(node$ThreshSet, collapse = ', '), ifelse(node$MisDirection == 'L', ', NA', ''), '\\}}}\n', sep = '', file = texfile, append = TRUE, ...)
+                cat('$\\in$ \\{ ', paste0(node$ThreshSet, collapse = ', '), ifelse(node$MisDirection == 'L', ', NA', ''), '\\}}}\n', sep = '', file = texfile, append = TRUE, ...)
             } else {
                 cat('$=$', 'NA}}\n', sep = '', file = texfile, append = TRUE,...)
             }

@@ -113,7 +113,7 @@ node *GiTree::buildTree(const mat &numX, const imat &catX, const mat &Y,
     result->trtBeta = refineTrt(nodeFit->parms, this->tp, true); // for beta
 
     // for (int vi = 0; vi < Y.n_cols; vi++) {
-    //   Rcpp::Rcout << result->fitInds[vi] << '\n'
+    //   Rcpp::Rcout <<  "vi: " << vi << ", fiinde: " << result->fitInds[vi].t() << '\n'
     //   << result->trtBeta[vi] << '\n';
     // }
 
@@ -133,8 +133,13 @@ node *GiTree::buildTree(const mat &numX, const imat &catX, const mat &Y,
         return result;
     }
     // cout << "Node ID: " << id << endl;
-    // Rcpp::Rcout << "Fitinds: " << result->fitInds[0] << '\n';
+
+    //Rcpp::Rcout << "Fitinds: " << result->fitInds[0] << '\n';
+
     splitMethod->findSplit(numX, catX, Y, Trt, result->fitInds, this->splitIndex);
+    // Rcpp::Rcout << "ChiN: " << splitMethod->chiN.t() << '\n';
+    // Rcpp::Rcout << "ChiC: " << splitMethod->chiC.t() << '\n';
+    // Rcpp::Rcout << "Split at: " << splitMethod->getVarID() << '\n';
     this->importanceScoreN += splitMethod->chiN * Trt.n_elem;
     this->importanceScoreC += splitMethod->chiC * Trt.n_elem;
 
