@@ -113,14 +113,17 @@
                          .edge_helper(node$Right, node_df, clevels, digits))
         }
     }
+
     edf <- .edge_helper(node, node_df, clevels, digits)
+    if (is.null(edf)) return(NULL)
+
     return(cbind(edf, settings))
 }
 
 
 #' Plot MrS regression tree
 #'
-#' @param msobj MrS object
+#' @param mrsobj MrS object
 #' @param digits digits for split threshold
 #' @param height figure height
 #' @param width figure width
@@ -143,7 +146,7 @@
 #' @importFrom ggplot2 theme labs geom_hline element_text geom_errorbar aes
 #' @importFrom dplyr mutate arrange group_by
 #' @importFrom rlang .data
-plotTree <- function(msobj, digits = 3, height = "600px", width = "100%",
+plotTree <- function(mrsobj, digits = 3, height = "600px", width = "100%",
                        nodefontSize = 16, edgefontSize = 14,
                        minNodeSize = 15, maxNodeSize = 30,
                        nodeFixed = FALSE, edgeColor = "#8181F7",
@@ -154,12 +157,13 @@ plotTree <- function(msobj, digits = 3, height = "600px", width = "100%",
                                        clusterOptions = list(fixed = TRUE, physics = FALSE)),
                        alphaInd = 3) {
 
-    treatNode <- .getTrt(msobj$nodeMap, msobj$ynames, msobj$tLevels[[1]])
-    ndf1 <- .node_df(msobj$treeRes, treatNode, digits = digits, font.size = nodefontSize,
+    treatNode <- .getTrt(mrsobj$nodeMap, mrsobj$ynames, mrsobj$tLevels[[1]])
+    ndf1 <- .node_df(mrsobj$treeRes, treatNode, digits = digits, font.size = nodefontSize,
                      nodesPopSize = FALSE, fixed = nodeFixed,
                      minNodeSize = minNodeSize,
                      maxNodeSize = maxNodeSize)
-    edf1 <- .edge_df(msobj$treeRes, ndf1, msobj$cLevels, digits = digits, color = edgeColor,
+
+    edf1 <- .edge_df(mrsobj$treeRes, ndf1, mrsobj$cLevels, digits = digits, color = edgeColor,
                      font.size = edgefontSize, font.align = "horizontal")
 
     tree <- visNetwork::visNetwork(nodes = ndf1, edges = edf1, height = height, width = width) %>%
@@ -178,8 +182,8 @@ plotTree <- function(msobj, digits = 3, height = "600px", width = "100%",
         visNetwork::visExport()
 
     palpha <- 1.96
-    if (!is.null(msobj$bootAlpha)) {
-        palpha <- abs(stats::qnorm(msobj$bootAlpha[alphaInd]))
+    if (!is.null(mrsobj$bootAlpha)) {
+        palpha <- abs(stats::qnorm(mrsobj$bootAlpha[alphaInd]))
     }
 
     treatNode <- treatNode %>%
@@ -199,7 +203,7 @@ plotTree <- function(msobj, digits = 3, height = "600px", width = "100%",
         ggplot2::geom_hline(yintercept = 0, linetype = 2, color = "lightgray") +
         ggplot2::theme(legend.text=ggplot2::element_text(size=14))
 
-    if (!is.null(msobj$bootAlpha)) {
+    if (!is.null(mrsobj$bootAlpha)) {
         trtPlot <- trtPlot +
             ggplot2::geom_errorbar(ggplot2::aes(x = .data$Quantity,
                                                 ymin = .data$ymin,

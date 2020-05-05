@@ -44,7 +44,8 @@
 #' Check the condition and print message
 #' @param logicstatus whehter it is true
 #' @param message message want to print
-check <- function(logicstatus, message) {
+#' @noRd 
+.check <- function(logicstatus, message) {
     if (!logicstatus)
         stop(message, call. = FALSE)
 }

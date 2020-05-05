@@ -137,6 +137,8 @@ plotObj <- plotTree(msobj = mrsobj)
 plotObj$treeplot
 ```
 
+The node id and sample size are shown in the terminal node. Each split variable is plotted inside node. 
+
 ```{r quick-example-plot-nodeTreat}
 plotObj$nodeTreat
 ```
@@ -217,7 +219,8 @@ The first model with parameter `bestK = 0` only regress treatment assignment ins
 
 ```{r bestK-0}
 mrsobj <- MrSFit(dataframe = train, role = role, bestK = 0)
-printTree(mrsobj)
+plotObj <- plotTree(mrsobj)
+plotObj$treeplot
 ```
 
 
@@ -230,21 +233,69 @@ where $X_{j*}$ can be different for each $Y_j$.
 
 ```{r bestK-1}
 mrsobj <- MrSFit(dataframe = train, role = role, bestK = 1)
-printTree(mrsobj = mrsobj)
+plotObj <- plotTree(mrsobj)
+plotObj$treeplot
 ```
 
 
 #### `bootNum` and `alpha`
 
-The second important argument to feed into the `MrSFit()` is `bootNum`, it is used for control the number of bootstrap time to calibrate the confidence interval length. `alpha` is the desired alpha level of the interval. The detail algorithm can be found in Loh ().
+The second important argument to feed into the `MrSFit()` is `bootNum`. It is used for control the number of bootstrap time to calibrate the confidence interval length. `alpha` is the desired alpha level of the interval. The detail algorithm can be found in Loh ().
 
-In general, we recommand run `bootNum = 1000` to calibrate the confidence interval of treatment effect estimators.
+In general, we recommand run `bootNum = 1000` to calibrate the confidence interval of treatment effect estimators. But it will take more times.
 
 ### Tree arguments
 
-`MrSFit()` has arguments to control tree growing and pruning.
+`MrSFit()` has arguments to control tree growing and pruning. 
 
+#### `maxDepth`, `minTrt` and `minData`
 
-## Subgroup identification
+The tree depth is controled by `maxDepth` with default value `maxDepth = 5`. You can also change `maxDepth = 1` with only a root node.
 
-## Variable importance
+```{r maxDepth-1}
+mrsobj <- MrSFit(dataframe = train, role = role, bestK = 1, maxDepth = 1)
+plotObj <- plotTree(mrsobj)
+plotObj$treeplot
+```
+
+`minTrt` controls inside a node, how many data should each treatment levels contains. For example, if we set `minTrt = 30`, the terminal nodes of resulting tree have both 30 observationas in `Z=0` and `Z=1`
+
+```{r minTrt-30}
+mrsobj <- MrSFit(dataframe = train, role = role, bestK = 0, minTrt = 30)
+plotObj <- plotTree(mrsobj)
+plotObj$treeplot
+```
+
+`minData` controls how many data points should include inside each terminal nodes. For example, if we set `minData = 50`, each terminal node contains at least 50 observations.
+
+```{r minData-50}
+mrsobj <- MrSFit(dataframe = train, role = role, bestK = 0, minData = 50)
+plotObj <- plotTree(mrsobj)
+plotObj$treeplot
+```
+
+#### `CVFolds` and `CVSE`
+
+`MrSFit()` uses cross-validataion for tree pruning. `CVFolds` controls the number of cross-validation, and `CVSE` is a parameters control the error allowance. If we set `CVFolds == 0`, `MrSFit()` will not perform cross-validation for pruning.
+
+```{r CVFolds-0}
+mrsobj <- MrSFit(dataframe = train, role = role, 
+                 bestK = 0, maxDepth = 5, minTrt = 1, 
+                 minData = 2, 
+                 CVFolds = 0)
+plotObj <- plotTree(mrsobj)
+plotObj$treeplot
+```
+
+In general, we recommand setting `CVSE=0.5` and `CVFolds=10`, a smaller `CVSE` will provide a larger tree result.
+
+```{r CVSE}
+mrsobj <- MrSFit(dataframe = train, role = role, 
+                 bestK = 0, maxDepth = 5, minTrt = 1, 
+                 minData = 2, CVSE = 0.5,
+                 CVFolds = 10)
+plotObj <- plotTree(mrsobj)
+plotObj$treeplot
+```
+
+It is the basic usage of the package.

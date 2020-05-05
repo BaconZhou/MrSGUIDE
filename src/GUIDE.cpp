@@ -11,11 +11,10 @@
 
 #ifdef _OPENMP
     #include <omp.h>
+    // [[Rcpp::plugins(openmp)]]
 #endif
 
 // [[Rcpp::depends(RcppArmadillo)]]
-
-// [[Rcpp::plugins(openmp)]]
 
 // [[Rcpp::plugins(cpp11)]]
 

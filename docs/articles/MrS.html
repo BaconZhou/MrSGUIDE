@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">MrSGUIDE</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1</span>
       </span>
     </div>
 
@@ -59,7 +59,14 @@
   </ul>
 </li>
       </ul>
-<ul class="nav navbar-nav navbar-right"></ul>
+<ul class="nav navbar-nav navbar-right">
+<li>
+  <a href="https://github.com/baconzhou/mrs/">
+    <span class="fab fa fab fa-github fa-lg"></span>
+     
+  </a>
+</li>
+      </ul>
 </div>
 <!--/.nav-collapse -->
   </div>
@@ -77,7 +84,7 @@
             
             <h4 class="date">2020-05-05</h4>
       
-      
+      <small class="dont-index">Source: <a href="https://github.com/baconzhou/mrs/blob/master/vignettes/MrS.Rmd"><code>vignettes/MrS.Rmd</code></a></small>
       <div class="hidden name"><code>MrS.Rmd</code></div>
 
     </div>
@@ -152,6 +159,7 @@
 </ol>
 <div class="sourceCode" id="cb7"><html><body><pre class="r"><span class="no">plotObj</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/plotTree.html">plotTree</a></span>(<span class="kw">msobj</span> <span class="kw">=</span> <span class="no">mrsobj</span>)</pre></body></html></div>
 <div class="sourceCode" id="cb8"><html><body><pre class="r"><span class="no">plotObj</span>$<span class="no">treeplot</span></pre></body></html></div>
+<p>The node id and sample size are shown in the terminal node. Each split variable is plotted inside node.</p>
 <div class="sourceCode" id="cb9"><html><body><pre class="r"><span class="no">plotObj</span>$<span class="no">nodeTreat</span></pre></body></html></div>
 <div class="sourceCode" id="cb10"><html><body><pre class="r"><span class="no">plotObj</span>$<span class="no">trtPlot</span></pre></body></html></div>
 <p><code>MrSGUIDE</code> also provide <code><a href="../reference/predictTree.html">predictTree()</a></code> function, which can be used to predict node id also the outcomes.</p>
@@ -198,28 +206,76 @@
 <div id="model-arguments" class="section level3">
 <h3 class="hasAnchor">
 <a href="#model-arguments" class="anchor"></a>Model arguments</h3>
-<p>In terms of the modeling aspect, the most important argument feed into the <code><a href="../reference/MrSGUIDE.html">MrSFit()</a></code> function is <code>bestK</code>. The <code>bestK</code> is the number of variable used for stepwise selection. <code><a href="../reference/MrSGUIDE.html">MrSFit()</a></code> can fit two types of model.</p>
+<div id="bestk" class="section level4">
+<h4 class="hasAnchor">
+<a href="#bestk" class="anchor"></a><code>bestK</code>
+</h4>
+<p>In terms of the modeling aspect, the most important argument to feed into the <code><a href="../reference/MrSGUIDE.html">MrSFit()</a></code> function is <code>bestK</code>. The <code>bestK</code> is the number of variable used for stepwise selection. <code><a href="../reference/MrSGUIDE.html">MrSFit()</a></code> can fit two types of model.</p>
 <p>The first model with parameter <code>bestK = 0</code> only regress treatment assignment inside each terminal node.</p>
 <p><span class="math display">\[\begin{equation}
     y_j = \beta_{j0} + \sum\limits_{z = 2}^{G}\beta_{jz}I(Z=z), i = 1, \dots, J.
 \end{equation}\]</span></p>
+<div class="sourceCode" id="cb15"><html><body><pre class="r"><span class="no">mrsobj</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/MrSGUIDE.html">MrSFit</a></span>(<span class="kw">dataframe</span> <span class="kw">=</span> <span class="no">train</span>, <span class="kw">role</span> <span class="kw">=</span> <span class="no">role</span>, <span class="kw">bestK</span> <span class="kw">=</span> <span class="fl">0</span>)
+<span class="no">plotObj</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/plotTree.html">plotTree</a></span>(<span class="no">mrsobj</span>)
+<span class="no">plotObj</span>$<span class="no">treeplot</span></pre></body></html></div>
 <p>The second model with parameter <code>bestK = 1</code> will include one best linear regressor which is selected from variables with role in <strong>f</strong> and <strong>n</strong>. If you choose <code>bestK = 2</code>, <code><a href="../reference/MrSGUIDE.html">MrSFit()</a></code> will choose at most two variables inside each terminal node with stepwise regression based on BIC criterion. For example, when <code>bestK = 1</code>, <code><a href="../reference/MrSGUIDE.html">MrSFit()</a></code> fits model:</p>
 <p><span class="math display">\[\begin{equation}
     y_j = \beta_{j0} + \beta_{j*}X_{j*} + \sum\limits_{z = 2}^{G}\beta_{jz}I(Z=z), i = 1, \dots, J,
-\end{equation}\]</span> where <span class="math inline">\(X_{j*}\)</span> can be different for each <code>Y_j</code>.</p>
+\end{equation}\]</span> where <span class="math inline">\(X_{j*}\)</span> can be different for each <span class="math inline">\(Y_j\)</span>.</p>
+<div class="sourceCode" id="cb16"><html><body><pre class="r"><span class="no">mrsobj</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/MrSGUIDE.html">MrSFit</a></span>(<span class="kw">dataframe</span> <span class="kw">=</span> <span class="no">train</span>, <span class="kw">role</span> <span class="kw">=</span> <span class="no">role</span>, <span class="kw">bestK</span> <span class="kw">=</span> <span class="fl">1</span>)
+<span class="no">plotObj</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/plotTree.html">plotTree</a></span>(<span class="no">mrsobj</span>)
+<span class="no">plotObj</span>$<span class="no">treeplot</span></pre></body></html></div>
+</div>
+<div id="bootnum-and-alpha" class="section level4">
+<h4 class="hasAnchor">
+<a href="#bootnum-and-alpha" class="anchor"></a><code>bootNum</code> and <code>alpha</code>
+</h4>
+<p>The second important argument to feed into the <code><a href="../reference/MrSGUIDE.html">MrSFit()</a></code> is <code>bootNum</code>. It is used for control the number of bootstrap time to calibrate the confidence interval length. <code>alpha</code> is the desired alpha level of the interval. The detail algorithm can be found in Loh ().</p>
+<p>In general, we recommand run <code>bootNum = 1000</code> to calibrate the confidence interval of treatment effect estimators. But it will take more times.</p>
+</div>
 </div>
 <div id="tree-arguments" class="section level3">
 <h3 class="hasAnchor">
 <a href="#tree-arguments" class="anchor"></a>Tree arguments</h3>
+<p><code><a href="../reference/MrSGUIDE.html">MrSFit()</a></code> has arguments to control tree growing and pruning.</p>
+<div id="maxdepth-mintrt-and-mindata" class="section level4">
+<h4 class="hasAnchor">
+<a href="#maxdepth-mintrt-and-mindata" class="anchor"></a><code>maxDepth</code>, <code>minTrt</code> and <code>minData</code>
+</h4>
+<p>The tree depth is controled by <code>maxDepth</code> with default value <code>maxDepth = 5</code>. You can also change <code>maxDepth = 1</code> with only a root node.</p>
+<div class="sourceCode" id="cb17"><html><body><pre class="r"><span class="no">mrsobj</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/MrSGUIDE.html">MrSFit</a></span>(<span class="kw">dataframe</span> <span class="kw">=</span> <span class="no">train</span>, <span class="kw">role</span> <span class="kw">=</span> <span class="no">role</span>, <span class="kw">bestK</span> <span class="kw">=</span> <span class="fl">1</span>, <span class="kw">maxDepth</span> <span class="kw">=</span> <span class="fl">1</span>)
+<span class="no">plotObj</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/plotTree.html">plotTree</a></span>(<span class="no">mrsobj</span>)
+<span class="no">plotObj</span>$<span class="no">treeplot</span></pre></body></html></div>
+<p><code>minTrt</code> controls inside a node, how many data should each treatment levels contains. For example, if we set <code>minTrt = 30</code>, the terminal nodes of resulting tree have both 30 observationas in <code>Z=0</code> and <code>Z=1</code></p>
+<div class="sourceCode" id="cb18"><html><body><pre class="r"><span class="no">mrsobj</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/MrSGUIDE.html">MrSFit</a></span>(<span class="kw">dataframe</span> <span class="kw">=</span> <span class="no">train</span>, <span class="kw">role</span> <span class="kw">=</span> <span class="no">role</span>, <span class="kw">bestK</span> <span class="kw">=</span> <span class="fl">0</span>, <span class="kw">minTrt</span> <span class="kw">=</span> <span class="fl">30</span>)
+<span class="no">plotObj</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/plotTree.html">plotTree</a></span>(<span class="no">mrsobj</span>)
+<span class="no">plotObj</span>$<span class="no">treeplot</span></pre></body></html></div>
+<p><code>minData</code> controls how many data points should include inside each terminal nodes. For example, if we set <code>minData = 50</code>, each terminal node contains at least 50 observations.</p>
+<div class="sourceCode" id="cb19"><html><body><pre class="r"><span class="no">mrsobj</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/MrSGUIDE.html">MrSFit</a></span>(<span class="kw">dataframe</span> <span class="kw">=</span> <span class="no">train</span>, <span class="kw">role</span> <span class="kw">=</span> <span class="no">role</span>, <span class="kw">bestK</span> <span class="kw">=</span> <span class="fl">0</span>, <span class="kw">minData</span> <span class="kw">=</span> <span class="fl">50</span>)
+<span class="no">plotObj</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/plotTree.html">plotTree</a></span>(<span class="no">mrsobj</span>)
+<span class="no">plotObj</span>$<span class="no">treeplot</span></pre></body></html></div>
+</div>
+<div id="cvfolds-and-cvse" class="section level4">
+<h4 class="hasAnchor">
+<a href="#cvfolds-and-cvse" class="anchor"></a><code>CVFolds</code> and <code>CVSE</code>
+</h4>
+<p><code><a href="../reference/MrSGUIDE.html">MrSFit()</a></code> uses cross-validataion for tree pruning. <code>CVFolds</code> controls the number of cross-validation, and <code>CVSE</code> is a parameters control the error allowance. If we set <code>CVFolds == 0</code>, <code><a href="../reference/MrSGUIDE.html">MrSFit()</a></code> will not perform cross-validation for pruning.</p>
+<div class="sourceCode" id="cb20"><html><body><pre class="r"><span class="no">mrsobj</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/MrSGUIDE.html">MrSFit</a></span>(<span class="kw">dataframe</span> <span class="kw">=</span> <span class="no">train</span>, <span class="kw">role</span> <span class="kw">=</span> <span class="no">role</span>,
+                 <span class="kw">bestK</span> <span class="kw">=</span> <span class="fl">0</span>, <span class="kw">maxDepth</span> <span class="kw">=</span> <span class="fl">5</span>, <span class="kw">minTrt</span> <span class="kw">=</span> <span class="fl">1</span>,
+                 <span class="kw">minData</span> <span class="kw">=</span> <span class="fl">2</span>,
+                 <span class="kw">CVFolds</span> <span class="kw">=</span> <span class="fl">0</span>)
+<span class="no">plotObj</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/plotTree.html">plotTree</a></span>(<span class="no">mrsobj</span>)
+<span class="no">plotObj</span>$<span class="no">treeplot</span></pre></body></html></div>
+<p>In general, we recommand setting <code>CVSE=0.5</code> and <code>CVFolds=10</code>, a smaller <code>CVSE</code> will provide a larger tree result.</p>
+<div class="sourceCode" id="cb21"><html><body><pre class="r"><span class="no">mrsobj</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/MrSGUIDE.html">MrSFit</a></span>(<span class="kw">dataframe</span> <span class="kw">=</span> <span class="no">train</span>, <span class="kw">role</span> <span class="kw">=</span> <span class="no">role</span>,
+                 <span class="kw">bestK</span> <span class="kw">=</span> <span class="fl">0</span>, <span class="kw">maxDepth</span> <span class="kw">=</span> <span class="fl">5</span>, <span class="kw">minTrt</span> <span class="kw">=</span> <span class="fl">1</span>,
+                 <span class="kw">minData</span> <span class="kw">=</span> <span class="fl">2</span>, <span class="kw">CVSE</span> <span class="kw">=</span> <span class="fl">0.5</span>,
+                 <span class="kw">CVFolds</span> <span class="kw">=</span> <span class="fl">10</span>)
+<span class="no">plotObj</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/plotTree.html">plotTree</a></span>(<span class="no">mrsobj</span>)
+<span class="no">plotObj</span>$<span class="no">treeplot</span></pre></body></html></div>
+<p>It is the basic usage of the package.</p>
 </div>
 </div>
-<div id="subgroup-identification" class="section level2">
-<h2 class="hasAnchor">
-<a href="#subgroup-identification" class="anchor"></a>Subgroup identification</h2>
-</div>
-<div id="variable-importance" class="section level2">
-<h2 class="hasAnchor">
-<a href="#variable-importance" class="anchor"></a>Variable importance</h2>
 </div>
 </div>
   </div>

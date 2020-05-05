@@ -43,18 +43,18 @@ MrSFit <- function(dataframe, role, bestK = 1, bootNum = 0L, alpha = 0.05,
     t1 = Sys.time()
 
     if(display) cat("Start data processing: \n")
-    check(NCOL(dataframe) == length(role),
+    .check(NCOL(dataframe) == length(role),
           "column number of data frame is not same as role length.")
     varName = colnames(dataframe)
 
     dr = which(role == "d")
 
-    check(length(dr) > 0, "No dependent variable in role.")
+    .check(length(dr) > 0, "No dependent variable in role.")
 
     rr = which(role == "r")
 
-    check(length(rr) > 0, "No treatment variable in role.")
-    check(length(rr) < 2, paste("Current version can only deal with one treatment variable. Find ", length(rr), "in role."))
+    .check(length(rr) > 0, "No treatment variable in role.")
+    .check(length(rr) < 2, paste("Current version can only deal with one treatment variable. Find ", length(rr), "in role."))
 
     sr = which(role %in% c("n", "s"))
     fr = which(role %in% c("n", "f"))
@@ -74,15 +74,15 @@ MrSFit <- function(dataframe, role, bestK = 1, bootNum = 0L, alpha = 0.05,
     cr = which(role %in% "c")
     xr = which(role == "x")
 
-    check(length(sr) + length(cr) > 0, "No split variable in role.")
+    .check(length(sr) + length(cr) > 0, "No split variable in role.")
 
     for (i in c(sr, fr, hr)) {
-        check(!class(dataframe[, i]) %in% c("character", "factor"),
+        .check(!class(dataframe[, i]) %in% c("character", "factor"),
               paste(varName[i], "seems a categorical variable? please change the role vector") )
     }
 
     for (i in cr) {
-        check(class(dataframe[, i]) != "numeric",
+        .check(class(dataframe[, i]) != "numeric",
               paste(varName[i], "seems not a categorical variable. Please change the role vector"))
     }
 
