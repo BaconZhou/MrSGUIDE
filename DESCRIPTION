@@ -16,13 +16,13 @@ Depends: R (>= 3.1.0)
 Imports: Rcpp,
     dplyr,
     magrittr,
-    rlang
-RoxygenNote: 7.1.0
-Suggests: knitr,
-    rmarkdown,
+    rlang,
     visNetwork,
     ggpubr,
     ggplot2
+RoxygenNote: 7.1.0
+Suggests: knitr,
+    rmarkdown
 VignetteBuilder: knitr
 Encoding: UTF-8
 
