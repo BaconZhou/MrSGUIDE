@@ -7,7 +7,7 @@ output:
         fig_width: 7
         fig_height: 5
         toc: true
-        toc_depth: 3
+        toc_depth: 4
         number_sections: true
         self_contained: true
 preamble: >
@@ -39,7 +39,7 @@ vignette: >
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE,eval=F)
+knitr::opts_chunk$set(echo = TRUE)
 ```
 
 # Introduction to `MrSGUIDE`
@@ -130,7 +130,7 @@ printTree(mrsobj = mrsobj, details = F)
 3. A node statistic plot `trtPlot`
 
 ```{r quick-example-plot}
-plotObj <- plotTree(msobj = mrsobj)
+plotObj <- plotTree(mrsobj = mrsobj)
 ```
 
 ```{r quick-example-plot-treeplot}
@@ -242,7 +242,18 @@ plotObj$treeplot
 
 The second important argument to feed into the `MrSFit()` is `bootNum`. It is used for control the number of bootstrap time to calibrate the confidence interval length. `alpha` is the desired alpha level of the interval. The detail algorithm can be found in Loh ().
 
-In general, we recommand run `bootNum = 1000` to calibrate the confidence interval of treatment effect estimators. But it will take more times.
+In general, we recommand run `bootNum = 1000` to calibrate the confidence interval of treatment effect estimators. But it will take more times. For illustration purpose, here we set `bootNum = 50` and `alpha = 0.05`.
+
+```{r boot}
+mrsobj <- MrSFit(dataframe = train, role = role, bestK = 1, bootNum = 50, alpha = 0.05)
+plotObj <- plotTree(mrsobj)
+plotObj$treeplot
+```
+
+```{r}
+plotObj$trtPlot
+```
+
 
 ### Tree arguments
 

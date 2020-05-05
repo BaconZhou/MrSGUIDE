@@ -13,18 +13,16 @@ BugReports: https://github.com/baconzhou/mrs/issues
 LinkingTo: Rcpp, RcppArmadillo, BH
 SystemRequirements: GNU make
 Depends: R (>= 3.1.0)
-Imports: 
-    Rcpp (>= 0.12.19), 
-    yaml (>= 2.0.0),
-    visNetwork (>= 2.0),
-    ggpubr (>= 0.1),
-    ggplot2 (>= 3.0),
-    dplyr (>= 0.7),
-    magrittr (>= 1.0),
-    rlang (>= 0.4)
+Imports: Rcpp,
+    dplyr,
+    magrittr,
+    rlang
 RoxygenNote: 7.1.0
 Suggests: knitr,
-    rmarkdown
+    rmarkdown,
+    visNetwork,
+    ggpubr,
+    ggplot2
 VignetteBuilder: knitr
 Encoding: UTF-8
 

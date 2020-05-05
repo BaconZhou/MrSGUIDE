@@ -5,7 +5,7 @@
 \title{Plot MrS regression tree}
 \usage{
 plotTree(
-  msobj,
+  mrsobj,
   digits = 3,
   height = "600px",
   width = "100\%",
@@ -23,7 +23,7 @@ plotTree(
 )
 }
 \arguments{
-\item{msobj}{MrS object}
+\item{mrsobj}{MrS object}
 
 \item{digits}{digits for split threshold}
 
