@@ -14,6 +14,11 @@ Loh, W.-Y., Fu, H., Man, M., Champion, V. and Yu, M. (2016), [Identification of 
 
 # Package install **No test in windows**
 
+```
+library(devtools)
+install_github('baconzhou/MrS')
+```
+
 - OpenMP support is required.
 
 ## MacOS

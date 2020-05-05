@@ -10,14 +10,14 @@ MrSFit(
   dataframe,
   role,
   bestK = 1,
+  bootNum = 0L,
+  alpha = 0.05,
   maxDepth = 5,
   minTrt = 5,
   minData = max(c(minTrt * maxDepth, NROW(Y)/20)),
   batchNum = 1L,
   CVFolds = 10L,
   CVSE = 0,
-  bootNum = 0L,
-  alpha = 0.05,
   faster = FALSE,
   display = FALSE,
   treeName = paste0("tree_", format(Sys.time(), "\%m\%d"), ".yaml"),
@@ -25,7 +25,7 @@ MrSFit(
   bootName = paste0("boot_", format(Sys.time(), "\%m\%d"), ".txt"),
   impName = paste0("imp_", format(Sys.time(), "\%m\%d"), ".txt"),
   writeTo = FALSE,
-  remove = FALSE
+  remove = TRUE
 )
 }
 \arguments{
@@ -34,6 +34,10 @@ MrSFit(
 \item{role}{role follows GUIDE role}
 
 \item{bestK}{number of covariates in the regression model}
+
+\item{bootNum}{bootstrap number}
+
+\item{alpha}{desire alpha levels for confidence interval with respect to treatment parameters}
 
 \item{maxDepth}{maximum tree depth}
 
@@ -46,10 +50,6 @@ MrSFit(
 \item{CVFolds}{cross validataion times}
 
 \item{CVSE}{cross validation SE}
-
-\item{bootNum}{bootstrap number}
-
-\item{alpha}{desire alpha levels for confidence interval with respect to treatment parameters}
 
 \item{faster}{related with tree split searching}
 

@@ -4,7 +4,7 @@
 \alias{printTree}
 \title{Print fitted regression tree}
 \usage{
-printTree(mrsobj, digits = 3, details = FALSE, ...)
+printTree(mrsobj, digits = 3, details = TRUE, ...)
 }
 \arguments{
 \item{mrsobj}{MrS object}

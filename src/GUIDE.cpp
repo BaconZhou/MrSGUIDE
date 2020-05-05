@@ -71,7 +71,6 @@ Rcpp::NumericMatrix dataFramToNumeric(const Rcpp::DataFrame &numX) {
 //'
 //' @param charX character dataframe or factor dataframe
 //' @param levels, the desired levels for each character vector
-//'
 //' @return list intX the integer matrix x, with crosspoding levels.
 //'
 // [[Rcpp::export]]

@@ -10,14 +10,14 @@
 #' @param dataframe train data frame
 #' @param role role follows GUIDE role
 #' @param bestK number of covariates in the regression model
+#' @param bootNum bootstrap number
+#' @param alpha desire alpha levels for confidence interval with respect to treatment parameters
 #' @param maxDepth maximum tree depth
 #' @param minTrt minimum treatment and placebo sample in each node
 #' @param minData minimum sample in each node
 #' @param batchNum related with exhaustive search for numerical split variable
 #' @param CVFolds cross validataion times
 #' @param CVSE cross validation SE
-#' @param bootNum bootstrap number
-#' @param alpha desire alpha levels for confidence interval with respect to treatment parameters
 #' @param faster related with tree split searching
 #' @param display Whether display tree in the end
 #' @param treeName yaml file for save the tree
@@ -26,18 +26,20 @@
 #' @param impName important variable file name
 #' @param writeTo debug option reserve for author...
 #' @param remove whether to remove extra files
+#'
+#'
 #' @importFrom utils read.table write.table
 #' @export
-MrSFit <- function(dataframe, role, bestK = 1,
+MrSFit <- function(dataframe, role, bestK = 1, bootNum = 0L, alpha = 0.05,
                         maxDepth = 5,
                         minTrt = 5, minData = max(c(minTrt * maxDepth, NROW(Y) / 20)),
                         batchNum = 1L, CVFolds = 10L, CVSE = 0.0,
-                        bootNum = 0L, alpha = 0.05, faster = FALSE, display = FALSE,
+                        faster = FALSE, display = FALSE,
                         treeName = paste0("tree_", format(Sys.time(), "%m%d"), ".yaml"),
                         nodeName = paste0("node_", format(Sys.time(), "%m%d"), ".txt"),
                         bootName = paste0("boot_", format(Sys.time(), "%m%d"), ".txt"),
                         impName = paste0("imp_", format(Sys.time(), "%m%d"), ".txt"),
-                        writeTo = FALSE, remove = FALSE) {
+                        writeTo = FALSE, remove = TRUE) {
     t1 = Sys.time()
 
     if(display) cat("Start data processing: \n")
@@ -147,6 +149,8 @@ MrSFit <- function(dataframe, role, bestK = 1,
     nodeMap = .node.guide(treeRes, node, dataframe[non_miss, ], ynames, trtname)
     Settings <- list(CVFolds = CVFolds, CVSE = CVSE, bestK = bestK, maxDepth = maxDepth,
                     minData = minData, minTrt = minTrt)
+    trtNode = .processTrt(nodeMap, ynames, trtname, tLevels[[1]])
+
     res <- list(treeRes = treeRes,
                 node = node,
                 imp = impRes,
@@ -155,7 +159,7 @@ MrSFit <- function(dataframe, role, bestK = 1,
                 tp = length(tLevels),
                 role = role, varName = varName, numName = numVarName,
                 catName = catVarName, ynames = ynames,
-                trtname = trtname, nodeMap = nodeMap, TrtL = TrtL, Settings = Settings)
+                trtname = trtname, nodeMap = nodeMap, TrtL = TrtL, Settings = Settings, trtNode = trtNode)
     if(display) {
         cat("Finish tree build. ", difftime(Sys.time(), t2, units = "secs"), "s\n")
         # print_node(node = treeRes, yName = ynames, trtName = trtname, tlevels = tLevels[[1]], clevels = cLevels)
@@ -168,7 +172,8 @@ MrSFit <- function(dataframe, role, bestK = 1,
         if(remove) file.remove(bootName)
     }
     if (remove) file.remove(nodeName, treeName, impName)
-    class(res) <- c('guide', 'mrs')
+
+    class(res) <- c('guide')
     return(res)
 }
 

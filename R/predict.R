@@ -27,6 +27,35 @@
     }
 }
 
+#' @importFrom stats predict.lm
+#' @noRd
+.predictY <- function(node, newx) {
+    models = node[['model']]
+    ny = length(models)
+
+    y = rep(NA, ny)
+    for (i in 1:ny) {
+        y[i] = predict.lm(models[[i]], newx)
+    }
+    y
+}
+
+.processTrt <- function(nodeMap, yname, trtname, tLevels) {
+    termNodes = names(nodeMap)
+    ny = length(nodeMap[[termNodes[1]]][['Trts']])
+    nt = length(nodeMap[[termNodes[1]]][['Trts']][[1]])
+    trt = data.frame()
+
+    for (term in termNodes) {
+        tmp = sapply(nodeMap[[term]][['Trts']], FUN = function(x){x})
+        colnames(tmp) = paste0(trtname, tLevels)
+        trt = rbind(trt,
+                    data.frame(nodeId = gsub('term', '', term),
+                               node = term, y = yname, tmp))
+    }
+    trt
+}
+
 #' Predict the node id of MrS regression tree
 #'
 #' @param mrsobj MrS object
@@ -34,11 +63,21 @@
 #' @param type node id
 #'
 #' @export
-predictTree <- function(mrsobj, dataframe, type = 'nodeid') {
+predictTree <- function(mrsobj, dataframe, type = 'node') {
+    stopifnot(class(mrsobj) == 'guide')
+    stopifnot(type %in% c("node", "outcome"))
     n = NROW(dataframe)
     yp = mrsobj$yp
     tp = mrsobj$tp
     if (is.null(dataframe)) return(mrsobj[['node']])
     node <- sapply(1:n, FUN = function(i) {.predictNode(mrsobj$treeRes, dataframe[i, ], mrsobj$cLevels)})
-    return(node)
+    if (type=='node') return(node)
+
+    nodemap = mrsobj[['nodeMap']]
+    tn = paste0('term', node)
+
+    y = sapply(1:n, FUN = function(i) {.predictY(nodemap[[tn[i]]], dataframe[i,])})
+    if (n == 1) y = t(y)
+    colnames(y) = mrsobj$ynames
+    return(data.frame(node = node, y))
 }

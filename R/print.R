@@ -104,7 +104,7 @@ print_node <- function(node, depth = 0, digits = 3,
 #' @param ... parameter pass to \code{print_node}
 #'
 #' @export
-printTree <- function(mrsobj, digits = 3, details = FALSE, ...) {
+printTree <- function(mrsobj, digits = 3, details = TRUE, ...) {
     print_node(mrsobj$treeRes, depth = 0, digits, details,
                mrsobj$ynames, mrsobj$trtname, mrsobj$tLevels[[1]], mrsobj$cLevels, ...)
 }

@@ -1,7 +1,7 @@
 Package: MrSGUIDE
 Type: Package
 Title: Multiple Responses Subgroup Identification using GUIDE algorithm
-Version: 1.0
+Version: 0.1
 Date: 2020-05-04
 Authors@R: c(person(given ="Peigen", family = "Zhou", role = c("aut", "cre"), email = "pzhou9@wisc.edu"),
              person(given = "Wei-Yin", family = "Loh", role = c("aut"), email= "loh@stat.wisc.edu"))
@@ -9,6 +9,7 @@ Maintainer: Peigen Zhou <pzhou9@wisc.edu>
 Description: MrSGUIDE is an R implementation based on GUIDE algorithm focusing on subgroup identification problem under multiple responses.
 License: GPL-3
 URL: http://www.stat.wisc.edu/~loh/guide.html
+BugReports: https://github.com/baconzhou/mrs/issues
 LinkingTo: Rcpp, RcppArmadillo, BH
 SystemRequirements: GNU make
 Depends: R (>= 3.1.0)

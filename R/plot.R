@@ -177,7 +177,7 @@ plotTree <- function(msobj, digits = 3, height = "600px", width = "100%",
 }") %>%
         visNetwork::visExport()
 
-    palpha <- 1
+    palpha <- 1.96
     if (!is.null(msobj$bootAlpha)) {
         palpha <- abs(stats::qnorm(msobj$bootAlpha[alphaInd]))
     }
@@ -185,7 +185,8 @@ plotTree <- function(msobj, digits = 3, height = "600px", width = "100%",
     treatNode <- treatNode %>%
         dplyr::mutate(Quantity = paste0(treatNode$Outcome, '.', gsub('Node: ', '', treatNode$Node)),
                       ymin = treatNode$Estimate - palpha * treatNode$SE,
-                      ymax = treatNode$Estimate + palpha * treatNode$SE) %>%
+                      ymax = treatNode$Estimate + palpha * treatNode$SE,
+                      zalpha = palpha) %>%
         dplyr::arrange(.data$Quantity)
 
     trtPlot <- ggpubr::ggdotchart(data = treatNode, x = 'Quantity', y = 'Estimate',

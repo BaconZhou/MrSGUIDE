@@ -4,7 +4,7 @@
 \alias{predictTree}
 \title{Predict the node id of MrS regression tree}
 \usage{
-predictTree(mrsobj, dataframe, type = "nodeid")
+predictTree(mrsobj, dataframe, type = "node")
 }
 \arguments{
 \item{mrsobj}{MrS object}

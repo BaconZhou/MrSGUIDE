@@ -96,7 +96,7 @@ MrSGUIDE identification use GUIDE algorithm" />
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/MrS.html">MrSGUIDE Multiple Responses Subgroup identification using GUIDE</a>
+      <a href="../articles/MrS.html">Usage of MrSGUIDE Package</a>
     </li>
   </ul>
 </li>
@@ -130,14 +130,14 @@ MrSGUIDE identification use GUIDE algorithm" />
   <span class='no'>dataframe</span>,
   <span class='no'>role</span>,
   <span class='kw'>bestK</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+  <span class='kw'>bootNum</span> <span class='kw'>=</span> <span class='fl'>0L</span>,
+  <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.05</span>,
   <span class='kw'>maxDepth</span> <span class='kw'>=</span> <span class='fl'>5</span>,
   <span class='kw'>minTrt</span> <span class='kw'>=</span> <span class='fl'>5</span>,
   <span class='kw'>minData</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Extremes.html'>max</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='no'>minTrt</span> * <span class='no'>maxDepth</span>, <span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>NROW</a></span>(<span class='no'>Y</span>)/<span class='fl'>20</span>)),
   <span class='kw'>batchNum</span> <span class='kw'>=</span> <span class='fl'>1L</span>,
   <span class='kw'>CVFolds</span> <span class='kw'>=</span> <span class='fl'>10L</span>,
   <span class='kw'>CVSE</span> <span class='kw'>=</span> <span class='fl'>0</span>,
-  <span class='kw'>bootNum</span> <span class='kw'>=</span> <span class='fl'>0L</span>,
-  <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.05</span>,
   <span class='kw'>faster</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>display</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>treeName</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste0</a></span>(<span class='st'>"tree_"</span>, <span class='fu'><a href='https://rdrr.io/r/base/format.html'>format</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/Sys.time.html'>Sys.time</a></span>(), <span class='st'>"%m%d"</span>), <span class='st'>".yaml"</span>),
@@ -145,7 +145,7 @@ MrSGUIDE identification use GUIDE algorithm" />
   <span class='kw'>bootName</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste0</a></span>(<span class='st'>"boot_"</span>, <span class='fu'><a href='https://rdrr.io/r/base/format.html'>format</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/Sys.time.html'>Sys.time</a></span>(), <span class='st'>"%m%d"</span>), <span class='st'>".txt"</span>),
   <span class='kw'>impName</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste0</a></span>(<span class='st'>"imp_"</span>, <span class='fu'><a href='https://rdrr.io/r/base/format.html'>format</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/Sys.time.html'>Sys.time</a></span>(), <span class='st'>"%m%d"</span>), <span class='st'>".txt"</span>),
   <span class='kw'>writeTo</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>remove</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
+  <span class='kw'>remove</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -162,6 +162,14 @@ MrSGUIDE identification use GUIDE algorithm" />
     <tr>
       <th>bestK</th>
       <td><p>number of covariates in the regression model</p></td>
+    </tr>
+    <tr>
+      <th>bootNum</th>
+      <td><p>bootstrap number</p></td>
+    </tr>
+    <tr>
+      <th>alpha</th>
+      <td><p>desire alpha levels for confidence interval with respect to treatment parameters</p></td>
     </tr>
     <tr>
       <th>maxDepth</th>
@@ -186,14 +194,6 @@ MrSGUIDE identification use GUIDE algorithm" />
     <tr>
       <th>CVSE</th>
       <td><p>cross validation SE</p></td>
-    </tr>
-    <tr>
-      <th>bootNum</th>
-      <td><p>bootstrap number</p></td>
-    </tr>
-    <tr>
-      <th>alpha</th>
-      <td><p>desire alpha levels for confidence interval with respect to treatment parameters</p></td>
     </tr>
     <tr>
       <th>faster</th>
