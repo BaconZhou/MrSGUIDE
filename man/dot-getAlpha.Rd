@@ -6,6 +6,9 @@
 \usage{
 .getAlpha(bootAlpha)
 }
+\arguments{
+\item{bootAlpha}{bootstrap alpha matrix}
+}
 \description{
 Get bootstarp alpha based on previous result.
 }

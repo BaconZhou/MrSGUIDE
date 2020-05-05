@@ -8,7 +8,7 @@ using namespace Rcpp;
 
 // characterToInterger
 Rcpp::IntegerVector characterToInterger(const Rcpp::CharacterVector& x, const Rcpp::CharacterVector& levels);
-RcppExport SEXP _MrS_characterToInterger(SEXP xSEXP, SEXP levelsSEXP) {
+RcppExport SEXP _MrSGUIDE_characterToInterger(SEXP xSEXP, SEXP levelsSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -20,7 +20,7 @@ END_RCPP
 }
 // dataFramToNumeric
 Rcpp::NumericMatrix dataFramToNumeric(const Rcpp::DataFrame& numX);
-RcppExport SEXP _MrS_dataFramToNumeric(SEXP numXSEXP) {
+RcppExport SEXP _MrSGUIDE_dataFramToNumeric(SEXP numXSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -31,7 +31,7 @@ END_RCPP
 }
 // characterDict
 Rcpp::List characterDict(const Rcpp::DataFrame& charX, const Rcpp::List& levels);
-RcppExport SEXP _MrS_characterDict(SEXP charXSEXP, SEXP levelsSEXP) {
+RcppExport SEXP _MrSGUIDE_characterDict(SEXP charXSEXP, SEXP levelsSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -43,7 +43,7 @@ END_RCPP
 }
 // GiStepWisePure
 void GiStepWisePure(const arma::mat& numX, const arma::imat& catX, const arma::mat& Y, const arma::ivec trt, const arma::uvec& splitIndex, const arma::uvec& fitIndex, const arma::uvec& holdIndex, const int& bestK, const int& maxDepth, const int& minData, const int& minTrt, const int& batchNum, const int& CVFold, const double& CVSE, const int& bootNum, const double& alpha, const bool& faster, const bool& display, const std::vector<std::string>& varName, const std::string& treeName, const std::string& nodeName, const std::string& bootName, const std::string& impName);
-RcppExport SEXP _MrS_GiStepWisePure(SEXP numXSEXP, SEXP catXSEXP, SEXP YSEXP, SEXP trtSEXP, SEXP splitIndexSEXP, SEXP fitIndexSEXP, SEXP holdIndexSEXP, SEXP bestKSEXP, SEXP maxDepthSEXP, SEXP minDataSEXP, SEXP minTrtSEXP, SEXP batchNumSEXP, SEXP CVFoldSEXP, SEXP CVSESEXP, SEXP bootNumSEXP, SEXP alphaSEXP, SEXP fasterSEXP, SEXP displaySEXP, SEXP varNameSEXP, SEXP treeNameSEXP, SEXP nodeNameSEXP, SEXP bootNameSEXP, SEXP impNameSEXP) {
+RcppExport SEXP _MrSGUIDE_GiStepWisePure(SEXP numXSEXP, SEXP catXSEXP, SEXP YSEXP, SEXP trtSEXP, SEXP splitIndexSEXP, SEXP fitIndexSEXP, SEXP holdIndexSEXP, SEXP bestKSEXP, SEXP maxDepthSEXP, SEXP minDataSEXP, SEXP minTrtSEXP, SEXP batchNumSEXP, SEXP CVFoldSEXP, SEXP CVSESEXP, SEXP bootNumSEXP, SEXP alphaSEXP, SEXP fasterSEXP, SEXP displaySEXP, SEXP varNameSEXP, SEXP treeNameSEXP, SEXP nodeNameSEXP, SEXP bootNameSEXP, SEXP impNameSEXP) {
 BEGIN_RCPP
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< const arma::mat& >::type numX(numXSEXP);
@@ -75,14 +75,14 @@ END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
-    {"_MrS_characterToInterger", (DL_FUNC) &_MrS_characterToInterger, 2},
-    {"_MrS_dataFramToNumeric", (DL_FUNC) &_MrS_dataFramToNumeric, 1},
-    {"_MrS_characterDict", (DL_FUNC) &_MrS_characterDict, 2},
-    {"_MrS_GiStepWisePure", (DL_FUNC) &_MrS_GiStepWisePure, 23},
+    {"_MrSGUIDE_characterToInterger", (DL_FUNC) &_MrSGUIDE_characterToInterger, 2},
+    {"_MrSGUIDE_dataFramToNumeric", (DL_FUNC) &_MrSGUIDE_dataFramToNumeric, 1},
+    {"_MrSGUIDE_characterDict", (DL_FUNC) &_MrSGUIDE_characterDict, 2},
+    {"_MrSGUIDE_GiStepWisePure", (DL_FUNC) &_MrSGUIDE_GiStepWisePure, 23},
     {NULL, NULL, 0}
 };
 
-RcppExport void R_init_MrS(DllInfo *dll) {
+RcppExport void R_init_MrSGUIDE(DllInfo *dll) {
     R_registerRoutines(dll, NULL, CallEntries, NULL, NULL);
     R_useDynamicSymbols(dll, FALSE);
 }

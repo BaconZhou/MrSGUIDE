@@ -1,8 +1,8 @@
 ---
-title: "Mr.Si multiple responses Subgroup Identification"
+title: "MrSGUIDE Multiple Responses Subgroup identification using GUIDE"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Mr.Si multiple responses Subgroup Identification}
+  %\VignetteIndexEntry{MrSGUIDE Multiple Responses Subgroup identification}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -12,9 +12,8 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 ```{r}
-library(MrS)
+library(MrSGUIDE)
 ```
-
 
 ## Data settings
 
@@ -38,27 +37,38 @@ train <- data.frame(numX, gender, country, z, y1, y2)
 role <- c(rep('n', 3), 'c', 'c', 'r', 'd', 'd')
 ```
 
+## Fit a MrLin model
+
 ```{r}
 fit <- MrSFit(dataframe = train, role = role, bestK = 3, 
               maxDepth = 3, CVFolds = 10, CVSE = 0.5, 
               bootNum = 30, alpha = 0.05, display = TRUE, remove=TRUE)
-print(fit)
+printTree(fit)
 ```
+
+
+## Print the result
 
 You can also print details about each node fitting.
 
 ```{r}
-print(fit, details = TRUE, digits = 3)
+printTree(fit, details = TRUE, digits = 3)
 ```
 
+## Plot the tree result
+
 ```{r}
-plotme <- plot(fit)
+plotme <- plotTree(fit)
 plotme$treeplot
 ```
+
+## Plot the treatment effect
 
 ```{r, fig.align='center', fig.width=5, fig.height=5}
 plotme$trtPlot
 ```
+
+## Write the tree to Latex
 
 ```{r}
 writeTex(fit, file = 'test.tex')
@@ -74,6 +84,9 @@ $ cat test.tex
 cat test.tex
 ```
 
+```{r, engine='bash', echo=FALSE, comment=NULL}
+rm test.tex
+```
 
 
 

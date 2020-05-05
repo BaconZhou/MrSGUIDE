@@ -1,13 +1,16 @@
-Package: MrS
+Package: MrSGUIDE
 Type: Package
-Title: Multiple Responses Subgroup Identification
+Title: Multiple Responses Subgroup Identification using GUIDE algorithm
 Version: 1.0
-Date: 2018-10-26
-Authors@R: person("Peigen", "Zhou", role = c("aut", "cre"), email = "pzhou9@wisc.edu")
+Date: 2020-05-04
+Authors@R: c(person(given ="Peigen", family = "Zhou", role = c("aut", "cre"), email = "pzhou9@wisc.edu"),
+             person(given = "Wei-Yin", family = "Loh", role = c("aut"), email= "loh@stat.wisc.edu"))
 Maintainer: Peigen Zhou <pzhou9@wisc.edu>
-Description: [GUIDE](http://www.stat.wisc.edu/~loh/guide.html) is a multi-purpose machine learning algorithm for constructing classification and regression trees. It is designed and maintained by Wei-Yin Loh at the University of Wisconsin, Madison. Mr.S is a R implementation based on GUIDE algorithm focusing on subgroup identification problem in under multiplre responses.
+Description: MrSGUIDE is an R implementation based on GUIDE algorithm focusing on subgroup identification problem under multiple responses.
 License: GPL-3
+URL: http://www.stat.wisc.edu/~loh/guide.html
 LinkingTo: Rcpp, RcppArmadillo, BH
+SystemRequirements: GNU make
 Depends: R (>= 3.1.0)
 Imports: 
     Rcpp (>= 0.12.19), 
@@ -16,9 +19,11 @@ Imports:
     ggpubr (>= 0.1),
     ggplot2 (>= 3.0),
     dplyr (>= 0.7),
-    magrittr (>= 1.0)
+    magrittr (>= 1.0),
+    rlang (>= 0.4)
 RoxygenNote: 7.1.0
 Suggests: knitr,
     rmarkdown
 VignetteBuilder: knitr
 Encoding: UTF-8
+

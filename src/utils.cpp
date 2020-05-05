@@ -7,9 +7,9 @@
 namespace SubGuide {
     
     arma::vec quantile(const arma::vec& X, const int & part) {
-        assert(arma::is_finite(X));
+        // assert(arma::is_finite(X));
         const arma::uword N = X.n_elem;
-        assert(N > part);
+        // assert(N > part);
         
         arma::vec result(part);
         arma::vec quartile = arma::linspace(0.0, 1.0, part + 1);
@@ -84,7 +84,7 @@ namespace SubGuide {
     }
     
     arma::mat designInt(const arma::mat &x1, const arma::mat &x2) {
-        assert(x1.n_rows == x2.n_rows);
+        // assert(x1.n_rows == x2.n_rows);
         
         const auto &n = x1.n_rows;
         const auto &p1 = x1.n_cols;
@@ -150,7 +150,7 @@ namespace SubGuide {
     }
     
     arma::mat imputeValue(const arma::mat &X, const arma::vec &Xmean) {
-        assert(X.n_cols == Xmean.n_elem);
+        // assert(X.n_cols == Xmean.n_elem);
         arma::mat result(X);
         int i = 0;
         result.each_col([&i, &Xmean](arma::vec &a) {

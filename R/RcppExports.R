@@ -7,7 +7,7 @@
 #' @param levels the unique value form x, where the index is the output integer vector value
 #' @return interger vector
 characterToInterger <- function(x, levels) {
-    .Call(`_MrS_characterToInterger`, x, levels)
+    .Call(`_MrSGUIDE_characterToInterger`, x, levels)
 }
 
 #' R dataframe to numeric vector
@@ -17,7 +17,7 @@ characterToInterger <- function(x, levels) {
 #' @param numX numerical dataframe
 #' @return numerical matrix
 dataFramToNumeric <- function(numX) {
-    .Call(`_MrS_dataFramToNumeric`, numX)
+    .Call(`_MrSGUIDE_dataFramToNumeric`, numX)
 }
 
 #' Character or factor dataframe change to integer matrix.
@@ -30,12 +30,34 @@ dataFramToNumeric <- function(numX) {
 #' @return list intX the integer matrix x, with crosspoding levels.
 #'
 characterDict <- function(charX, levels) {
-    .Call(`_MrS_characterDict`, charX, levels)
+    .Call(`_MrSGUIDE_characterDict`, charX, levels)
 }
 
 #' Multiple response subgroup identification use GUIDE Gi option with step wise regression
-#'
+#' @param numX numerical X matrix
+#' @param catX categorical X matrix
+#' @param Y outcome Y matrix
+#' @param trt treatment vector
+#' @param splitIndex variable used for split
+#' @param fitIndex variables can be used for fit
+#' @param holdIndex variable must include in the fitting model
+#' @param bestK maximal number of variables used in the outcome model for prognostic control
+#' @param maxDepth maximal depth
+#' @param minData minimum sample in each node
+#' @param minTrt minimum treatment and placebo sample in each node
+#' @param batchNum related with exhaustive search for numerical split variable
+#' @param CVFold cross validataion times
+#' @param CVSE cross validation SE
+#' @param bootNum bootstrap number
+#' @param alpha desire alpha levels for confidence interval with respect to treatment parameters
+#' @param faster related with tree split searching
+#' @param display Whether display tree in the end
+#' @param varName variable names
+#' @param treeName yaml file for save the tree
+#' @param nodeName file same for each node
+#' @param bootName boostrap calibrate alpha
+#' @param impName important variable file name
 GiStepWisePure <- function(numX, catX, Y, trt, splitIndex, fitIndex, holdIndex, bestK, maxDepth, minData, minTrt, batchNum, CVFold, CVSE, bootNum, alpha, faster, display, varName, treeName, nodeName, bootName, impName) {
-    invisible(.Call(`_MrS_GiStepWisePure`, numX, catX, Y, trt, splitIndex, fitIndex, holdIndex, bestK, maxDepth, minData, minTrt, batchNum, CVFold, CVSE, bootNum, alpha, faster, display, varName, treeName, nodeName, bootName, impName))
+    invisible(.Call(`_MrSGUIDE_GiStepWisePure`, numX, catX, Y, trt, splitIndex, fitIndex, holdIndex, bestK, maxDepth, minData, minTrt, batchNum, CVFold, CVSE, bootNum, alpha, faster, display, varName, treeName, nodeName, bootName, impName))
 }
 

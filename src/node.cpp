@@ -111,7 +111,7 @@ namespace Node {
     double getTermTestLoss(node* leaf)
     {
         if (leaf->terminal) {
-            assert(leaf->testLoss > -1.0);
+            // assert(leaf->testLoss > -1.0);
             return leaf->testLoss;
         } else {
             return getTermTestLoss(leaf->left) + getTermTestLoss(leaf->right);
@@ -195,7 +195,7 @@ namespace Node {
     uvec predictLR(SubGuide::Node::node* leaf, const arma::mat& numX,
         const arma::imat& catX)
     {
-        assert(catX.n_rows == numX.n_rows);
+        // assert(catX.n_rows == numX.n_rows);
         const uword& N = catX.n_rows;
         uvec directions(N);
         for (auto i = 0; i < N; i++)

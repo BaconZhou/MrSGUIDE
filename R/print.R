@@ -1,4 +1,3 @@
-#' @export
 .yamlpretty <- function(node, clevels, nodeID) {
     if (node$Type == 'Terminal') {
         node$Size = sum(nodeID == node$ID)
@@ -13,7 +12,22 @@
     }
 }
 
-print.node <- function(node, depth = 0, digits = 3, long = TRUE, yName, trtName, tlevels, clevels, ...) {
+#' print node information
+#'
+#' @param node node object
+#' @param depth current depth
+#' @param digits digit print
+#' @param long default=TRUE useless
+#' @param yName outcomes names
+#' @param trtName treatment name
+#' @param tlevels treatment levels
+#' @param clevels categorical variables' levels
+#' @param ... pass to cat
+#'
+#'
+print_node <- function(node, depth = 0, digits = 3,
+                       long = TRUE, yName, trtName,
+                       tlevels, clevels, ...) {
     if (node$Type == 'Terminal') {
         cat(rep(' ', depth), 'ID: ', node$ID, ', Size: ', node$Size, ' [Terminal]\n', sep = '', ...)
         if (long) {
@@ -61,7 +75,7 @@ print.node <- function(node, depth = 0, digits = 3, long = TRUE, yName, trtName,
             }
 
         }
-        print.node(node$Left, depth + 4, digits, long, yName, trtName, tlevels, clevels, ...)
+        print_node(node$Left, depth + 4, digits, long, yName, trtName, tlevels, clevels, ...)
 
         cat(rep(' ', depth), 'ID: ', node$ID, ', ' , sep = '', ...)
         if (node$Role == 'num') {
@@ -78,7 +92,7 @@ print.node <- function(node, depth = 0, digits = 3, long = TRUE, yName, trtName,
                 cat(node$SplitVar, ' != NA\n', sep = '', ...)
             }
         }
-        print.node(node$Right, depth + 4, digits, long, yName, trtName, tlevels, clevels, ...)
+        print_node(node$Right, depth + 4, digits, long, yName, trtName, tlevels, clevels, ...)
     }
 }
 
@@ -87,16 +101,18 @@ print.node <- function(node, depth = 0, digits = 3, long = TRUE, yName, trtName,
 #' @param mrsobj MrS object
 #' @param digits digits pass to coefficent
 #' @param details whether to print fitting details
+#' @param ... parameter pass to \code{print_node}
 #'
 #' @export
-print.guide <- function(mrsobj, digits = 3, details = FALSE, ...) {
-    print.node(mrsobj$treeRes, depth = 0, digits, details,
+printTree <- function(mrsobj, digits = 3, details = FALSE, ...) {
+    print_node(mrsobj$treeRes, depth = 0, digits, details,
                mrsobj$ynames, mrsobj$trtname, mrsobj$tLevels[[1]], mrsobj$cLevels, ...)
 }
 
 #' Write Latex file for GUIDE regression Tree
 #'
 #' @param mrsobj MrS object
+#' @param file latex filename
 #' @param digits digits pass to coefficient
 #' @param ... parameters pass to cat function
 #'

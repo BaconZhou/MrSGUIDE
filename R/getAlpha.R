@@ -1,4 +1,6 @@
 #' Get bootstarp alpha based on previous result.
+#'
+#' @param bootAlpha bootstrap alpha matrix
 .getAlpha <- function(bootAlpha) {
     res <- c(0.025, 0.025, 0.025)
     if (!is.null(bootAlpha)) {

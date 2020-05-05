@@ -42,8 +42,8 @@ namespace SubGuide {
             chiN.zeros();
             chiC.zeros();
 
-            assert(nx_.n_rows == ys_.n_rows);
-            assert(cx_.n_rows == ys_.n_rows);
+            // assert(nx_.n_rows == ys_.n_rows);
+            // assert(cx_.n_rows == ys_.n_rows);
         }
 
         GiSplit::GiSplit(RegSol::RegFun *fitMethod, const int &batchNum_,
@@ -53,13 +53,13 @@ namespace SubGuide {
         void GiSplit::dataChecking(const mat &nx_, const imat &cx_, const mat &ys_,
                                    const ivec trt_) {
             Split::dataCheck(nx_, cx_, ys_);
-            assert(ys_.n_rows == trt_.n_rows);
+            // assert(ys_.n_rows == trt_.n_rows);
             // logger->info("Data checking GiSplit passed;");
 
-            if (!arma::approx_equal(trtLevel, arma::unique(trt_), "absdiff", 0)) {
-                cerr << "Error in GiSplit TrtLevel not match \n" << "Original: " << trtLevel.t() << "Now: " << arma::unique(trt_).t() << "\n";
-                abort();
-            }
+            // if (!arma::approx_equal(trtLevel, arma::unique(trt_), "absdiff", 0)) {
+            //     Rcpp::Rcerr << "Error in GiSplit TrtLevel not match \n" << "Original: " << trtLevel.t() << "Now: " << arma::unique(trt_).t() << "\n" << std::endl;
+                 // abort();
+            // }
             this->trtDes = hotCoding(trt_, false); // TODO: trtDesign whether need this
         }
 
@@ -79,7 +79,7 @@ namespace SubGuide {
                                 const uvec &SplitIndex) {
 
             this->dataChecking(numX, catX, Y, trt);
-            assert(trt.n_rows == Y.n_rows);
+            // assert(trt.n_rows == Y.n_rows);
 
             // double maxChi = 0;
 
@@ -166,7 +166,7 @@ namespace SubGuide {
                        const uvec &fitIndex, const int &bestK,
                        const std::vector<uvec> &bestInd_, const bool& faster) {
             this->dataChecking(numX, catX, Y, trt);
-            assert(trt.n_rows == Y.n_rows);
+            // assert(trt.n_rows == Y.n_rows);
             this->optLeft.clear();
             this->optRight.clear();
 
@@ -220,8 +220,8 @@ namespace SubGuide {
                     if (!checkNodeData(right, trt(right), trtLevel, minData, minTrt))
                         continue;
 
-                    assert(left.n_elem >= minData);
-                    assert(right.n_elem >= minData);
+                    // assert(left.n_elem >= minData);
+                    // assert(right.n_elem >= minData);
 
                     RegSol::RegParm LRes, RRes;
 
@@ -258,8 +258,8 @@ namespace SubGuide {
                 this->misDirection = this->optLeft.n_elem >= this->optRight.n_elem ? 'L' : 'R';
             }
 
-            assert(this->optLeft.n_elem >= minData);
-            assert(this->optRight.n_elem >= minData);
+            // assert(this->optLeft.n_elem >= minData);
+            // assert(this->optRight.n_elem >= minData);
 
             return this->threshSet;
         }
@@ -452,10 +452,10 @@ namespace SubGuide {
             // logger->debug("loss: {}. this->optLeft n: {}, this->optRight n: {}", loss, this->optLeft.n_elem,
             //               this->optRight.n_elem);
 
-            assert(checkNodeData(this->optLeft, trt(this->optLeft), trtLevel, minData, minTrt));
-            assert(checkNodeData(this->optRight, trt(this->optRight), trtLevel, minData, minTrt));
-            assert(this->optLeft.n_elem >= minData);
-            assert(this->optRight.n_elem >= minData);
+            // assert(checkNodeData(this->optLeft, trt(this->optLeft), trtLevel, minData, minTrt));
+            // assert(checkNodeData(this->optRight, trt(this->optRight), trtLevel, minData, minTrt));
+            // assert(this->optLeft.n_elem >= minData);
+            // assert(this->optRight.n_elem >= minData);
 
             return threshold;
         }
@@ -471,7 +471,7 @@ namespace SubGuide {
          @return chi-square value
          */
         double GiSplit::lackOfFit(const mat &Main, const mat &cx, const vec &Y_, const mat &trtDes) {
-            assert(trtDes.n_cols > 0);
+            // assert(trtDes.n_cols > 0);
 
             mat xTotal = is_finite(Main)
             ? join_rows(Main, join_rows(cx, trtDes))
@@ -556,7 +556,7 @@ namespace SubGuide {
         inline bool GiSplit::checkNodeData(const uvec &index, const ivec &trt,
                                            const ivec &level, const int &minData,
                                            const int &minTrt) {
-            assert(index.n_elem == trt.n_elem);
+            // assert(index.n_elem == trt.n_elem);
 
             if (index.n_elem <= minData)
                 return false;

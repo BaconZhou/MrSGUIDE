@@ -117,9 +117,10 @@
     return(cbind(edf, settings))
 }
 
-#' Plot Mr.Si regression tree
+
+#' Plot MrS regression tree
 #'
-#' @param msobj Mr.Si object
+#' @param msobj MrS object
 #' @param digits digits for split threshold
 #' @param height figure height
 #' @param width figure width
@@ -131,14 +132,18 @@
 #' @param edgeColor edge color
 #' @param highlightNearest choose node will highligh nearby
 #' @param collapse list, collapse or not using double click on a node
+#' @param alphaInd 1 is original alpha, 2 is individual level alpha, 3 is overall alpha
 #'
+#' @rdname plotTree
 #' @export
 #'
+#' @importFrom stats qnorm
 #' @importFrom visNetwork visNetwork visHierarchicalLayout visPhysics visInteraction visEvents visOptions visEdges visExport
 #' @importFrom ggpubr ggdotchart theme_pubr
 #' @importFrom ggplot2 theme labs geom_hline element_text geom_errorbar aes
 #' @importFrom dplyr mutate arrange group_by
-plot.guide <- function(msobj, digits = 3, height = "600px", width = "100%",
+#' @importFrom rlang .data
+plotTree <- function(msobj, digits = 3, height = "600px", width = "100%",
                        nodefontSize = 16, edgefontSize = 14,
                        minNodeSize = 15, maxNodeSize = 30,
                        nodeFixed = FALSE, edgeColor = "#8181F7",
@@ -172,10 +177,18 @@ plot.guide <- function(msobj, digits = 3, height = "600px", width = "100%",
 }") %>%
         visNetwork::visExport()
 
-    trtPlot <- treatNode %>%
-        dplyr::mutate(Quantity = paste0(Outcome, '.', gsub('Node: ', '', Node))) %>%
-        dplyr::arrange(Quantity) %>%
-        ggpubr::ggdotchart(x = 'Quantity', y = 'Estimate',
+    palpha <- 1
+    if (!is.null(msobj$bootAlpha)) {
+        palpha <- abs(stats::qnorm(msobj$bootAlpha[alphaInd]))
+    }
+
+    treatNode <- treatNode %>%
+        dplyr::mutate(Quantity = paste0(treatNode$Outcome, '.', gsub('Node: ', '', treatNode$Node)),
+                      ymin = treatNode$Estimate - palpha * treatNode$SE,
+                      ymax = treatNode$Estimate + palpha * treatNode$SE) %>%
+        dplyr::arrange(.data$Quantity)
+
+    trtPlot <- ggpubr::ggdotchart(data = treatNode, x = 'Quantity', y = 'Estimate',
                            color = 'Node', palette = "aaas",
                            add.params = list(color = "lightgray", size = 2),
                            add = 'none', shape = ifelse(length(unique(treatNode$Assignment)) == 1, 19, 'Assignment'),
@@ -184,10 +197,12 @@ plot.guide <- function(msobj, digits = 3, height = "600px", width = "100%",
         ggplot2::labs(y = 'Treatment Effect') +
         ggplot2::geom_hline(yintercept = 0, linetype = 2, color = "lightgray") +
         ggplot2::theme(legend.text=ggplot2::element_text(size=14))
+
     if (!is.null(msobj$bootAlpha)) {
-        palpha <- abs(qnorm(msobj$bootAlpha[alphaInd]))
         trtPlot <- trtPlot +
-            ggplot2::geom_errorbar(ggplot2::aes(x = Quantity, ymin = Estimate - palpha * SE, ymax = Estimate + palpha * SE), width=0.1, size=1)
+            ggplot2::geom_errorbar(ggplot2::aes(x = .data$Quantity,
+                                                ymin = .data$ymin,
+                                                ymax = .data$ymax), data = treatNode, width=0.1, size=1)
     }
 
     list(treeplot = tree, nodeTreat = treatNode, trtPlot = trtPlot)

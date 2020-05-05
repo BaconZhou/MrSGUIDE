@@ -9,6 +9,8 @@ writeTex(mrsobj, file, digits = 3, ...)
 \arguments{
 \item{mrsobj}{MrS object}
 
+\item{file}{latex filename}
+
 \item{digits}{digits pass to coefficient}
 
 \item{...}{parameters pass to cat function}

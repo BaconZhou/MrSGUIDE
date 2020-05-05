@@ -27,11 +27,18 @@
     }
 }
 
-predict.guide <- function(subguideobj, dataframe, type = 'response') {
+#' Predict the node id of MrS regression tree
+#'
+#' @param mrsobj MrS object
+#' @param dataframe data used for prediction
+#' @param type node id
+#'
+#' @export
+predictTree <- function(mrsobj, dataframe, type = 'nodeid') {
     n = NROW(dataframe)
-    yp = subguideobj$yp
-    tp = subguideobj$tp
-    if (is.null(dataframe)) return(subguideobj[['node']])
-    node <- sapply(1:n, FUN = function(i) {.predictNode(subguideobj$treeRes, dataframe[i, ], subguideobj$cLevels)})
+    yp = mrsobj$yp
+    tp = mrsobj$tp
+    if (is.null(dataframe)) return(mrsobj[['node']])
+    node <- sapply(1:n, FUN = function(i) {.predictNode(mrsobj$treeRes, dataframe[i, ], mrsobj$cLevels)})
     return(node)
 }

@@ -30,6 +30,53 @@ GiStepWisePure(
   impName
 )
 }
+\arguments{
+\item{numX}{numerical X matrix}
+
+\item{catX}{categorical X matrix}
+
+\item{Y}{outcome Y matrix}
+
+\item{trt}{treatment vector}
+
+\item{splitIndex}{variable used for split}
+
+\item{fitIndex}{variables can be used for fit}
+
+\item{holdIndex}{variable must include in the fitting model}
+
+\item{bestK}{maximal number of variables used in the outcome model for prognostic control}
+
+\item{maxDepth}{maximal depth}
+
+\item{minData}{minimum sample in each node}
+
+\item{minTrt}{minimum treatment and placebo sample in each node}
+
+\item{batchNum}{related with exhaustive search for numerical split variable}
+
+\item{CVFold}{cross validataion times}
+
+\item{CVSE}{cross validation SE}
+
+\item{bootNum}{bootstrap number}
+
+\item{alpha}{desire alpha levels for confidence interval with respect to treatment parameters}
+
+\item{faster}{related with tree split searching}
+
+\item{display}{Whether display tree in the end}
+
+\item{varName}{variable names}
+
+\item{treeName}{yaml file for save the tree}
+
+\item{nodeName}{file same for each node}
+
+\item{bootName}{boostrap calibrate alpha}
+
+\item{impName}{important variable file name}
+}
 \description{
 Multiple response subgroup identification use GUIDE Gi option with step wise regression
 }

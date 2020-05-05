@@ -1,6 +1,6 @@
-# Mr.SI
+# MrSGUIDE
 
-**M**ultiplre **R**esponse **S**ubgroup **I**dentification
+**M**ultiplre **R**esponse **S**ubgroup **I**dentification in GUIDE
 
 The current package is still under heavily devolopment.
 
@@ -8,7 +8,7 @@ For subgroup identification use [GUIDE](https://www.stat.wisc.edu/~loh/guide.htm
 
 Here are the links and paper for reference:
 
-Loh, W.-Y., Man, M. and Wang, S. (2019), [Subgroups from regression trees with adjustment for prognostic effects and post-selection inference](http://www.stat.wisc.edu/~loh/treeprogs/guide/sm18.pdf), Statistics in Medicine
+Loh, W.-Y., Man, M. and Wang, S. (2019), [Subgroups from regression trees with adjustment for prognostic effects and post-selection inference](http://pages.stat.wisc.edu/~loh/treeprogs/guide/sm19.pdf), Statistics in Medicine
 
 Loh, W.-Y., Fu, H., Man, M., Champion, V. and Yu, M. (2016), [Identification of subgroups with differential treatment effects for longitudinal and multiresponse variables](http://www.stat.wisc.edu/~loh/treeprogs/guide/LFMCY16.pdf), Statistics in Medicine
 

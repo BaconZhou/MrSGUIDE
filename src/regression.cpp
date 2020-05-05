@@ -26,8 +26,8 @@ namespace RegSol {
 
     RegParm LinReg::fit(const mat& X, const vec& Y)
     {
-        assert(arma::is_finite(Y));
-        assert(arma::is_finite(X));
+        // assert(arma::is_finite(Y));
+        // assert(arma::is_finite(X));
 
         auto& n = X.n_rows;
         auto& p = X.n_cols;
@@ -45,7 +45,7 @@ namespace RegSol {
     {
         if (X.n_cols != beta.n_elem) {
             cerr << "dimension mismatch in LinReg::predict \n";
-            abort();
+            // abort();
         }
         return X * beta;
     }
@@ -70,8 +70,8 @@ namespace RegSol {
         const auto& p = X.n_cols;
         const auto& hp = holdIndex.n_elem;
 
-        assert(X.n_rows == Y.n_elem);
-        assert(p >= hp);
+        // assert(X.n_rows == Y.n_elem);
+        // assert(p >= hp);
         
         bestInd.resize(hp + K);
         arma::uword minInd = p + 1;

@@ -22,8 +22,8 @@ namespace SubGuide {
          * Missing Data (only numerical)
          */
         node *tree::predict(node *leaf, const rowvec &numX, const irowvec &catX) {
-            assert(numX.n_elem == np);
-            assert(catX.n_elem == cp);
+            // assert(numX.n_elem == np);
+            // assert(catX.n_elem == cp);
             node *current = leaf;
             
             while (!current->terminal) {
@@ -65,7 +65,7 @@ namespace SubGuide {
          leaf->testLoss = 0.0;
          return;
          }
-         assert(this->trtLevel.n_elem > 1);
+         // assert(this->trtLevel.n_elem > 1);
          
          const mat& tmp = hotCoding(Trt, this->trtLevel, true);
          mat comX(tmp.n_rows, this->np + this->tp, arma::fill::ones);
@@ -81,7 +81,7 @@ namespace SubGuide {
          
          leaf->testLoss = leaf->nodeModel->evaluateLoss(comX, Y) / (double)Y.n_elem;
          
-         assert(leaf->testLoss > 0.0);
+         // assert(leaf->testLoss > 0.0);
          
          if (leaf->terminal)
          return;
