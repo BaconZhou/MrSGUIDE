@@ -4,8 +4,6 @@ author: "Peigen Zhou"
 date: "`r Sys.Date()`"
 output: 
     rmarkdown::html_vignette:
-        fig_width: 7
-        fig_height: 5
         toc: true
         toc_depth: 4
         number_sections: true
