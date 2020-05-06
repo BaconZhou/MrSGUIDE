@@ -53,3 +53,5 @@ MrS.Rproj
 .vscode/
 doc
 Meta
+
+autom4te.cache
