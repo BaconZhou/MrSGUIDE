@@ -9,7 +9,6 @@ output:
         toc: true
         toc_depth: 4
         number_sections: true
-        self_contained: true
 preamble: >
     \usepackage{amsmath,amssymb,amsfonts,bm,bbm,amsthm}
     \usepackage{longtable}
