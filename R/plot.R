@@ -140,12 +140,6 @@
 #' @rdname plotTree
 #' @export
 #'
-#' @importFrom stats qnorm
-#' @importFrom visNetwork visNetwork visHierarchicalLayout visPhysics visInteraction visEvents visOptions visEdges visExport
-#' @importFrom ggpubr ggdotchart theme_pubr
-#' @importFrom ggplot2 theme labs geom_hline element_text geom_errorbar aes
-#' @importFrom dplyr mutate arrange group_by
-#' @importFrom rlang .data
 plotTree <- function(mrsobj, digits = 3, height = "600px", width = "100%",
                        nodefontSize = 16, edgefontSize = 14,
                        minNodeSize = 15, maxNodeSize = 30,
@@ -156,6 +150,30 @@ plotTree <- function(mrsobj, digits = 3, height = "600px", width = "100%",
                        collapse = list(enabled = FALSE, fit = TRUE, resetHighlight = TRUE,
                                        clusterOptions = list(fixed = TRUE, physics = FALSE)),
                        alphaInd = 3) {
+    if (!requireNamespace("visNetwork", quietly = TRUE)) {
+        cat("Please install following packages to run plotTree function.\n
+             - visNetwork\n
+             - ggpubr\n
+             - ggplot2\n
+             - dplyr\n")
+        stop("Package \"visNetwork\" needed for this function to work. Please install it.",
+             call. = FALSE)
+    }
+
+    if (!requireNamespace("ggpubr", quietly = TRUE)) {
+        stop("Package \"ggpubr\" needed for this function to work. Please install it.",
+             call. = FALSE)
+    }
+
+    if (!requireNamespace("ggplot2", quietly = TRUE)) {
+        stop("Package \"ggplot2\" needed for this function to work. Please install it.",
+             call. = FALSE)
+    }
+
+    if (!requireNamespace("dplyr", quietly = TRUE)) {
+        stop("Package \"dplyr\" needed for this function to work. Please install it.",
+             call. = FALSE)
+    }
 
     treatNode <- .getTrt(mrsobj$nodeMap, mrsobj$ynames, mrsobj$tLevels[[1]])
     ndf1 <- .node_df(mrsobj$treeRes, treatNode, digits = digits, font.size = nodefontSize,
@@ -179,7 +197,7 @@ plotTree <- function(mrsobj, digits = 3, height = "600px", width = "100%",
         visNetwork::visEvents(type = "once", stabilized = "function() {
                               this.setOptions({layout:{hierarchical:false}, physics:{solver:'barnesHut', enabled:true, stabilization : false}, nodes : {physics : false, fixed : true}});
 }") %>%
-        visNetwork::visExport()
+        visNetwork::visExport(type='pdf')
 
     palpha <- 1.96
     if (!is.null(mrsobj$bootAlpha)) {
@@ -190,8 +208,7 @@ plotTree <- function(mrsobj, digits = 3, height = "600px", width = "100%",
         dplyr::mutate(Quantity = paste0(treatNode$Outcome, '.', gsub('Node: ', '', treatNode$Node)),
                       ymin = treatNode$Estimate - palpha * treatNode$SE,
                       ymax = treatNode$Estimate + palpha * treatNode$SE,
-                      zalpha = palpha) %>%
-        dplyr::arrange(.data$Quantity)
+                      zalpha = palpha)
 
     trtPlot <- ggpubr::ggdotchart(data = treatNode, x = 'Quantity', y = 'Estimate',
                            color = 'Node', palette = "aaas",
@@ -205,9 +222,9 @@ plotTree <- function(mrsobj, digits = 3, height = "600px", width = "100%",
 
     if (!is.null(mrsobj$bootAlpha)) {
         trtPlot <- trtPlot +
-            ggplot2::geom_errorbar(ggplot2::aes(x = .data$Quantity,
-                                                ymin = .data$ymin,
-                                                ymax = .data$ymax), data = treatNode, width=0.1, size=1)
+            ggplot2::geom_errorbar(ggplot2::aes_string(x = "Quantity",
+                                                ymin = "ymin",
+                                                ymax = "ymax"), data = treatNode, width=0.1, size=1)
     }
 
     list(treeplot = tree, nodeTreat = treatNode, trtPlot = trtPlot)

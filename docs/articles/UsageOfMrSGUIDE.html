@@ -194,8 +194,8 @@
 <div class="sourceCode" id="cb11"><html><body><pre class="r"><span class="no">plotObj</span>$<span class="no">nodeTreat</span></pre></body></html></div>
 <pre><code>##    Estimate       SE Assignment Outcome Node Quantity       ymin      ymax
 ## 1  1.191655 0.146651          1      y1    2     y1.2  0.9042190 1.4790910
-## 2 -0.087283 0.153678          1      y1    3     y1.3 -0.3884919 0.2139259
-## 3  2.025814 0.138885          1      y2    2     y2.2  1.7535994 2.2980286
+## 2  2.025814 0.138885          1      y2    2     y2.2  1.7535994 2.2980286
+## 3 -0.087283 0.153678          1      y1    3     y1.3 -0.3884919 0.2139259
 ## 4 -0.075482 0.140495          1      y2    3     y2.3 -0.3508522 0.1998882
 ##   zalpha
 ## 1   1.96
@@ -216,7 +216,7 @@
 <p>The <code>test.tex</code> file should be compiled via <code>LaTex + dvips + ps2pdf</code>.</p>
 <div class="sourceCode" id="cb17"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb17-1" title="1">$ <span class="fu">cat</span> test.tex</a></code></pre></div>
 <pre><code>\documentclass[12pt]{article}
- %File creation date:2020-05-06 10:16:47
+ %File creation date:2020-05-06 11:45:18
 \usepackage{pstricks,pst-node,pst-tree}
 \usepackage{geometry}
 \usepackage{lscape}
@@ -234,7 +234,7 @@
 %\end{landscape}
 \end{document}</code></pre>
 <p>The PDF file is shown below.</p>
-<embed src="./test.pdf" style="display: block; margin: auto;" type="application/pdf"></embed><p>This quick example aimed at provide a general understanding of what <code>MrSGUIDE</code> is capable of doing. In the rest of the chapter, we will show more instruction about how to use the function step by step.</p>
+<embed src="test.pdf" style="display: block; margin: auto;" type="application/pdf"></embed><p>This quick example aimed at provide a general understanding of what <code>MrSGUIDE</code> is capable of doing. In the rest of the chapter, we will show more instruction about how to use the function step by step.</p>
 </div>
 <div id="arguments" class="section level2">
 <h2 class="hasAnchor">
@@ -338,7 +338,7 @@
 <h4 class="hasAnchor">
 <a href="#cvfolds-and-cvse" class="anchor"></a><code>CVFolds</code> and <code>CVSE</code>
 </h4>
-<p><code><a href="../reference/MrSFit.html">MrSFit()</a></code> uses cross-validation for tree pruning. <code>CVFolds</code> controls the number of cross-validation, and <code>CVSE</code> is a parameters control the error allowance. If we set <code>CVFolds == 0</code>, <code><a href="../reference/MrSFit.html">MrSFit()</a></code> will not perform cross-validation for pruning.</p>
+<p><code><a href="../reference/MrSFit.html">MrSFit()</a></code> uses cross-validation for tree pruning. <code>CVFolds</code> controls the number of cross-validation, and <code>CVSE</code> is a parameters which control the error allowance. If we set <code>CVFolds = 0</code>, <code><a href="../reference/MrSFit.html">MrSFit()</a></code> will not perform cross-validation for pruning.</p>
 <div class="sourceCode" id="cb30"><html><body><pre class="r"><span class="no">mrsobj</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/MrSFit.html">MrSFit</a></span>(<span class="kw">dataframe</span> <span class="kw">=</span> <span class="no">train</span>, <span class="kw">role</span> <span class="kw">=</span> <span class="no">role</span>,
                  <span class="kw">bestK</span> <span class="kw">=</span> <span class="fl">0</span>, <span class="kw">maxDepth</span> <span class="kw">=</span> <span class="fl">5</span>, <span class="kw">minTrt</span> <span class="kw">=</span> <span class="fl">1</span>,
                  <span class="kw">minData</span> <span class="kw">=</span> <span class="fl">2</span>,

@@ -49,8 +49,8 @@ Here we provide a quick example to illustrate the typical usage of `MrSGUIDE` pa
 We first load the package and generate a simulated dataset. Here our sample size is 400, the number of numerical features is 3 and number of categorical features is 2. The treatment assignment is binary with equal probability. There are two outcomes.
 
 \begin{align*}
-    y_1 &= x_1 + x_2 + 2I(Z=1)I(\text{gender}==\text{Female}) + \epsilon_1 \\
-    y_2 &= x_1 + x_3 + 2I(Z=1)I(\text{gender}==\text{Female}) + \epsilon_2 \\
+    y_1 &= x_1 + I(Z=1)I(\text{gender}==\text{Female}) + \epsilon_1 \\
+    y_2 &= x_2 + 2I(Z=1)I(\text{gender}==\text{Female}) + \epsilon_2 \\
     \epsilon_1 &\sim N(0, 1),\quad \epsilon_2 \sim N(0, 1)
 \end{align*}
 
@@ -73,7 +73,7 @@ train <- data.frame(numX, gender, country, z, y1, y2)
 role <- c(rep('n', 3), 'c', 'c', 'r', 'd', 'd')
 ```
 
-Specifically, `numX` contains all numerical features. `gender` and `country` are two categorical features. `z` is the binary treatment assignment and `y1` and `y2` are two responses. `train` is the data frame contains. `role` is a vector provide the role of each column.
+Specifically, `numX` contains all numerical features. `gender` and `country` are two categorical features. `z` is the binary treatment assignment and `y1` and `y2` are two responses. `train` is the data frame contains all of them. `role` is a vector provide the role of each column.
 
 Using `MrSFit()`, we could fit a regression tree to the simulated dataset. Here we fit a regression tree with the default option provided by `MrSFit()`. 
 
@@ -94,11 +94,24 @@ You can also set `detail = FALSE` to hide the detail.
 printTree(mrsobj = mrsobj, details = F)
 ```
 
-`MrSGUIDE` also provide `plotTree()` function use `visNetwork` package. The return object is a list contains three items:
+`MrSGUIDE` also provide `plotTree()` function which used following packages:
+
+- `visNetwork`
+- `ggpubr`
+- `ggplot2`
+- `dplyr`
+
+The return object is a list contains three items:
 
 1. A tree result `treePlot`
 2. A data frame used for plotting `nodeTreat`
 3. A node statistic plot `trtPlot`
+
+```{r check-packages}
+for (pack in c('visNetwork', 'ggpubr', 'ggplot2', 'dplyr')) {
+  if(pack %in% rownames(installed.packages()) == FALSE) {install.packages(pack)}
+}
+```
 
 ```{r quick-example-plot}
 plotObj <- plotTree(mrsobj = mrsobj)

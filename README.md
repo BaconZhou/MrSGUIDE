@@ -16,7 +16,7 @@ Loh, W.-Y., Man, M. and Wang, S. (2019), [Subgroups from regression trees with a
 
 Loh, W.-Y., Fu, H., Man, M., Champion, V. and Yu, M. (2016), [Identification of subgroups with differential treatment effects for longitudinal and multiresponse variables](http://www.stat.wisc.edu/~loh/treeprogs/guide/LFMCY16.pdf), Statistics in Medicine, vol. 35, 4837-4855. [DOI](http://onlinelibrary.wiley.com/doi/10.1002/sim.7020/full)
 
-## Dependence
+## Dependencies
 
 R packages:
 
