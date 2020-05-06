@@ -1,11 +1,11 @@
 #' MrSGUIDE Multiple responses subgroup identification
 #'
-#' @title MrSGUIDE
+#' @title MrSGUIDE fit function
 #' @author Peigen Zhou
 #'
-#' @name MrSGUIDE
+#' @name MrSFit
 #'
-#' @description Multiple responses subgroup identification use GUIDE gi option
+#' @description Multiple responses subgroup identification with GUIDE gi option
 #'
 #' @param dataframe train data frame
 #' @param role role follows GUIDE role
@@ -16,13 +16,13 @@
 #' @param minTrt minimum treatment and placebo sample in each node
 #' @param minData minimum sample in each node
 #' @param batchNum related with exhaustive search for numerical split variable
-#' @param CVFolds cross validataion times
+#' @param CVFolds cross validation times
 #' @param CVSE cross validation SE
 #' @param faster related with tree split searching
 #' @param display Whether display tree in the end
 #' @param treeName yaml file for save the tree
 #' @param nodeName file same for each node
-#' @param bootName boostrap calibrate alpha
+#' @param bootName file save bootstrap calibrate alpha
 #' @param impName important variable file name
 #' @param writeTo debug option reserve for author...
 #' @param remove whether to remove extra files
@@ -152,7 +152,7 @@ MrSFit <- function(dataframe, role, bestK = 1, bootNum = 0L, alpha = 0.05,
     t2 = Sys.time()
     stopifnot(NROW(Y) > 0)
 
-    treeRes = mrs.pure(nX = nX, cX = cXL$intX,
+    treeRes = .mrs.pure(nX = nX, cX = cXL$intX,
                      Y = Y, Trt = TrtL$intX,
                      splitIndex = splitIndex, fitIndex = fitIndex,
                      holdIndex = holdIndex, bk = bestK, maxDepth = maxDepth,
@@ -202,13 +202,13 @@ MrSFit <- function(dataframe, role, bestK = 1, bootNum = 0L, alpha = 0.05,
 
 #' Pure GUIDE function in subgroup identification use GI method.
 #'
-#' Perform GUIDE gi option for subgroup identification
+#' Perform GUIDE Gi option for subgroup identification
 #' @title MrSGUIDE internal function call
 #' @author Peigen Zhou
 #'
 #' @name mrs.pure
 #'
-#' @description Multiple responses subgroup identification use GUIDE gi option, calling C++
+#' @description Multiple responses subgroup identification use GUIDE Gi option, calling C++
 #'
 #' @param nX numerical X matrix
 #' @param cX categorical X matrix
@@ -222,7 +222,7 @@ MrSFit <- function(dataframe, role, bestK = 1, bootNum = 0L, alpha = 0.05,
 #' @param minTrt minimum treatment and placebo sample in each node
 #' @param minData minimum sample in each node
 #' @param batchNum related with exhaustive search for numerical split variable
-#' @param CVFolds cross validataion times
+#' @param CVFolds cross validation times
 #' @param CVSE cross validation SE
 #' @param bootNum bootstrap number
 #' @param alpha desire alpha levels for confidence interval with respect to treatment parameters
@@ -231,10 +231,11 @@ MrSFit <- function(dataframe, role, bestK = 1, bootNum = 0L, alpha = 0.05,
 #' @param varName variable names
 #' @param treeName yaml file for save the tree
 #' @param nodeName file same for each node
-#' @param bootName boostrap calibrate alpha
+#' @param bootName file save bootstrap calibrate alpha
 #' @param impName important variable file name
+#' @noRd
 #' @importFrom yaml read_yaml
-mrs.pure <- function(nX, cX, Y, Trt,
+.mrs.pure <- function(nX, cX, Y, Trt,
                           splitIndex, fitIndex, holdIndex, bk,
                           maxDepth = 10L, minTrt = 5L,
                           minData = max(c(minTrt * maxDepth, NROW(Y) / 20)),
@@ -262,6 +263,7 @@ mrs.pure <- function(nX, cX, Y, Trt,
     stopifnot(CVFolds >= 0L)
     stopifnot(CVSE >= -1e-8)
 
+
     if (is.logical(faster)) faster = TRUE
     if (bootNum < 0) bootNum = 0
 
@@ -284,6 +286,7 @@ mrs.pure <- function(nX, cX, Y, Trt,
     return(treeRes)
 }
 
+
 #' MrSGUIDE
 #'
 #' MrSGUIDE identification use GUIDE algorithm
@@ -295,4 +298,5 @@ mrs.pure <- function(nX, cX, Y, Trt,
 #' @importFrom Rcpp evalCpp
 #' @exportPattern "^[[:alpha:]]+"
 #' @name MrSGUIDE
+#' @noRd
 NULL

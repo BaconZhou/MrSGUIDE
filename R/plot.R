@@ -121,9 +121,9 @@
 }
 
 
-#' Plot MrS regression tree
+#' Plot MrSGUIDE regression tree
 #'
-#' @param mrsobj MrS object
+#' @param mrsobj MrSGUIDE object
 #' @param digits digits for split threshold
 #' @param height figure height
 #' @param width figure width
@@ -133,7 +133,7 @@
 #' @param maxNodeSize maximum node size
 #' @param nodeFixed whether you can drag node
 #' @param edgeColor edge color
-#' @param highlightNearest choose node will highligh nearby
+#' @param highlightNearest choose node will highlight nearby
 #' @param collapse list, collapse or not using double click on a node
 #' @param alphaInd 1 is original alpha, 2 is individual level alpha, 3 is overall alpha
 #'
@@ -212,3 +212,7 @@ plotTree <- function(mrsobj, digits = 3, height = "600px", width = "100%",
 
     list(treeplot = tree, nodeTreat = treatNode, trtPlot = trtPlot)
 }
+
+# plot.guideImp <- function(mrsobj) {
+#
+# }

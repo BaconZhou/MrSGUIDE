@@ -7,9 +7,9 @@
 printTree(mrsobj, digits = 3, details = TRUE, ...)
 }
 \arguments{
-\item{mrsobj}{MrS object}
+\item{mrsobj}{MrSGUIDE object}
 
-\item{digits}{digits pass to coefficent}
+\item{digits}{digits pass to coefficient}
 
 \item{details}{whether to print fitting details}
 

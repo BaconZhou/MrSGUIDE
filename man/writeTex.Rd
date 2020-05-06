@@ -7,7 +7,7 @@
 writeTex(mrsobj, file, digits = 3, ...)
 }
 \arguments{
-\item{mrsobj}{MrS object}
+\item{mrsobj}{MrSGUIDE object}
 
 \item{file}{latex filename}
 

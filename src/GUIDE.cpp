@@ -15,13 +15,13 @@
 
 
 
-//' Charater vector to Interger vector use Rcpp
+//' Character vector to Integer vector use Rcpp
 //'
 //' @param x original character vector
 //' @param levels the unique value form x, where the index is the output integer vector value
-//' @return interger vector
+//' @return integer vector
 // [[Rcpp::export]]
-Rcpp::IntegerVector characterToInterger(const Rcpp::CharacterVector &x, const Rcpp::CharacterVector &levels) {
+Rcpp::IntegerVector characterToInteger(const Rcpp::CharacterVector &x, const Rcpp::CharacterVector &levels) {
 
     const auto &N = x.length();
     const auto &p = levels.length();
@@ -65,7 +65,7 @@ Rcpp::NumericMatrix dataFramToNumeric(const Rcpp::DataFrame &numX) {
 //'
 //' @param charX character dataframe or factor dataframe
 //' @param levels, the desired levels for each character vector
-//' @return list intX the integer matrix x, with crosspoding levels.
+//' @return list intX the integer matrix x, with corresponding levels.
 //'
 // [[Rcpp::export]]
 Rcpp::List characterDict(const Rcpp::DataFrame &charX, const Rcpp::List &levels) {
@@ -76,7 +76,7 @@ Rcpp::List characterDict(const Rcpp::DataFrame &charX, const Rcpp::List &levels)
 
     for (int i = 0; i < p; i ++) {
         const Rcpp::CharacterVector &x = charX[i];
-        cX.column(i) = characterToInterger(x, levels[i]);
+        cX.column(i) = characterToInteger(x, levels[i]);
     }
 
     return Rcpp::List::create(Rcpp::Named("intX") = cX,
@@ -110,7 +110,13 @@ void initLog(const int level) {
 }
 */
 
-//' Multiple response subgroup identification use GUIDE Gi option with step wise regression
+//' MrSGUIDE C++ function
+//'
+//' @title MrSGUIDE stepwise
+//'
+//' @author Peigen Zhou
+//'
+//'
 //' @param numX numerical X matrix
 //' @param catX categorical X matrix
 //' @param Y outcome Y matrix
@@ -123,7 +129,7 @@ void initLog(const int level) {
 //' @param minData minimum sample in each node
 //' @param minTrt minimum treatment and placebo sample in each node
 //' @param batchNum related with exhaustive search for numerical split variable
-//' @param CVFold cross validataion times
+//' @param CVFold cross validation times
 //' @param CVSE cross validation SE
 //' @param bootNum bootstrap number
 //' @param alpha desire alpha levels for confidence interval with respect to treatment parameters
@@ -132,7 +138,7 @@ void initLog(const int level) {
 //' @param varName variable names
 //' @param treeName yaml file for save the tree
 //' @param nodeName file same for each node
-//' @param bootName boostrap calibrate alpha
+//' @param bootName file save bootstrap calibrate alpha
 //' @param impName important variable file name
 // [[Rcpp::export]]
 void GiStepWisePure(const arma::mat &numX, const arma::imat &catX,

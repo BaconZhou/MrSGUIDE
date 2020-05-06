@@ -18,9 +18,9 @@ knitr::opts_chunk$set(echo = TRUE)
 
 The `MrSGUIDE`package stands for *M*ultiple *R*esponses *S*ubgroup identification using `GUIDE` style algorithm. It aims to provide a statistical analysis for subgroup identification. 
 
-The original [GUIDE](http://pages.stat.wisc.edu/~loh/guide.html) algorithm is developed by Professor Wei-Yin Loh, which has more variates of features. `MrSGUIDE` only use `GUIDE` `Gi` for subgroup identification for single and multiple responses. If you like `MrSGUIDE` and want to explore more, please try [GUIDE](http://pages.stat.wisc.edu/~loh/guide.html)!
+The original [GUIDE](http://pages.stat.wisc.edu/~loh/guide.html) algorithm is developed by Professor Wei-Yin Loh, which has more features. `MrSGUIDE` only use `GUIDE` `Gi` for subgroup identification for single and multiple responses. If you like `MrSGUIDE` and want to explore more, please try [GUIDE](http://pages.stat.wisc.edu/~loh/guide.html)!
 
-The general analysis pipline is as follows:
+The general analysis pipeline is as follows:
 
 1. Construct a regression tree
 2. Provide bootstrap confidence interval for estimated treatment effect within tree node
@@ -29,7 +29,7 @@ The general analysis pipline is as follows:
 
 ## Installation
 
-`MrSGUIDE` can be installed from Github repository "BaconZhou/MrS" now. And users need to download and install `devtool` first from CRAN by the following command:
+`MrSGUIDE` can be installed from GitHub repository "BaconZhou/MrSGUIDE" now. And users need to download and install `devtool` first from CRAN by the following command:
 
 ```{r, eval=FALSE}
 install.packages("devtools")
@@ -39,7 +39,7 @@ After `devtools` has been installed, we can install `MrSGUIDE` package using com
 
 ```{r, eval=FALSE}
 library(devtools)
-install_github("BaconZhou/MrS")
+install_github("BaconZhou/MrSGUIDE")
 ```
 
 ## A quick example
@@ -82,13 +82,13 @@ library(MrSGUIDE)
 mrsobj <- MrSFit(dataframe = train, role = role)
 ```
 
-`mrsobj` is the reture object from `MrSFit()`, it could then be passed to other functions in the `MrSGUIDE` package. For example `printTree()` will print the tree result. 
+`mrsobj` is the return object from `MrSFit()`, it could then be passed to other functions in the `MrSGUIDE` package. For example `printTree()` will print the tree result. 
 
 ```{r quick-example-print}
 printTree(mrsobj = mrsobj)
 ```
 
-You can also set `detail = FALSE` to hide the detial.
+You can also set `detail = FALSE` to hide the detail.
 
 ```{r quick-example-print-detailF}
 printTree(mrsobj = mrsobj, details = F)
@@ -152,12 +152,12 @@ rm test.tex test.aux test.dvi test.log test.ps
 
 The PDF file is shown below.
 
-```{r, echo=FALSE, fig.width=20, fig.align='center', fig.pos="h"}
-include_graphics(path = './test.pdf')
+```{r, echo=FALSE, fig.align='center', fig.pos="h"}
+include_graphics(path = 'test.pdf')
 ```
 
 
-This quick example aimed at provide a general understanding of what `MrSGUIDE` is capable of doing. In the rest of the chapter, we will show more intruction about how to use the function step by step.
+This quick example aimed at provide a general understanding of what `MrSGUIDE` is capable of doing. In the rest of the chapter, we will show more instruction about how to use the function step by step.
 
 ## Arguments
 
@@ -218,7 +218,7 @@ plotObj$treeplot
 
 The second important argument to feed into the `MrSFit()` is `bootNum`. It is used for control the number of bootstrap time to calibrate the confidence interval length. `alpha` is the desired alpha level of the interval. The detail algorithm can be found in Loh ().
 
-In general, we recommand run `bootNum = 1000` to calibrate the confidence interval of treatment effect estimators. But it will take more times. For illustration purpose, here we set `bootNum = 50` and `alpha = 0.05`.
+In general, we recommend run `bootNum = 1000` to calibrate the confidence interval of treatment effect estimators. But it will take more times. For illustration purpose, here we set `bootNum = 50` and `alpha = 0.05`.
 
 ```{r boot}
 mrsobj <- MrSFit(dataframe = train, role = role, bestK = 1, bootNum = 50, alpha = 0.05)
@@ -237,7 +237,7 @@ plotObj$trtPlot
 
 #### `maxDepth`, `minTrt` and `minData`
 
-The tree depth is controled by `maxDepth` with default value `maxDepth = 5`. You can also change `maxDepth = 1` with only a root node.
+The tree depth is controlled by `maxDepth` with default value `maxDepth = 5`. You can also change `maxDepth = 1` with only a root node.
 
 ```{r maxDepth-1}
 mrsobj <- MrSFit(dataframe = train, role = role, bestK = 1, maxDepth = 1)
@@ -245,7 +245,7 @@ plotObj <- plotTree(mrsobj)
 plotObj$treeplot
 ```
 
-`minTrt` controls inside a node, how many data should each treatment levels contains. For example, if we set `minTrt = 30`, the terminal nodes of resulting tree have both 30 observationas in `Z=0` and `Z=1`
+`minTrt` controls inside a node, how many data should each treatment levels contains. For example, if we set `minTrt = 30`, the terminal nodes of resulting tree have both 30 observations in `Z=0` and `Z=1`
 
 ```{r minTrt-30}
 mrsobj <- MrSFit(dataframe = train, role = role, bestK = 0, minTrt = 30)
@@ -263,7 +263,7 @@ plotObj$treeplot
 
 #### `CVFolds` and `CVSE`
 
-`MrSFit()` uses cross-validataion for tree pruning. `CVFolds` controls the number of cross-validation, and `CVSE` is a parameters control the error allowance. If we set `CVFolds == 0`, `MrSFit()` will not perform cross-validation for pruning.
+`MrSFit()` uses cross-validation for tree pruning. `CVFolds` controls the number of cross-validation, and `CVSE` is a parameters which control the error allowance. If we set `CVFolds = 0`, `MrSFit()` will not perform cross-validation for pruning.
 
 ```{r CVFolds-0}
 mrsobj <- MrSFit(dataframe = train, role = role, 
@@ -274,7 +274,7 @@ plotObj <- plotTree(mrsobj)
 plotObj$treeplot
 ```
 
-In general, we recommand setting `CVSE=0.5` and `CVFolds=10`, a smaller `CVSE` will provide a larger tree result.
+In general, we recommend setting `CVSE=0.5` and `CVFolds=10`, a smaller `CVSE` will provide a larger tree result.
 
 ```{r CVSE}
 mrsobj <- MrSFit(dataframe = train, role = role, 

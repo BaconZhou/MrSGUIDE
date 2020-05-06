@@ -2,7 +2,7 @@
 % Please edit documentation in R/plot.R
 \name{plotTree}
 \alias{plotTree}
-\title{Plot MrS regression tree}
+\title{Plot MrSGUIDE regression tree}
 \usage{
 plotTree(
   mrsobj,
@@ -23,7 +23,7 @@ plotTree(
 )
 }
 \arguments{
-\item{mrsobj}{MrS object}
+\item{mrsobj}{MrSGUIDE object}
 
 \item{digits}{digits for split threshold}
 
@@ -43,12 +43,12 @@ plotTree(
 
 \item{edgeColor}{edge color}
 
-\item{highlightNearest}{choose node will highligh nearby}
+\item{highlightNearest}{choose node will highlight nearby}
 
 \item{collapse}{list, collapse or not using double click on a node}
 
 \item{alphaInd}{1 is original alpha, 2 is individual level alpha, 3 is overall alpha}
 }
 \description{
-Plot MrS regression tree
+Plot MrSGUIDE regression tree
 }

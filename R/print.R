@@ -98,8 +98,8 @@ print_node <- function(node, depth = 0, digits = 3,
 
 #' Print fitted regression tree
 #'
-#' @param mrsobj MrS object
-#' @param digits digits pass to coefficent
+#' @param mrsobj MrSGUIDE object
+#' @param digits digits pass to coefficient
 #' @param details whether to print fitting details
 #' @param ... parameter pass to \code{print_node}
 #'
@@ -111,7 +111,7 @@ printTree <- function(mrsobj, digits = 3, details = TRUE, ...) {
 
 #' Write Latex file for GUIDE regression Tree
 #'
-#' @param mrsobj MrS object
+#' @param mrsobj MrSGUIDE object
 #' @param file latex filename
 #' @param digits digits pass to coefficient
 #' @param ... parameters pass to cat function

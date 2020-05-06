@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">MrSGUIDE</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
       </span>
     </div>
 
@@ -54,14 +54,14 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="articles/MrS.html">Usage of MrSGUIDE Package</a>
+      <a href="articles/UsageOfMrSGUIDE.html">Usage of MrSGUIDE Package</a>
     </li>
   </ul>
 </li>
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/baconzhou/mrs/">
+  <a href="https://github.com/baconzhou/mrsguide/">
     <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
@@ -78,31 +78,41 @@
 
       </header><div class="row">
   <div class="contents col-md-9">
-
 <div id="mrsguide" class="section level1">
 <div class="page-header"><h1 class="hasAnchor">
 <a href="#mrsguide" class="anchor"></a>MrSGUIDE</h1></div>
-<p><strong>M</strong>ultiplre <strong>R</strong>esponse <strong>S</strong>ubgroup <strong>I</strong>dentification in GUIDE</p>
-<p>The current package is still under heavily devolopment.</p>
+<p><strong>M</strong>ultiple <strong>R</strong>esponse <strong>S</strong>ubgroup Identification in GUIDE</p>
+<p>The current package is still under heavily development.</p>
 <p>For subgroup identification use <a href="https://www.stat.wisc.edu/~loh/guide.html">GUIDE</a> algorithm.</p>
 <p>Here are the links and paper for reference:</p>
-<p>Loh, W.-Y., Man, M. and Wang, S. (2019), <a href="http://pages.stat.wisc.edu/~loh/treeprogs/guide/sm19.pdf">Subgroups from regression trees with adjustment for prognostic effects and post-selection inference</a>, Statistics in Medicine</p>
-<p>Loh, W.-Y., Fu, H., Man, M., Champion, V. and Yu, M. (2016), <a href="http://www.stat.wisc.edu/~loh/treeprogs/guide/LFMCY16.pdf">Identification of subgroups with differential treatment effects for longitudinal and multiresponse variables</a>, Statistics in Medicine</p>
-</div>
-<div id="package-install-no-test-in-windows" class="section level1">
-<h1 class="hasAnchor">
-<a href="#package-install-no-test-in-windows" class="anchor"></a>Package install <strong>No test in windows</strong>
-</h1>
-<pre><code><a href="https://devtools.r-lib.org//reference">library(devtools)
-install_github('baconzhou/MrS')</a></code></pre>
-<ul>
-<li>OpenMP support is required.</li>
-</ul>
-<div id="macos" class="section level2">
+<p>Loh, W.-Y. and Zhou, P. (2020), <a href="http://www.stat.wisc.edu/~loh/treeprogs/guide/LZ19.pdf">The GUIDE approach to subgroup identification</a>. In Design and Analysis of Subgroups with Biopharmaceutical Applications, N. Ting, J. C. Cappelleri, S. Ho, and D.-G. Chen (Eds.) Springer, in press.</p>
+<p>Loh, W.-Y., Cao, L. and Zhou, P. (2019), <a href="http://www.stat.wisc.edu/~loh/treeprogs/guide/wires19.pdf">Subgroup identification for precision medicine: a comparative review of thirteen methods</a>, Wiley Interdisciplinary Reviews: Data Mining and Knowledge Discovery, vol. 9, 5, e1326. <a href="http://dx.doi.org/10.1002/widm.1326">DOI</a></p>
+<p>Loh, W.-Y., Man, M. and Wang, S. (2019), <a href="http://pages.stat.wisc.edu/~loh/treeprogs/guide/sm19.pdf">Subgroups from regression trees with adjustment for prognostic effects and po3st-selection inference</a>, Statistics in Medicine, vol. 38, 545-557. <a href="http://onlinelibrary.wiley.com/doi/10.1002/sim.7677">DOI</a></p>
+<p>Loh, W.-Y., Fu, H., Man, M., Champion, V. and Yu, M. (2016), <a href="http://www.stat.wisc.edu/~loh/treeprogs/guide/LFMCY16.pdf">Identification of subgroups with differential treatment effects for longitudinal and multiresponse variables</a>, Statistics in Medicine, vol. 35, 4837-4855. <a href="http://onlinelibrary.wiley.com/doi/10.1002/sim.7020/full">DOI</a></p>
+<div id="dependence" class="section level2">
 <h2 class="hasAnchor">
-<a href="#macos" class="anchor"></a>MacOS</h2>
-<p>Please refer to <a href="https://thecoatlessprofessor.com/programming/r-compiler-tools-for-rcpp-on-macos/">R Compiler Tools for Rcpp on macOS</a> if you have problem with compliering the package.</p>
-<p>I used homebrew for libomp</p>
+<a href="#dependence" class="anchor"></a>Dependence</h2>
+<p>R packages:</p>
+<ul>
+<li>Rcpp</li>
+<li>RcppArmardillo</li>
+<li>BH</li>
+</ul>
+</div>
+<div id="package-install" class="section level2">
+<h2 class="hasAnchor">
+<a href="#package-install" class="anchor"></a>Package install</h2>
+<pre><code><a href="https://devtools.r-lib.org//reference">library(devtools)
+install_github('baconzhou/MrSGUIDE')</a></code></pre>
+<div id="macos" class="section level3">
+<h3 class="hasAnchor">
+<a href="#macos" class="anchor"></a>MacOS</h3>
+<p>Please refer to the following link if you have problem with install the package from source.</p>
+<ol>
+<li><a href="https://thecoatlessprofessor.com/programming/r-compiler-tools-for-rcpp-on-macos/">R Compiler Tools for Rcpp on MacOS</a></li>
+<li><a href="https://cloud.r-project.org/web/packages/Rcpp/vignettes/Rcpp-FAQ.pdf">Rcpp FAQ section 2.10</a></li>
+</ol>
+<p>Here are my personal set up for MacOS building <code>MrSGUIDE</code> used homebrew for libomp</p>
 <pre><code>brew update
 brew install llvm libomp gcc</code></pre>
 <p>In the <code>~/.R/Makevars</code> file</p>
@@ -114,16 +124,16 @@ CXX11=/usr/local/opt/llvm/bin/clang++
 FLIBS=-L/usr/local/Cellar/gcc/8.2.0 -L/usr/local/Cellar/gcc/8.2.0/lib/gcc/8 -lgfortran -lquadmath -lm</code></pre>
 </div>
 </div>
-
+</div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <div class="links">
 <h2>Links</h2>
 <ul class="list-unstyled">
-<li>Browse source code at <br><a href="https://github.com/baconzhou/mrs/">https://​github.com/​baconzhou/​mrs/​</a>
+<li>Browse source code at <br><a href="https://github.com/baconzhou/mrsguide/">https://​github.com/​baconzhou/​mrsguide/​</a>
 </li>
-<li>Report a bug at <br><a href="https://github.com/baconzhou/mrs/issues">https://​github.com/​baconzhou/​mrs/​issues</a>
+<li>Report a bug at <br><a href="https://github.com/baconzhou/mrsguide/issues">https://​github.com/​baconzhou/​mrsguide/​issues</a>
 </li>
 </ul>
 </div>

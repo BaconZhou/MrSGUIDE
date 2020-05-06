@@ -2,6 +2,7 @@
 
 export("%>%")
 export(MrSFit)
+export(MrSImp)
 export(plotTree)
 export(predictTree)
 export(printTree)

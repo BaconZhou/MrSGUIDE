@@ -6,15 +6,15 @@
 
 using namespace Rcpp;
 
-// characterToInterger
-Rcpp::IntegerVector characterToInterger(const Rcpp::CharacterVector& x, const Rcpp::CharacterVector& levels);
-RcppExport SEXP _MrSGUIDE_characterToInterger(SEXP xSEXP, SEXP levelsSEXP) {
+// characterToInteger
+Rcpp::IntegerVector characterToInteger(const Rcpp::CharacterVector& x, const Rcpp::CharacterVector& levels);
+RcppExport SEXP _MrSGUIDE_characterToInteger(SEXP xSEXP, SEXP levelsSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< const Rcpp::CharacterVector& >::type x(xSEXP);
     Rcpp::traits::input_parameter< const Rcpp::CharacterVector& >::type levels(levelsSEXP);
-    rcpp_result_gen = Rcpp::wrap(characterToInterger(x, levels));
+    rcpp_result_gen = Rcpp::wrap(characterToInteger(x, levels));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -75,7 +75,7 @@ END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
-    {"_MrSGUIDE_characterToInterger", (DL_FUNC) &_MrSGUIDE_characterToInterger, 2},
+    {"_MrSGUIDE_characterToInteger", (DL_FUNC) &_MrSGUIDE_characterToInteger, 2},
     {"_MrSGUIDE_dataFramToNumeric", (DL_FUNC) &_MrSGUIDE_dataFramToNumeric, 1},
     {"_MrSGUIDE_characterDict", (DL_FUNC) &_MrSGUIDE_characterDict, 2},
     {"_MrSGUIDE_GiStepWisePure", (DL_FUNC) &_MrSGUIDE_GiStepWisePure, 23},

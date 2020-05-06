@@ -2,17 +2,17 @@
 % Please edit documentation in R/predict.R
 \name{predictTree}
 \alias{predictTree}
-\title{Predict the node id of MrS regression tree}
+\title{Predict the node id of MrSGUIDE regression tree}
 \usage{
 predictTree(mrsobj, dataframe, type = "node")
 }
 \arguments{
-\item{mrsobj}{MrS object}
+\item{mrsobj}{MrSGUIDE object}
 
 \item{dataframe}{data used for prediction}
 
 \item{type}{node id}
 }
 \description{
-Predict the node id of MrS regression tree
+Predict the node id of MrSGUIDE regression tree
 }

@@ -12,7 +12,7 @@ characterDict(charX, levels)
 \item{levels, }{the desired levels for each character vector}
 }
 \value{
-list intX the integer matrix x, with crosspoding levels.
+list intX the integer matrix x, with corresponding levels.
 }
 \description{
 Character dataframe, for each column, use \code{characterToInteger()} with unique value from character vector

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>MrSGUIDE internal function call — mrs.pure • MrSGUIDE</title>
+<title>MrSGUIDE fit function — MrSFit • MrSGUIDE</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,8 @@
 
 
 
-<meta property="og:title" content="MrSGUIDE internal function call — mrs.pure" />
-<meta property="og:description" content="Multiple responses subgroup identification use GUIDE Gi option, calling C++" />
+<meta property="og:title" content="MrSGUIDE fit function — MrSFit" />
+<meta property="og:description" content="Multiple responses subgroup identification with GUIDE gi option" />
 
 
 
@@ -120,79 +120,63 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>MrSGUIDE internal function call</h1>
+    <h1>MrSGUIDE fit function</h1>
     <small class="dont-index">Source: <a href='https://github.com/baconzhou/mrsguide/blob/master/R/mrsguide.R'><code>R/mrsguide.R</code></a></small>
-    <div class="hidden name"><code>mrs.pure.Rd</code></div>
+    <div class="hidden name"><code>MrSFit.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Multiple responses subgroup identification use GUIDE Gi option, calling C++</p>
+    <p>Multiple responses subgroup identification with GUIDE gi option</p>
     </div>
 
-    <pre class="usage"><span class='fu'>.mrs.pure</span>(
-  <span class='no'>nX</span>,
-  <span class='no'>cX</span>,
-  <span class='no'>Y</span>,
-  <span class='no'>Trt</span>,
-  <span class='no'>splitIndex</span>,
-  <span class='no'>fitIndex</span>,
-  <span class='no'>holdIndex</span>,
-  <span class='no'>bk</span>,
-  <span class='kw'>maxDepth</span> <span class='kw'>=</span> <span class='fl'>10L</span>,
-  <span class='kw'>minTrt</span> <span class='kw'>=</span> <span class='fl'>5L</span>,
+    <pre class="usage"><span class='fu'>MrSFit</span>(
+  <span class='no'>dataframe</span>,
+  <span class='no'>role</span>,
+  <span class='kw'>bestK</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+  <span class='kw'>bootNum</span> <span class='kw'>=</span> <span class='fl'>0L</span>,
+  <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.05</span>,
+  <span class='kw'>maxDepth</span> <span class='kw'>=</span> <span class='fl'>5</span>,
+  <span class='kw'>minTrt</span> <span class='kw'>=</span> <span class='fl'>5</span>,
   <span class='kw'>minData</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Extremes.html'>max</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='no'>minTrt</span> * <span class='no'>maxDepth</span>, <span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>NROW</a></span>(<span class='no'>Y</span>)/<span class='fl'>20</span>)),
   <span class='kw'>batchNum</span> <span class='kw'>=</span> <span class='fl'>1L</span>,
   <span class='kw'>CVFolds</span> <span class='kw'>=</span> <span class='fl'>10L</span>,
-  <span class='kw'>CVSE</span> <span class='kw'>=</span> <span class='fl'>0.5</span>,
-  <span class='kw'>bootNum</span> <span class='kw'>=</span> <span class='fl'>500L</span>,
-  <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.05</span>,
+  <span class='kw'>CVSE</span> <span class='kw'>=</span> <span class='fl'>0</span>,
   <span class='kw'>faster</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>display</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>varName</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>treeName</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste0</a></span>(<span class='st'>"tree_"</span>, <span class='fu'><a href='https://rdrr.io/r/base/format.html'>format</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/Sys.time.html'>Sys.time</a></span>(), <span class='st'>"%m%d"</span>), <span class='st'>".yaml"</span>),
   <span class='kw'>nodeName</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste0</a></span>(<span class='st'>"node_"</span>, <span class='fu'><a href='https://rdrr.io/r/base/format.html'>format</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/Sys.time.html'>Sys.time</a></span>(), <span class='st'>"%m%d"</span>), <span class='st'>".txt"</span>),
   <span class='kw'>bootName</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste0</a></span>(<span class='st'>"boot_"</span>, <span class='fu'><a href='https://rdrr.io/r/base/format.html'>format</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/Sys.time.html'>Sys.time</a></span>(), <span class='st'>"%m%d"</span>), <span class='st'>".txt"</span>),
-  <span class='kw'>impName</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste0</a></span>(<span class='st'>"imp_"</span>, <span class='fu'><a href='https://rdrr.io/r/base/format.html'>format</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/Sys.time.html'>Sys.time</a></span>(), <span class='st'>"%m%d"</span>), <span class='st'>".txt"</span>)
+  <span class='kw'>impName</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste0</a></span>(<span class='st'>"imp_"</span>, <span class='fu'><a href='https://rdrr.io/r/base/format.html'>format</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/Sys.time.html'>Sys.time</a></span>(), <span class='st'>"%m%d"</span>), <span class='st'>".txt"</span>),
+  <span class='kw'>writeTo</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>remove</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>nX</th>
-      <td><p>numerical X matrix</p></td>
+      <th>dataframe</th>
+      <td><p>train data frame</p></td>
     </tr>
     <tr>
-      <th>cX</th>
-      <td><p>categorical X matrix</p></td>
+      <th>role</th>
+      <td><p>role follows GUIDE role</p></td>
     </tr>
     <tr>
-      <th>Y</th>
-      <td><p>outcome Y matrix</p></td>
+      <th>bestK</th>
+      <td><p>number of covariates in the regression model</p></td>
     </tr>
     <tr>
-      <th>Trt</th>
-      <td><p>treatment vector</p></td>
+      <th>bootNum</th>
+      <td><p>bootstrap number</p></td>
     </tr>
     <tr>
-      <th>splitIndex</th>
-      <td><p>variable used for split</p></td>
-    </tr>
-    <tr>
-      <th>fitIndex</th>
-      <td><p>variables can be used for fit</p></td>
-    </tr>
-    <tr>
-      <th>holdIndex</th>
-      <td><p>variable must include in the fitting model</p></td>
-    </tr>
-    <tr>
-      <th>bk</th>
-      <td><p>maximal number of variables used in the outcome model for prognostic control</p></td>
+      <th>alpha</th>
+      <td><p>desire alpha levels for confidence interval with respect to treatment parameters</p></td>
     </tr>
     <tr>
       <th>maxDepth</th>
-      <td><p>maximal depth</p></td>
+      <td><p>maximum tree depth</p></td>
     </tr>
     <tr>
       <th>minTrt</th>
@@ -215,24 +199,12 @@
       <td><p>cross validation SE</p></td>
     </tr>
     <tr>
-      <th>bootNum</th>
-      <td><p>bootstrap number</p></td>
-    </tr>
-    <tr>
-      <th>alpha</th>
-      <td><p>desire alpha levels for confidence interval with respect to treatment parameters</p></td>
-    </tr>
-    <tr>
       <th>faster</th>
       <td><p>related with tree split searching</p></td>
     </tr>
     <tr>
       <th>display</th>
       <td><p>Whether display tree in the end</p></td>
-    </tr>
-    <tr>
-      <th>varName</th>
-      <td><p>variable names</p></td>
     </tr>
     <tr>
       <th>treeName</th>
@@ -250,13 +222,67 @@
       <th>impName</th>
       <td><p>important variable file name</p></td>
     </tr>
+    <tr>
+      <th>writeTo</th>
+      <td><p>debug option reserve for author...</p></td>
+    </tr>
+    <tr>
+      <th>remove</th>
+      <td><p>whether to remove extra files</p></td>
+    </tr>
     </table>
 
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>Pure GUIDE function in subgroup identification use GI method.</p>
-<p>Perform GUIDE Gi option for subgroup identification</p>
+    <p>MrSGUIDE Multiple responses subgroup identification</p>
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>MrSGUIDE</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span>(<span class='fl'>1234</span>)
+
+<span class='no'>N</span> <span class='kw'>=</span> <span class='fl'>200</span>
+<span class='no'>np</span> <span class='kw'>=</span> <span class='fl'>3</span>
+
+<span class='no'>numX</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span>(<span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='no'>N</span> * <span class='no'>np</span>), <span class='no'>N</span>, <span class='no'>np</span>) <span class='co'>## numerical features</span>
+<span class='no'>gender</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>'Male'</span>, <span class='st'>'Female'</span>), <span class='no'>N</span>, <span class='kw'>replace</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+<span class='no'>country</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>'US'</span>, <span class='st'>'UK'</span>, <span class='st'>'China'</span>, <span class='st'>'Japan'</span>), <span class='no'>N</span>, <span class='kw'>replace</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+
+<span class='no'>z</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>1</span>), <span class='no'>N</span>, <span class='kw'>replace</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>) <span class='co'># Binary treatment assignment</span>
+
+<span class='no'>y1</span> <span class='kw'>&lt;-</span> <span class='no'>numX</span>[, <span class='fl'>1</span>] + <span class='fl'>1</span> * <span class='no'>z</span> * (<span class='no'>gender</span> <span class='kw'>==</span> <span class='st'>'Female'</span>) + <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='no'>N</span>)
+<span class='no'>y2</span> <span class='kw'>&lt;-</span> <span class='no'>numX</span>[, <span class='fl'>2</span>] + <span class='fl'>2</span> * <span class='no'>z</span> * (<span class='no'>gender</span> <span class='kw'>==</span> <span class='st'>'Female'</span>) + <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='no'>N</span>)
+
+<span class='no'>train</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(<span class='no'>numX</span>, <span class='no'>gender</span>, <span class='no'>country</span>, <span class='no'>z</span>, <span class='no'>y1</span>, <span class='no'>y2</span>)
+<span class='no'>role</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='st'>'n'</span>, <span class='fl'>3</span>), <span class='st'>'c'</span>, <span class='st'>'c'</span>, <span class='st'>'r'</span>, <span class='st'>'d'</span>, <span class='st'>'d'</span>)
+
+<span class='no'>mrsobj</span> <span class='kw'>&lt;-</span> <span class='fu'>MrSFit</span>(<span class='kw'>dataframe</span> <span class='kw'>=</span> <span class='no'>train</span>, <span class='kw'>role</span> <span class='kw'>=</span> <span class='no'>role</span>)
+<span class='fu'><a href='printTree.html'>printTree</a></span>(<span class='no'>mrsobj</span>)</div><div class='output co'>#&gt; ID: 1, gender = { Female, NA }
+#&gt;     ID: 2, Size: 118 [Terminal]
+#&gt;     Outcome Models: 
+#&gt;         y1        Est        SE
+#&gt;         X1    1.02
+#&gt;         z.0    -0.179    0.132
+#&gt;         z.1    0.996    0.189
+#&gt;     - - - - - - - - - - - - - - 
+#&gt;         y2        Est        SE
+#&gt;         X2    1.194
+#&gt;         z.0    -0.062    0.126
+#&gt;         z.1    2.062    0.181
+#&gt;     - - - - - - - - - - - - - - 
+#&gt; ID: 1, gender = { Male }
+#&gt;     ID: 3, Size: 82 [Terminal]
+#&gt;     Outcome Models: 
+#&gt;         y1        Est        SE
+#&gt;         X1    0.961
+#&gt;         z.0    0.198    0.144
+#&gt;         z.1    -0.227    0.2
+#&gt;     - - - - - - - - - - - - - - 
+#&gt;         y2        Est        SE
+#&gt;         X2    0.974
+#&gt;         z.0    0.167    0.149
+#&gt;         z.1    -0.037    0.209
+#&gt;     - - - - - - - - - - - - - - </div><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

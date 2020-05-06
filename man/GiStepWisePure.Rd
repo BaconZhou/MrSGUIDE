@@ -2,7 +2,7 @@
 % Please edit documentation in R/RcppExports.R
 \name{GiStepWisePure}
 \alias{GiStepWisePure}
-\title{Multiple response subgroup identification use GUIDE Gi option with step wise regression}
+\title{MrSGUIDE stepwise}
 \usage{
 GiStepWisePure(
   numX,
@@ -55,7 +55,7 @@ GiStepWisePure(
 
 \item{batchNum}{related with exhaustive search for numerical split variable}
 
-\item{CVFold}{cross validataion times}
+\item{CVFold}{cross validation times}
 
 \item{CVSE}{cross validation SE}
 
@@ -73,10 +73,13 @@ GiStepWisePure(
 
 \item{nodeName}{file same for each node}
 
-\item{bootName}{boostrap calibrate alpha}
+\item{bootName}{file save bootstrap calibrate alpha}
 
 \item{impName}{important variable file name}
 }
 \description{
-Multiple response subgroup identification use GUIDE Gi option with step wise regression
+MrSGUIDE C++ function
+}
+\author{
+Peigen Zhou
 }

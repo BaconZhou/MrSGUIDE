@@ -56,9 +56,9 @@
     trt
 }
 
-#' Predict the node id of MrS regression tree
+#' Predict the node id of MrSGUIDE regression tree
 #'
-#' @param mrsobj MrS object
+#' @param mrsobj MrSGUIDE object
 #' @param dataframe data used for prediction
 #' @param type node id
 #'

@@ -1,31 +1,44 @@
 # MrSGUIDE
 
-**M**ultiplre **R**esponse **S**ubgroup **I**dentification in GUIDE
+**M**ultiple **R**esponse **S**ubgroup Identification in GUIDE
 
-The current package is still under heavily devolopment.
+The current package is still under heavily development.
 
 For subgroup identification use [GUIDE](https://www.stat.wisc.edu/~loh/guide.html) algorithm.
 
 Here are the links and paper for reference:
 
-Loh, W.-Y., Man, M. and Wang, S. (2019), [Subgroups from regression trees with adjustment for prognostic effects and post-selection inference](http://pages.stat.wisc.edu/~loh/treeprogs/guide/sm19.pdf), Statistics in Medicine
+Loh, W.-Y. and Zhou, P. (2020), [The GUIDE approach to subgroup identification](http://www.stat.wisc.edu/~loh/treeprogs/guide/LZ19.pdf). In Design and Analysis of Subgroups with Biopharmaceutical Applications, N. Ting, J. C. Cappelleri, S. Ho, and D.-G. Chen (Eds.) Springer, in press.
 
-Loh, W.-Y., Fu, H., Man, M., Champion, V. and Yu, M. (2016), [Identification of subgroups with differential treatment effects for longitudinal and multiresponse variables](http://www.stat.wisc.edu/~loh/treeprogs/guide/LFMCY16.pdf), Statistics in Medicine
+Loh, W.-Y., Cao, L. and Zhou, P. (2019), [Subgroup identification for precision medicine: a comparative review of thirteen methods](http://www.stat.wisc.edu/~loh/treeprogs/guide/wires19.pdf), Wiley Interdisciplinary Reviews: Data Mining and Knowledge Discovery, vol. 9, 5, e1326. [DOI](http://dx.doi.org/10.1002/widm.1326)
 
-# Package install **No test in windows**
+Loh, W.-Y., Man, M. and Wang, S. (2019), [Subgroups from regression trees with adjustment for prognostic effects and po3st-selection inference](http://pages.stat.wisc.edu/~loh/treeprogs/guide/sm19.pdf), Statistics in Medicine, vol. 38, 545-557. [DOI](http://onlinelibrary.wiley.com/doi/10.1002/sim.7677)
+
+Loh, W.-Y., Fu, H., Man, M., Champion, V. and Yu, M. (2016), [Identification of subgroups with differential treatment effects for longitudinal and multiresponse variables](http://www.stat.wisc.edu/~loh/treeprogs/guide/LFMCY16.pdf), Statistics in Medicine, vol. 35, 4837-4855. [DOI](http://onlinelibrary.wiley.com/doi/10.1002/sim.7020/full)
+
+## Dependence
+
+R packages:
+
+- Rcpp
+- RcppArmardillo
+- BH
+
+## Package install
 
 ```
 library(devtools)
-install_github('baconzhou/MrS')
+install_github('baconzhou/MrSGUIDE')
 ```
 
-- OpenMP support is required.
+### MacOS
 
-## MacOS
+Please refer to the following link if you have problem with install the package from source.
 
-Please refer to [R Compiler Tools for Rcpp on macOS](https://thecoatlessprofessor.com/programming/r-compiler-tools-for-rcpp-on-macos/) if you have problem with compliering the package.
+1. [R Compiler Tools for Rcpp on MacOS](https://thecoatlessprofessor.com/programming/r-compiler-tools-for-rcpp-on-macos/) 
+2. [Rcpp FAQ section 2.10](https://cloud.r-project.org/web/packages/Rcpp/vignettes/Rcpp-FAQ.pdf)
 
-I used homebrew for libomp
+Here are my personal set up for MacOS building `MrSGUIDE` used homebrew for libomp
 
 ```
 brew update
