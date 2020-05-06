@@ -36,37 +36,71 @@ if test "${GXX}" = yes; then
     esac
 fi
 
-dnl this the meat of R's m4/openmp.m4
-  OPENMP_[]_AC_LANG_PREFIX[]FLAGS=
-  AC_ARG_ENABLE([openmp],
-    [AS_HELP_STRING([--disable-openmp], [do not use OpenMP])])
-  if test "$enable_openmp" != no; then
-    AC_CACHE_CHECK([for $[]_AC_CC[] option to support OpenMP],
-      [ac_cv_prog_[]_AC_LANG_ABBREV[]_openmp],
-      [AC_LINK_IFELSE([_AC_LANG_OPENMP],
-   	 [ac_cv_prog_[]_AC_LANG_ABBREV[]_openmp='none needed'],
-	 [ac_cv_prog_[]_AC_LANG_ABBREV[]_openmp='unsupported'
-	  for ac_option in -fopenmp -xopenmp -qopenmp \
-                           -openmp -mp -omp -qsmp=omp -homp \
-			   -fopenmp=libomp \
-                           -Popenmp --openmp; do
-	    ac_save_[]_AC_LANG_PREFIX[]FLAGS=$[]_AC_LANG_PREFIX[]FLAGS
-	    _AC_LANG_PREFIX[]FLAGS="$[]_AC_LANG_PREFIX[]FLAGS $ac_option"
-	    AC_LINK_IFELSE([_AC_LANG_OPENMP],
-	      [ac_cv_prog_[]_AC_LANG_ABBREV[]_openmp=$ac_option])
-	    _AC_LANG_PREFIX[]FLAGS=$ac_save_[]_AC_LANG_PREFIX[]FLAGS
-	    if test "$ac_cv_prog_[]_AC_LANG_ABBREV[]_openmp" != unsupported; then
-	      break
-	    fi
-	  done])])
-    case $ac_cv_prog_[]_AC_LANG_ABBREV[]_openmp in #(
-      "none needed" | unsupported)
-	;; #(
-      *)
-	OPENMP_[]_AC_LANG_PREFIX[]FLAGS=$ac_cv_prog_[]_AC_LANG_ABBREV[]_openmp ;;
-    esac
-  fi
+## Check for suitable LAPACK_LIBS
+AC_MSG_CHECKING([LAPACK_LIBS])
 
-AC_SUBST(OPENMP_CXXFLAGS)
+## external LAPACK has the required function
+lapack=$(${R_HOME}/bin/R CMD config LAPACK_LIBS)
+hasRlapack=$(echo ${lapack} | grep lRlapack)
+## internal Rlapack now the required functions if "new enough": R 3.3.0 or later
+newR=$("${R_HOME}/bin/Rscript" --vanilla -e 'if (getRversion() >= "3.3.0") cat("yes") else cat("no")')
+
+## in what follows below we substitute both side of the define/undef
+## while this may seem a little unusual we do it to fully reproduce the
+## previous bash-based implementation
+
+if test x"${hasRlapack}" == x""; then
+    ## We are using a full Lapack and can use zgesdd -- so #undef remains
+    AC_MSG_RESULT([system LAPACK found])
+    have_good_lapack="#undef"
+    arma_crippled_lapack="ARMA_CRIPPLED_LAPACK"
+else
+    if test x"${newR}" == x"yes"; then
+        ## The R versions are recent enough and has an augmented internal Rlapack
+        AC_MSG_RESULT([fallback LAPACK from R 3.3.0 or later used])
+        have_good_lapack="#undef"
+        arma_crippled_lapack="ARMA_CRIPPLED_LAPACK"
+    else
+        ## We are using an older R's subset of Lapack and CANNOT use zgesdd etc, so we mark it
+        AC_MSG_RESULT([R-supplied partial LAPACK found])
+        AC_MSG_WARN([Some complex-valued LAPACK functions may not be available])
+        have_good_lapack="#define"
+        arma_crippled_lapack="ARMA_CRIPPLED_LAPACK 1"
+    fi
+fi
+
+## If and only if OpenMP is found, expand to $(SHLIB_OPENMP_CXXFLAGS)
+openmp_flag=""
+
+## Check for broken systems produced by a corporation based in Cupertino
+AC_MSG_CHECKING([for macOS])
+RSysinfoName=$("${R_HOME}/bin/Rscript" --vanilla -e 'cat(Sys.info()[["sysname"]])')
+if test x"${RSysinfoName}" == x"Darwin"; then
+   AC_MSG_RESULT([found])
+   AC_MSG_WARN([OpenMP unavailable and turned off.])
+   have_openmp="#define ARMA_DONT_USE_OPENMP 1"
+else
+   AC_MSG_RESULT([not found as on ${RSysinfoName}])
+   ## Check for OpenMP
+   AC_MSG_CHECKING([for OpenMP])
+   ## if R has -fopenmp we should be good
+   allldflags=$(${R_HOME}/bin/R CMD config --ldflags)
+   hasOpenMP=$(echo ${allldflags} | grep -- -fopenmp)
+   if test x"${hasOpenMP}" == x""; then
+      AC_MSG_RESULT([missing])
+      have_openmp="#define ARMA_DONT_USE_OPENMP 1"
+   else
+      AC_MSG_RESULT([found])
+      have_openmp="#define ARMA_USE_OPENMP 1"
+      openmp_flag='$(SHLIB_OPENMP_CXXFLAGS)'
+   fi
+fi
+
+
+## now use all these
+AC_SUBST([HAVE_GOOD_LAPACK],["${have_good_lapack}"])
+AC_SUBST([ARMA_CRIPPLED_LAPACK], ["${arma_crippled_lapack}"])
+AC_SUBST([HAVE_OPENMP], ["${have_openmp}"])
+AC_SUBST([OPENMP_FLAG], ["${openmp_flag}"])
 AC_CONFIG_FILES([src/Makevars])
 AC_OUTPUT
