@@ -67,7 +67,6 @@ install.packages("devtools")
 After `devtools` has been installed, we can install `MrSGUIDE` package using commands:
 
 ```{r, eval=FALSE}
-install.packages("devtools")
 library(devtools)
 install_github("BaconZhou/MrS")
 ```

@@ -111,8 +111,7 @@
 <p><code>MrSGUIDE</code> can be installed from Github repository “BaconZhou/MrS” now. And users need to download and install <code>devtool</code> first from CRAN by the following command:</p>
 <div class="sourceCode" id="cb1"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"devtools"</span>)</pre></body></html></div>
 <p>After <code>devtools</code> has been installed, we can install <code>MrSGUIDE</code> package using commands:</p>
-<div class="sourceCode" id="cb2"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"devtools"</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">devtools</span>)
+<div class="sourceCode" id="cb2"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">devtools</span>)
 <span class="fu"><a href="https://devtools.r-lib.org//reference/remote-reexports.html">install_github</a></span>(<span class="st">"BaconZhou/MrS"</span>)</pre></body></html></div>
 </div>
 <div id="a-quick-example" class="section level2">
@@ -215,9 +214,9 @@
 <p>To display the tree into LaTex, <code>MrSGUIDE</code> also export a function <code><a href="../reference/writeTex.html">writeTex()</a></code> which can write the tree into LaTex format.</p>
 <div class="sourceCode" id="cb16"><html><body><pre class="r"><span class="fu"><a href="../reference/writeTex.html">writeTex</a></span>(<span class="no">mrsobj</span>, <span class="kw">file</span> <span class="kw">=</span> <span class="st">'test.tex'</span>)</pre></body></html></div>
 <p>The <code>test.tex</code> file should be compiled via <code>LaTex + dvips + ps2pdf</code>.</p>
-<pre class="shell"><code>$ cat test.tex</code></pre>
+<div class="sourceCode" id="cb17"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb17-1" title="1">$ <span class="fu">cat</span> test.tex</a></code></pre></div>
 <pre><code>\documentclass[12pt]{article}
- %File creation date:2020-05-05 17:34:39
+ %File creation date:2020-05-05 21:26:04
 \usepackage{pstricks,pst-node,pst-tree}
 \usepackage{geometry}
 \usepackage{lscape}

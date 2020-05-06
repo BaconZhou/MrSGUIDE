@@ -73,7 +73,7 @@ MrSGUIDE identification use GUIDE algorithm" />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">MrSGUIDE</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1</span>
       </span>
     </div>
 
@@ -102,7 +102,12 @@ MrSGUIDE identification use GUIDE algorithm" />
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        
+        <li>
+  <a href="https://github.com/baconzhou/mrs/">
+    <span class="fab fa fab fa-github fa-lg"></span>
+     
+  </a>
+</li>
       </ul>
       
     </div><!--/.nav-collapse -->
@@ -117,7 +122,7 @@ MrSGUIDE identification use GUIDE algorithm" />
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>MrSGUIDE</h1>
-    
+    <small class="dont-index">Source: <a href='https://github.com/baconzhou/mrs/blob/master/R/mrsguide.R'><code>R/mrsguide.R</code></a></small>
     <div class="hidden name"><code>MrSGUIDE.Rd</code></div>
     </div>
 
@@ -233,6 +238,53 @@ MrSGUIDE identification use GUIDE algorithm" />
 
     <p>MrSGUIDE Multiple responses subgroup identification</p>
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>MrSGUIDE</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span>(<span class='fl'>1234</span>)
+
+<span class='no'>N</span> <span class='kw'>=</span> <span class='fl'>200</span>
+<span class='no'>np</span> <span class='kw'>=</span> <span class='fl'>3</span>
+
+<span class='no'>numX</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span>(<span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='no'>N</span> * <span class='no'>np</span>), <span class='no'>N</span>, <span class='no'>np</span>) <span class='co'>## numerical features</span>
+<span class='no'>gender</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>'Male'</span>, <span class='st'>'Female'</span>), <span class='no'>N</span>, <span class='kw'>replace</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+<span class='no'>country</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>'US'</span>, <span class='st'>'UK'</span>, <span class='st'>'China'</span>, <span class='st'>'Japan'</span>), <span class='no'>N</span>, <span class='kw'>replace</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+
+<span class='no'>z</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>1</span>), <span class='no'>N</span>, <span class='kw'>replace</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>) <span class='co'># Binary treatment assignment</span>
+
+<span class='no'>y1</span> <span class='kw'>&lt;-</span> <span class='no'>numX</span>[, <span class='fl'>1</span>] + <span class='fl'>1</span> * <span class='no'>z</span> * (<span class='no'>gender</span> <span class='kw'>==</span> <span class='st'>'Female'</span>) + <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='no'>N</span>)
+<span class='no'>y2</span> <span class='kw'>&lt;-</span> <span class='no'>numX</span>[, <span class='fl'>2</span>] + <span class='fl'>2</span> * <span class='no'>z</span> * (<span class='no'>gender</span> <span class='kw'>==</span> <span class='st'>'Female'</span>) + <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='no'>N</span>)
+
+<span class='no'>train</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(<span class='no'>numX</span>, <span class='no'>gender</span>, <span class='no'>country</span>, <span class='no'>z</span>, <span class='no'>y1</span>, <span class='no'>y2</span>)
+<span class='no'>role</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='st'>'n'</span>, <span class='fl'>3</span>), <span class='st'>'c'</span>, <span class='st'>'c'</span>, <span class='st'>'r'</span>, <span class='st'>'d'</span>, <span class='st'>'d'</span>)
+
+<span class='no'>mrsobj</span> <span class='kw'>&lt;-</span> <span class='fu'>MrSFit</span>(<span class='kw'>dataframe</span> <span class='kw'>=</span> <span class='no'>train</span>, <span class='kw'>role</span> <span class='kw'>=</span> <span class='no'>role</span>)
+<span class='fu'><a href='printTree.html'>printTree</a></span>(<span class='no'>mrsobj</span>)</div><div class='output co'>#&gt; ID: 1, gender = { Female, NA }
+#&gt;     ID: 2, Size: 118 [Terminal]
+#&gt;     Outcome Models: 
+#&gt;         y1        Est        SE
+#&gt;         X1    1.02
+#&gt;         z.0    -0.179    0.132
+#&gt;         z.1    0.996    0.189
+#&gt;     - - - - - - - - - - - - - - 
+#&gt;         y2        Est        SE
+#&gt;         X2    1.194
+#&gt;         z.0    -0.062    0.126
+#&gt;         z.1    2.062    0.181
+#&gt;     - - - - - - - - - - - - - - 
+#&gt; ID: 1, gender = { Male }
+#&gt;     ID: 3, Size: 82 [Terminal]
+#&gt;     Outcome Models: 
+#&gt;         y1        Est        SE
+#&gt;         X1    0.961
+#&gt;         z.0    0.198    0.144
+#&gt;         z.1    -0.227    0.2
+#&gt;     - - - - - - - - - - - - - - 
+#&gt;         y2        Est        SE
+#&gt;         X2    0.974
+#&gt;         z.0    0.167    0.149
+#&gt;         z.1    -0.037    0.209
+#&gt;     - - - - - - - - - - - - - - </div><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

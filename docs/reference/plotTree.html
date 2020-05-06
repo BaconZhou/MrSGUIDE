@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">MrSGUIDE</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1</span>
       </span>
     </div>
 
@@ -101,7 +101,12 @@
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        
+        <li>
+  <a href="https://github.com/baconzhou/mrs/">
+    <span class="fab fa fab fa-github fa-lg"></span>
+     
+  </a>
+</li>
       </ul>
       
     </div><!--/.nav-collapse -->
@@ -116,7 +121,7 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Plot MrS regression tree</h1>
-    
+    <small class="dont-index">Source: <a href='https://github.com/baconzhou/mrs/blob/master/R/plot.R'><code>R/plot.R</code></a></small>
     <div class="hidden name"><code>plotTree.Rd</code></div>
     </div>
 
@@ -125,7 +130,7 @@
     </div>
 
     <pre class="usage"><span class='fu'>plotTree</span>(
-  <span class='no'>msobj</span>,
+  <span class='no'>mrsobj</span>,
   <span class='kw'>digits</span> <span class='kw'>=</span> <span class='fl'>3</span>,
   <span class='kw'>height</span> <span class='kw'>=</span> <span class='st'>"600px"</span>,
   <span class='kw'>width</span> <span class='kw'>=</span> <span class='st'>"100%"</span>,
@@ -146,7 +151,7 @@
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>msobj</th>
+      <th>mrsobj</th>
       <td><p>MrS object</p></td>
     </tr>
     <tr>

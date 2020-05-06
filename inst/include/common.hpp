@@ -5,6 +5,8 @@
 #ifndef SUBGUIDE_SUBGUIDE_H
 #define SUBGUIDE_SUBGUIDE_H
 
+#define ARMA_USE_CXX11
+
 #include <iostream>
 #include "RcppArmadillo.h"
 #include <cmath>

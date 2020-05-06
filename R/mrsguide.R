@@ -30,7 +30,7 @@
 #'
 #' @importFrom utils read.table write.table
 #'
-#' @example
+#' @examples
 #' library(MrSGUIDE)
 #' set.seed(1234)
 #'

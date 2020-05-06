@@ -583,7 +583,10 @@ echo 'BEGIN {' >"$ac_tmp/subs1.awk" &&
 cat >>"$ac_tmp/subs1.awk" <<\_ACAWK &&
 S["LTLIBOBJS"]=""
 S["LIBOBJS"]=""
-S["OPENMP_CXXFLAGS"]="-fopenmp"
+S["OPENMP_FLAG"]=""
+S["HAVE_OPENMP"]="#define ARMA_DONT_USE_OPENMP 1"
+S["ARMA_CRIPPLED_LAPACK"]="ARMA_CRIPPLED_LAPACK"
+S["HAVE_GOOD_LAPACK"]="#undef"
 S["CXXCPP"]="/usr/local/opt/llvm/bin/clang++ -E"
 S["OBJEXT"]="o"
 S["EXEEXT"]=""
