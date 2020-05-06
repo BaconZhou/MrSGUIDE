@@ -9,11 +9,6 @@
 #include <fstream>
 #include <string>
 
-#ifdef _OPENMP
-    #include <omp.h>
-    // [[Rcpp::plugins(openmp)]]
-#endif
-
 // [[Rcpp::depends(RcppArmadillo)]]
 
 // [[Rcpp::plugins(cpp11)]]

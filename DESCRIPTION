@@ -11,7 +11,7 @@ License: GPL-3
 URL: http://www.stat.wisc.edu/~loh/guide.html
 BugReports: https://github.com/baconzhou/mrs/issues
 LinkingTo: Rcpp, RcppArmadillo, BH
-SystemRequirements: GNU make
+SystemRequirements: GNU make, C++11
 Depends: R (>= 3.1.0)
 Imports: Rcpp,
     dplyr,
