@@ -2,33 +2,7 @@
 title: "Usage of MrSGUIDE Package"
 author: "Peigen Zhou"
 date: "`r Sys.Date()`"
-output: 
-    rmarkdown::html_vignette:
-        toc: true
-        toc_depth: 4
-        number_sections: true
-preamble: >
-    \usepackage{amsmath,amssymb,amsfonts,bm,bbm,amsthm}
-    \usepackage{longtable}
-    \usepackage{booktabs}
-    \usepackage{bbm, bm}
-    \def\bsx {\boldsymbol x}
-    \def\bsX {\boldsymbol X}
-    \def\bsT {\boldsymbol T}
-    \def\bsbeta {\boldsymbol \beta}
-    \def\bsgamma {\boldsymbol \gamma}
-    \def\bsW {\boldsymbol W}
-    \def\bsy {\boldsymbol y}
-    \def\bsY {\boldsymbol Y}
-    \def\bsM {\boldsymbol M}
-    \def\bfx {\mathbf x}
-    \def\bfX {\mathbf X}
-    \def\bfT {\mathbf T}
-    \def\bfW {\mathbf W}
-    \def\bfy {\mathbf y}
-    \def\bfY {\mathbf Y}
-    \def\bfM {\mathbf M}
-    \def\bfU {\mathbf U}
+output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Usage of MrSGUIDE Package}
   %\VignetteEngine{knitr::rmarkdown}
@@ -36,8 +10,8 @@ vignette: >
 ---
 
 ```{r setup, include=FALSE}
+library(knitr)
 knitr::opts_chunk$set(echo = TRUE)
-knitr::knit_engines$set()
 ```
 
 # Introduction to `MrSGUIDE`
@@ -176,7 +150,12 @@ ps2pdf test.ps
 rm test.tex test.aux test.dvi test.log test.ps
 ```
 
-![PDF image](test.pdf)
+The PDF file is shown below.
+
+```{r, echo=FALSE, fig.width=20, fig.align='center', fig.pos="h"}
+include_graphics(path = './test.pdf')
+```
+
 
 This quick example aimed at provide a general understanding of what `MrSGUIDE` is capable of doing. In the rest of the chapter, we will show more intruction about how to use the function step by step.
 
