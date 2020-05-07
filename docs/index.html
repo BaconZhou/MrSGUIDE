@@ -12,7 +12,9 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
 <script src="pkgdown.js"></script><meta property="og:title" content="Multiple Responses Subgroup Identification using GUIDE Algorithm">
-<meta property="og:description" content="MrSGUIDE is an R implementation based on GUIDE algorithm focusing on subgroup identification problem under multiple responses.">
+<meta property="og:description" content="An R implementation of GUIDE style algorithm focusing on subgroup identification problem 
+            under multiple responses of Loh et al. (2019) &lt;doi:10.1002/widm.1326&gt;. This package is intended for use 
+            for randomized trials and observational studies.">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
@@ -58,6 +60,9 @@
     </li>
   </ul>
 </li>
+<li>
+  <a href="news/index.html">Changelog</a>
+</li>
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
@@ -89,9 +94,9 @@
 <p>Loh, W.-Y., Cao, L. and Zhou, P. (2019), <a href="http://www.stat.wisc.edu/~loh/treeprogs/guide/wires19.pdf">Subgroup identification for precision medicine: a comparative review of thirteen methods</a>, Wiley Interdisciplinary Reviews: Data Mining and Knowledge Discovery, vol. 9, 5, e1326. <a href="http://dx.doi.org/10.1002/widm.1326">DOI</a></p>
 <p>Loh, W.-Y., Man, M. and Wang, S. (2019), <a href="http://pages.stat.wisc.edu/~loh/treeprogs/guide/sm19.pdf">Subgroups from regression trees with adjustment for prognostic effects and po3st-selection inference</a>, Statistics in Medicine, vol. 38, 545-557. <a href="http://onlinelibrary.wiley.com/doi/10.1002/sim.7677">DOI</a></p>
 <p>Loh, W.-Y., Fu, H., Man, M., Champion, V. and Yu, M. (2016), <a href="http://www.stat.wisc.edu/~loh/treeprogs/guide/LFMCY16.pdf">Identification of subgroups with differential treatment effects for longitudinal and multiresponse variables</a>, Statistics in Medicine, vol. 35, 4837-4855. <a href="http://onlinelibrary.wiley.com/doi/10.1002/sim.7020/full">DOI</a></p>
-<div id="dependence" class="section level2">
+<div id="dependencies" class="section level2">
 <h2 class="hasAnchor">
-<a href="#dependence" class="anchor"></a>Dependence</h2>
+<a href="#dependencies" class="anchor"></a>Dependencies</h2>
 <p>R packages:</p>
 <ul>
 <li>Rcpp</li>
@@ -110,7 +115,7 @@ install_github('baconzhou/MrSGUIDE')</a></code></pre>
 <p>Please refer to the following link if you have problem with install the package from source.</p>
 <ol>
 <li><a href="https://thecoatlessprofessor.com/programming/r-compiler-tools-for-rcpp-on-macos/">R Compiler Tools for Rcpp on MacOS</a></li>
-<li><a href="https://cloud.r-project.org/web/packages/Rcpp/vignettes/Rcpp-FAQ.pdf">Rcpp FAQ section 2.10</a></li>
+<li><a href="https://cran.r-project.org/web/packages/Rcpp/vignettes/Rcpp-FAQ.pdf">Rcpp FAQ section 2.10</a></li>
 </ol>
 <p>Here are my personal set up for MacOS building <code>MrSGUIDE</code> used homebrew for libomp</p>
 <pre><code>brew update
