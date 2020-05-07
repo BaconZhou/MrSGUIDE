@@ -150,32 +150,8 @@ plotTree <- function(mrsobj, digits = 3, height = "600px", width = "100%",
                        collapse = list(enabled = FALSE, fit = TRUE, resetHighlight = TRUE,
                                        clusterOptions = list(fixed = TRUE, physics = FALSE)),
                        alphaInd = 3) {
-    if (!requireNamespace("visNetwork", quietly = TRUE)) {
-        cat("Please install following packages to run plotTree function.\n
-             - visNetwork\n
-             - ggpubr\n
-             - ggplot2\n
-             - dplyr\n")
-        stop("Package \"visNetwork\" needed for this function to work. Please install it.",
-             call. = FALSE)
-    }
 
-    if (!requireNamespace("ggpubr", quietly = TRUE)) {
-        stop("Package \"ggpubr\" needed for this function to work. Please install it.",
-             call. = FALSE)
-    }
-
-    if (!requireNamespace("ggplot2", quietly = TRUE)) {
-        stop("Package \"ggplot2\" needed for this function to work. Please install it.",
-             call. = FALSE)
-    }
-
-    if (!requireNamespace("dplyr", quietly = TRUE)) {
-        stop("Package \"dplyr\" needed for this function to work. Please install it.",
-             call. = FALSE)
-    }
-
-    treatNode <- .getTrt(mrsobj$nodeMap, mrsobj$ynames, mrsobj$tLevels[[1]])
+    treatNode <- .getTrt(mrsobj$nodeMap, mrsobj$ynames, paste0(mrsobj$trtname, '.', mrsobj$tLevels[[1]]))
     ndf1 <- .node_df(mrsobj$treeRes, treatNode, digits = digits, font.size = nodefontSize,
                      nodesPopSize = FALSE, fixed = nodeFixed,
                      minNodeSize = minNodeSize,
@@ -184,47 +160,57 @@ plotTree <- function(mrsobj, digits = 3, height = "600px", width = "100%",
     edf1 <- .edge_df(mrsobj$treeRes, ndf1, mrsobj$cLevels, digits = digits, color = edgeColor,
                      font.size = edgefontSize, font.align = "horizontal")
 
-    tree <- visNetwork::visNetwork(nodes = ndf1, edges = edf1, height = height, width = width) %>%
-        visNetwork::visHierarchicalLayout(direction = 'UD') %>%
-        visNetwork::visPhysics(barnesHut = list(avoidOverlap = 1)) %>%
-        # visOptions(highlightNearest =  highlightNearest, collapse = collapse) %>%
-        visNetwork::visInteraction(dragNodes = !nodeFixed, selectConnectedEdges = FALSE,
-                                   tooltipStyle = 'position: fixed;visibility:hidden;padding: 5px;
-                                   white-space: nowrap;
-                                   font-family: cursive;font-size:12px;font-color:purple;background-color: #E6E6E6;
-                                   border-radius: 15px;') %>%
-        visNetwork::visEdges(scaling = list(label = list(enabled = FALSE))) %>%
-        visNetwork::visEvents(type = "once", stabilized = "function() {
-                              this.setOptions({layout:{hierarchical:false}, physics:{solver:'barnesHut', enabled:true, stabilization : false}, nodes : {physics : false, fixed : true}});
-}") %>%
-        visNetwork::visExport(type='pdf')
-
     palpha <- 1.96
     if (!is.null(mrsobj$bootAlpha)) {
         palpha <- abs(stats::qnorm(mrsobj$bootAlpha[alphaInd]))
     }
 
-    treatNode <- treatNode %>%
-        dplyr::mutate(Quantity = paste0(treatNode$Outcome, '.', gsub('Node: ', '', treatNode$Node)),
-                      ymin = treatNode$Estimate - palpha * treatNode$SE,
-                      ymax = treatNode$Estimate + palpha * treatNode$SE,
-                      zalpha = palpha)
+    treatNode$Quantity <- paste0('Node: ', treatNode$Node,'; ', treatNode$Outcome)
+    treatNode$ymin <- treatNode$Estimate - palpha * treatNode$SE
+    treatNode$ymax <- treatNode$Estimate + palpha * treatNode$SE
+    treatNode$zalpha <- palpha
 
-    trtPlot <- ggpubr::ggdotchart(data = treatNode, x = 'Quantity', y = 'Estimate',
-                           color = 'Node', palette = "aaas",
-                           add.params = list(color = "lightgray", size = 2),
-                           add = 'none', shape = ifelse(length(unique(treatNode$Assignment)) == 1, 19, 'Assignment'),
-                           group = 'Node', rotate = TRUE, dot.size = 6,
-                           ggthem = ggpubr::theme_pubr()) +
-        ggplot2::labs(y = 'Treatment Effect') +
-        ggplot2::geom_hline(yintercept = 0, linetype = 2, color = "lightgray") +
-        ggplot2::theme(legend.text=ggplot2::element_text(size=14))
+    if (requireNamespace("visNetwork", quietly = TRUE)) {
+        tree <- visNetwork::visNetwork(nodes = ndf1, edges = edf1, height = height, width = width) %>%
+            visNetwork::visHierarchicalLayout(direction = 'UD') %>%
+            visNetwork::visPhysics(barnesHut = list(avoidOverlap = 1)) %>%
+            # visOptions(highlightNearest =  highlightNearest, collapse = collapse) %>%
+            visNetwork::visInteraction(dragNodes = !nodeFixed, selectConnectedEdges = FALSE,
+                                       tooltipStyle = 'position: fixed;visibility:hidden;padding: 5px;
+                                   white-space: nowrap;
+                                   font-family: cursive;font-size:12px;font-color:purple;background-color: #E6E6E6;
+                                   border-radius: 15px;') %>%
+            visNetwork::visEdges(scaling = list(label = list(enabled = FALSE))) %>%
+            visNetwork::visEvents(type = "once", stabilized = "function() {
+                              this.setOptions({layout:{hierarchical:false}, physics:{solver:'barnesHut', enabled:true, stabilization : false}, nodes : {physics : false, fixed : true}});
+}") %>%
+            visNetwork::visExport(type='pdf')
+    } else {
+        cat("Package \"visNetwork\" needed for this function to work better. Please install it.")
+        tree <- NULL
+    }
 
-    if (!is.null(mrsobj$bootAlpha)) {
-        trtPlot <- trtPlot +
-            ggplot2::geom_errorbar(ggplot2::aes_string(x = "Quantity",
-                                                ymin = "ymin",
-                                                ymax = "ymax"), data = treatNode, width=0.1, size=1)
+    if (requireNamespace("ggplot2", quietly = TRUE)) {
+        trtPlot <- ggplot2::ggplot(data = treatNode,
+                                   ggplot2::aes_string(x = 'Quantity', y = 'Estimate',
+                                              color = 'Node', group = 'Node',
+                                              shape = 'Assignment')) +
+            ggplot2::xlim(rev(treatNode$Quantity)) +
+            ggplot2::geom_point(size=6) +
+            ggplot2::labs(y = 'Treatment Effect') +
+            ggplot2::geom_hline(yintercept = 0, linetype = 2, color = "red") +
+            ggplot2::coord_flip() +
+            ggplot2::theme_bw(base_size = 20)
+
+        if (!is.null(mrsobj$bootAlpha)) {
+            trtPlot <- trtPlot +
+                ggplot2::geom_errorbar(ggplot2::aes_string(x = "Quantity",
+                                                           ymin = "ymin",
+                                                           ymax = "ymax"), data = treatNode, width=0.1, size=1)
+        }
+    } else {
+        cat("Package \"ggplot2\" needed to plot treatment effect with node. Please install it.")
+        trtPlot <- NULL
     }
 
     list(treeplot = tree, nodeTreat = treatNode, trtPlot = trtPlot)

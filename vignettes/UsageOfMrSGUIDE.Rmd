@@ -11,14 +11,14 @@ vignette: >
 
 ```{r setup, include=FALSE}
 library(knitr)
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = TRUE, fig.align='center', fig.width=18, fig.heigh=9)
 ```
 
 # Introduction to `MrSGUIDE`
 
 The `MrSGUIDE`package stands for *M*ultiple *R*esponses *S*ubgroup identification using `GUIDE` style algorithm. It aims to provide a statistical analysis for subgroup identification. 
 
-The original [GUIDE](http://pages.stat.wisc.edu/~loh/guide.html) algorithm is developed by Professor Wei-Yin Loh, which has more features. `MrSGUIDE` only use `GUIDE` `Gi` for subgroup identification for single and multiple responses. If you like `MrSGUIDE` and want to explore more, please try [GUIDE](http://pages.stat.wisc.edu/~loh/guide.html)!
+The original [GUIDE](http://pages.stat.wisc.edu/~loh/guide.html) algorithm is developed by Professor Wei-Yin Loh, which has more features. `MrSGUIDE` only uses `GUIDE` `Gi` for subgroup identification for single and multiple responses. If you like `MrSGUIDE` and want to explore more, please try [GUIDE](http://pages.stat.wisc.edu/~loh/guide.html)!
 
 The general analysis pipeline is as follows:
 
@@ -97,18 +97,16 @@ printTree(mrsobj = mrsobj, details = F)
 `MrSGUIDE` also provide `plotTree()` function which used following packages:
 
 - `visNetwork`
-- `ggpubr`
 - `ggplot2`
-- `dplyr`
 
 The return object is a list contains three items:
 
-1. A tree result `treePlot`
+1. A tree result `treePlot` (require, `visNetwork`)
 2. A data frame used for plotting `nodeTreat`
-3. A node statistic plot `trtPlot`
-
+3. A node statistic plot `trtPlot` (require, `ggplot2`)
+ 
 ```{r check-packages}
-for (pack in c('visNetwork', 'ggpubr', 'ggplot2', 'dplyr')) {
+for (pack in c('visNetwork', 'ggplot2')) {
   if(pack %in% rownames(installed.packages()) == FALSE) {install.packages(pack)}
 }
 ```
@@ -127,7 +125,7 @@ The node id and sample size are shown in the terminal node. Each split variable 
 plotObj$nodeTreat
 ```
 
-```{r quick-example-plot-trtPlot}
+```{r quick-example-plot-trtPlot, fig.align='center', fig.width=20}
 plotObj$trtPlot
 ```
 
@@ -156,19 +154,11 @@ $ cat test.tex
 cat test.tex
 ```
 
-```{r, engine='bash', echo=FALSE, comment=NULL, results='hide'}
+```{r, engine='bash', echo=TRUE, eval=F, comment=NULL, results='hide'}
 latex test.tex
 dvips test.dvi
 ps2pdf test.ps
-rm test.tex test.aux test.dvi test.log test.ps
 ```
-
-The PDF file is shown below.
-
-```{r, echo=FALSE, fig.align='center', fig.pos="h"}
-include_graphics(path = 'test.pdf')
-```
-
 
 This quick example aimed at provide a general understanding of what `MrSGUIDE` is capable of doing. In the rest of the chapter, we will show more instruction about how to use the function step by step.
 
@@ -238,8 +228,12 @@ mrsobj <- MrSFit(dataframe = train, role = role, bestK = 1, bootNum = 50, alpha 
 plotObj <- plotTree(mrsobj)
 plotObj$treeplot
 ```
+```{r boot-nodetreat}
+plotObj$nodeTreat
+```
 
-```{r}
+
+```{r plot-boot}
 plotObj$trtPlot
 ```
 
