@@ -1,28 +1,34 @@
 ## Test environments
 
-* local OS X install, R 3.6.1
+* local OS X install, R 3.6.1 and 4.0.0
 * win-builder (devel and release)
 
 ## R CMD check results
 
 There were no ERRORs or WARNINGs. 
 
-There was 1 NOTE:
+## devtools check results
 
-* checking for GNU extensions in Makefiles ... NOTE
-  GNU make is a SystemRequirements.
+This warning only shown in R 4.0.0
+
+checking top-level files ... WARNING
+  A complete check needs the 'checkbashisms' script.
+  See section ‘Configure and cleanup’ in the ‘Writing R Extensions’
+  manual.
 
 ## rhub check results
 
-There were no ERRORs
+- Debian Linux, R-devel, GCC ASAN/UBSAN OK
 
-There were 1 WARNINGs:
+- Ubuntu Linux 16.04 LTS, R-release, GCC 1 NOTE
+GNU make is a SystemRequirements.
 
-We rhub excute my vignettes 'UsageOfMrSGUIDE.Rmd'. Inside the vignettes, I used one function `plotTree()` which has `Suggests` packages. 
+- Fedora Linux, R-devel, clang, gfortran
+* checking top-level files ... WARNING
+A complete check needs the 'checkbashisms' script.
+See section ‘Configure and cleanup’ in the ‘Writing R Extensions’
+manual.
 
-It gives:
+- Windows Server 2008 R2 SP1, R-devel, 32/64 bit
 
-Error: processing vignette 'UsageOfMrSGUIDE.Rmd' failed with diagnostics:
-Package "ggpubr" needed for this function to work. Please install it.
-
-I do not know why it is the case.
+I think it says ok...

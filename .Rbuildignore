@@ -10,3 +10,4 @@ cran-comments.md
 ^Meta$
 ^autom4te.cache$
 ^CRAN-RELEASE$
+^vignettes/rmd

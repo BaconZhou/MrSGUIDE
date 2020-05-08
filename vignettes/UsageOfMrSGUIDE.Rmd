@@ -105,7 +105,7 @@ The return object is a list contains three items:
 2. A data frame used for plotting `nodeTreat`
 3. A node statistic plot `trtPlot` (require, `ggplot2`)
  
-```{r check-packages}
+```{r check-packages, eval=F}
 for (pack in c('visNetwork', 'ggplot2')) {
   if(pack %in% rownames(installed.packages()) == FALSE) {install.packages(pack)}
 }
@@ -150,14 +150,31 @@ The `test.tex` file should be compiled via `LaTex + dvips + ps2pdf`.
 $ cat test.tex
 ```
 
-```{r, engine='bash', echo=FALSE, comment=NULL}
-cat test.tex
+```{latex, eval=F}
+\documentclass[12pt]{article}
+ %File creation date:2020-05-07 12:08:51
+\usepackage{pstricks,pst-node,pst-tree}
+\usepackage{geometry}
+\usepackage{lscape}
+\pagestyle{empty}
+\begin{document}
+%\begin{landscape}
+\begin{center}
+\psset{linecolor=black,tnsep=1pt,tndepth=0cm,tnheight=0cm,treesep=.8cm,levelsep=50pt,radius=10pt}
+   \pstree[treemode=D]{\Tcircle{ 1 }~[tnpos=l]{\shortstack[r]{\texttt{\detokenize{gender}}\\$\in$ \{ Female, NA\}}}
+   }{
+       \Tcircle[fillcolor=red,fillstyle=solid]{ 2 }~{\makebox[0pt][c]{\em 200 }}
+       \Tcircle[fillcolor=yellow,fillstyle=solid]{ 3 }~{\makebox[0pt][c]{\em 200 }}
+   }
+\end{center}
+%\end{landscape}
+\end{document}
 ```
 
-```{r, engine='bash', echo=TRUE, eval=F, comment=NULL, results='hide'}
-latex test.tex
-dvips test.dvi
-ps2pdf test.ps
+```{bash, eval=F}
+$ latex test.tex
+$ dvips test.dvi
+$ ps2pdf test.ps
 ```
 
 This quick example aimed at provide a general understanding of what `MrSGUIDE` is capable of doing. In the rest of the chapter, we will show more instruction about how to use the function step by step.
