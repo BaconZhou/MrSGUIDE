@@ -215,7 +215,7 @@ plotTree <- function(mrsobj, digits = 3, height = "600px", width = "100%",
             visNetwork::visEvents(type = "once", stabilized = "function() {
                               this.setOptions({layout:{hierarchical:false}, physics:{solver:'barnesHut', enabled:true, stabilization : false}, nodes : {physics : false, fixed : true}});
 }") %>%
-            visNetwork::visExport(type='pdf')
+            visNetwork::visExport()
     } else {
         cat("Package \"visNetwork\" needed for this function to work better. Please install it.")
         tree <- NULL

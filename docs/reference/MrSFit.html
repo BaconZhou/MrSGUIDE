@@ -160,13 +160,13 @@
     <tr>
       <th>dataframe</th>
       <td><p>The data frame used for subgroup identification in a <code><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></code> format.
-The data frame should contains covaraites, treatment assignment and outcomes. The order of variables does not matter.</p></td>
+The data frame should contains covariates, treatment assignment and outcomes. The order of variables does not matter.</p></td>
     </tr>
     <tr>
       <th>role</th>
       <td><p>role follows 'GUIDE' role. role should be a <code><a href='https://rdrr.io/r/base/vector.html'>vector</a></code>,
 with same length as <code>dataframe</code>'s column. The role serves for providing usage of each column in <code>dataframe</code>.</p>
-<p>In current implementation, we have folloing avaiable roles.</p><ul>
+<p>In current implementation, we have following available roles.</p><ul>
 <li><p><strong>Covariates roles</strong></p><ul>
 <li><p><strong>c</strong> <strong>C</strong>ategorical variable used for splitting only.</p></li>
 <li><p><strong>f</strong> Numerical variable used only for <strong>f</strong>itting the
@@ -286,7 +286,7 @@ with same length as <code>dataframe</code>'s column. The role serves for providi
 
     <p>This function emploies 'GUIDE' Gi option for tree building, it can provide subgroup identification tree
 and confidence intervals of treatment effect based on bootstrap calibration.</p>
-<p>'Gi' option is testing the interaction between covaraite \(x_i\) and treatment assignment \(z\).
+<p>'Gi' option is testing the interaction between covariate \(x_i\) and treatment assignment \(z\).
 With in each tree node \(t\), if \(x_i\) is a continuous variable, the function will discretize it into
 four parts as \(h_i\) based on sample quartiles. If \(x_i\) is a categorical variable,
 function will set \(h_i\) = \(x_i\).

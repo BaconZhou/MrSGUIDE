@@ -35,10 +35,10 @@ install_github('baconzhou/MrSGUIDE')
 
 Please refer to the following link if you have problem with install the package from source.
 
-1. [R Compiler Tools for Rcpp on MacOS](https://thecoatlessprofessor.com/programming/r-compiler-tools-for-rcpp-on-macos/) 
+1. [R Compiler Tools for Rcpp on macOS](https://thecoatlessprofessor.com/programming/r-compiler-tools-for-rcpp-on-macos/) 
 2. [Rcpp FAQ section 2.10](https://CRAN.R-project.org/package=Rcpp)
 
-Here are my personal set up for MacOS building `MrSGUIDE` used homebrew for libomp
+Here are my personal set up for macOS building `MrSGUIDE` used homebrew for libomp
 
 ```
 brew update

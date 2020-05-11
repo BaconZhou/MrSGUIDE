@@ -5,10 +5,10 @@
 #' Multiple responses subgroup identification using 'GUIDE' 'Gi' option for tree building
 #'
 #' @details
-#' This function emploies 'GUIDE' Gi option for tree building, it can provide subgroup identification tree
+#' This function uses 'GUIDE' Gi option for tree building, it can provide subgroup identification tree
 #' and confidence intervals of treatment effect based on bootstrap calibration.
 #'
-#' 'Gi' option is testing the interaction between covaraite \eqn{x_i} and treatment assignment \eqn{z}.
+#' 'Gi' option is testing the interaction between covariate \eqn{x_i} and treatment assignment \eqn{z}.
 #' With in each tree node \eqn{t}, if \eqn{x_i} is a continuous variable, the function will discretize it into
 #' four parts as \eqn{h_i} based on sample quartiles. If \eqn{x_i} is a categorical variable,
 #' function will set \eqn{h_i} = \eqn{x_i}.
@@ -24,11 +24,11 @@
 #'
 #'
 #' @param dataframe The data frame used for subgroup identification in a \code{\link[base]{data.frame}} format.
-#' The data frame should contains covaraites, treatment assignment and outcomes. The order of variables does not matter.
+#' The data frame should contains covariates, treatment assignment and outcomes. The order of variables does not matter.
 #' @param role role follows 'GUIDE' role. role should be a \code{\link[base]{vector}},
 #' with same length as \code{dataframe}'s column. The role serves for providing usage of each column in \code{dataframe}.
 #'
-#' In current implementation, we have folloing avaiable roles.
+#' In current implementation, we have following available roles.
 #' \itemize{
 #' \item{\strong{Covariates roles}}
 #' \itemize{

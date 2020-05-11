@@ -45,7 +45,6 @@ I think it says ok...
      - MrSImp.Rd: \value
      - plotTree.Rd: \value
      - predictTree.Rd: \value
-     - print_node.Rd: \value
      - printTree.Rd: \value
      - writeTex.Rd: \value
 7. remove some functions export, since they should not be used directly by users.
