@@ -11,3 +11,4 @@ cran-comments.md
 ^autom4te.cache$
 ^CRAN-RELEASE$
 ^vignettes/rmd
+^tests$

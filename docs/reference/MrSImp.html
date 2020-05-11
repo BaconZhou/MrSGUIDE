@@ -205,6 +205,13 @@
     </tr>
     </table>
 
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>A list contains importance score variable names and roles</p>
+<dt>imp</dt><dd><p>Importance score data frame</p></dd>
+<dt>role</dt><dd><p>Role for each variable</p></dd>
+<dt>Settings</dt><dd><p>Settings used to build the tree</p></dd>
+
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>MrSGUIDE variable importance</p>
@@ -228,7 +235,15 @@
 <span class='no'>train</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(<span class='no'>numX</span>, <span class='no'>gender</span>, <span class='no'>country</span>, <span class='no'>z</span>, <span class='no'>y1</span>, <span class='no'>y2</span>)
 <span class='no'>role</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='st'>'n'</span>, <span class='fl'>3</span>), <span class='st'>'c'</span>, <span class='st'>'c'</span>, <span class='st'>'r'</span>, <span class='st'>'d'</span>, <span class='st'>'d'</span>)
 
-<span class='no'>mrsobj</span> <span class='kw'>&lt;-</span> <span class='fu'>MrSImp</span>(<span class='kw'>dataframe</span> <span class='kw'>=</span> <span class='no'>train</span>, <span class='kw'>role</span> <span class='kw'>=</span> <span class='no'>role</span>, <span class='kw'>B</span> <span class='kw'>=</span> <span class='fl'>3</span>)</div></pre>
+<span class='no'>mrsobj</span> <span class='kw'>&lt;-</span> <span class='fu'>MrSImp</span>(<span class='kw'>dataframe</span> <span class='kw'>=</span> <span class='no'>train</span>, <span class='kw'>role</span> <span class='kw'>=</span> <span class='no'>role</span>, <span class='kw'>B</span> <span class='kw'>=</span> <span class='fl'>10</span>)
+<span class='no'>mrsobj</span>$<span class='no'>imp</span></div><div class='output co'>#&gt;   Importance Feature
+#&gt; 1 0.0000e+00      X1
+#&gt; 3 0.0000e+00      X3
+#&gt; 5 0.0000e+00 country
+#&gt; 2 4.8052e+01      X2
+#&gt; 4 2.0000e+12  gender</div><div class='input'>
+
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

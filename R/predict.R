@@ -62,6 +62,32 @@
 #' @param dataframe data used for prediction
 #' @param type node id
 #'
+#' @return A data frame of each object node id and outcome
+#'
+#' @examples
+#' library(MrSGUIDE)
+#' set.seed(1234)
+#'
+#' N = 200
+#' np = 3
+#'
+#' numX <- matrix(rnorm(N * np), N, np) ## numerical features
+#' gender <- sample(c('Male', 'Female'), N, replace = TRUE)
+#' country <- sample(c('US', 'UK', 'China', 'Japan'), N, replace = TRUE)
+#'
+#' z <- sample(c(0, 1), N, replace = TRUE) # Binary treatment assignment
+#'
+#' y1 <- numX[, 1] + 1 * z * (gender == 'Female') + rnorm(N)
+#' y2 <- numX[, 2] + 2 * z * (gender == 'Female') + rnorm(N)
+#'
+#' train <- data.frame(numX, gender, country, z, y1, y2)
+#' role <- c(rep('n', 3), 'c', 'c', 'r', 'd', 'd')
+#'
+#' mrsobj <- MrSFit(dataframe = train, role = role)
+#' newX = train[1:10,]
+#' predictTree(mrsobj, newX, type='outcome')
+#' predictTree(mrsobj, newX, type='node')
+#'
 #' @export
 predictTree <- function(mrsobj, dataframe, type = 'node') {
     stopifnot(class(mrsobj) == 'guide')
@@ -77,7 +103,8 @@ predictTree <- function(mrsobj, dataframe, type = 'node') {
     tn = paste0('term', node)
 
     y = sapply(1:n, FUN = function(i) {.predictY(nodemap[[tn[i]]], dataframe[i,])})
-    if (n == 1) y = t(y)
-    colnames(y) = mrsobj$ynames
-    return(data.frame(node = node, y))
+    y = t(y)
+    ans = data.frame(node = node, y)
+    colnames(ans) = c('node', mrsobj$ynames)
+    return(ans)
 }

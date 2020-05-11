@@ -1,1 +1,20 @@
 destination: docs
+reference:
+- title: "Main functions"
+  desc: >
+    Functions for subgroup identification tree building and variable importance
+- contents:
+  - MrSFit
+  - MrSImp
+- title: "Plotting"
+  desc: >
+    Functions for plot the tree related result
+- contents:
+  - plotTree
+  - printTree
+  - writeTex
+- title: "Others"
+  desc: >
+    Functions for other usage
+- contents:
+  - predictTree

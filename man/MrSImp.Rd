@@ -47,6 +47,12 @@ MrSImp(
 
 \item{impName}{important variable file name}
 }
+\value{
+A list contains importance score variable names and roles
+\item{imp}{Importance score data frame}
+\item{role}{Role for each variable}
+\item{Settings}{Settings used to build the tree}
+}
 \description{
 Variable importance in subgroup identification for predictive variables.
 }
@@ -72,7 +78,8 @@ y2 <- numX[, 2] + 2 * z * (gender == 'Female') + rnorm(N)
 train <- data.frame(numX, gender, country, z, y1, y2)
 role <- c(rep('n', 3), 'c', 'c', 'r', 'd', 'd')
 
-mrsobj <- MrSImp(dataframe = train, role = role, B = 3)
+mrsobj <- MrSImp(dataframe = train, role = role, B = 10)
+mrsobj$imp
 
 
 }

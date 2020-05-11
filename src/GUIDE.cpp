@@ -20,6 +20,7 @@
 //' @param x original character vector
 //' @param levels the unique value form x, where the index is the output integer vector value
 //' @return integer vector
+//' @noRd
 // [[Rcpp::export]]
 Rcpp::IntegerVector characterToInteger(const Rcpp::CharacterVector &x, const Rcpp::CharacterVector &levels) {
 
@@ -43,6 +44,7 @@ Rcpp::IntegerVector characterToInteger(const Rcpp::CharacterVector &x, const Rcp
 //'
 //' @param numX numerical dataframe
 //' @return numerical matrix
+//' @noRd
 // [[Rcpp::export]]
 Rcpp::NumericMatrix dataFramToNumeric(const Rcpp::DataFrame &numX) {
     const auto &p = numX.ncol();
@@ -66,7 +68,7 @@ Rcpp::NumericMatrix dataFramToNumeric(const Rcpp::DataFrame &numX) {
 //' @param charX character dataframe or factor dataframe
 //' @param levels, the desired levels for each character vector
 //' @return list intX the integer matrix x, with corresponding levels.
-//'
+//' @noRd
 // [[Rcpp::export]]
 Rcpp::List characterDict(const Rcpp::DataFrame &charX, const Rcpp::List &levels) {
     const auto &p = charX.ncol();
@@ -140,6 +142,8 @@ void initLog(const int level) {
 //' @param nodeName file same for each node
 //' @param bootName file save bootstrap calibrate alpha
 //' @param impName important variable file name
+//' @noRd
+//'
 // [[Rcpp::export]]
 void GiStepWisePure(const arma::mat &numX, const arma::imat &catX,
                 const arma::mat &Y, const arma::ivec trt,

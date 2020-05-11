@@ -137,6 +137,37 @@
 #' @param collapse list, collapse or not using double click on a node
 #' @param alphaInd 1 is original alpha, 2 is individual level alpha, 3 is overall alpha
 #'
+#' @return A list contains plot figure
+#' \item{treeplot}{The tree plot uses \code{\link[visNetwork]{visNetwork}} function.}
+#' \item{nodeTreat}{A data frame contain each elements used for tree plot.}
+#' \item{trtPlot}{A treatment effects plot of each node.}
+#'
+#'
+#' @examples
+#' library(MrSGUIDE)
+#' set.seed(1234)
+#'
+#' N = 200
+#' np = 3
+#'
+#' numX <- matrix(rnorm(N * np), N, np) ## numerical features
+#' gender <- sample(c('Male', 'Female'), N, replace = TRUE)
+#' country <- sample(c('US', 'UK', 'China', 'Japan'), N, replace = TRUE)
+#'
+#' z <- sample(c(0, 1), N, replace = TRUE) # Binary treatment assignment
+#'
+#' y1 <- numX[, 1] + 1 * z * (gender == 'Female') + rnorm(N)
+#' y2 <- numX[, 2] + 2 * z * (gender == 'Female') + rnorm(N)
+#'
+#' train <- data.frame(numX, gender, country, z, y1, y2)
+#' role <- c(rep('n', 3), 'c', 'c', 'r', 'd', 'd')
+#'
+#' mrsobj <- MrSFit(dataframe = train, role = role)
+#' plotObj <- plotTree(mrsobj)
+#' #plotObj$treePlot
+#' plotObj$nodeTreat ## node information
+#' plotObj$trtPlot ## treatment effect plot
+#'
 #' @rdname plotTree
 #' @export
 #'

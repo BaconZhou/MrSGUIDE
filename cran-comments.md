@@ -32,3 +32,20 @@ manual.
 - Windows Server 2008 R2 SP1, R-devel, 32/64 bit
 
 I think it says ok...
+
+## Previous changed
+
+1. Include method description link in the Desciption
+2. Fix a cran link problem in README.md
+3. Add single quotes in title and description in the DESCRIPTION file
+4. Change T to TRUE and F to FALSE
+5. Did not find any variables in my side named T or F
+6. Add \value Rd-tags in      
+     - MrSFit.Rd: \value
+     - MrSImp.Rd: \value
+     - plotTree.Rd: \value
+     - predictTree.Rd: \value
+     - print_node.Rd: \value
+     - printTree.Rd: \value
+     - writeTex.Rd: \value
+7. remove some functions export, since they should not be used directly by users.

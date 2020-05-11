@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>MrSGUIDE fit function — MrSFit • MrSGUIDE</title>
+<title>Multiple responses subgroup identification — MrSFit • MrSGUIDE</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,8 @@
 
 
 
-<meta property="og:title" content="MrSGUIDE fit function — MrSFit" />
-<meta property="og:description" content="Multiple responses subgroup identification with GUIDE gi option" />
+<meta property="og:title" content="Multiple responses subgroup identification — MrSFit" />
+<meta property="og:description" content="Multiple responses subgroup identification using 'GUIDE' 'Gi' option for tree building" />
 
 
 
@@ -123,13 +123,13 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>MrSGUIDE fit function</h1>
+    <h1>Multiple responses subgroup identification</h1>
     <small class="dont-index">Source: <a href='https://github.com/baconzhou/mrsguide/blob/master/R/mrsguide.R'><code>R/mrsguide.R</code></a></small>
     <div class="hidden name"><code>MrSFit.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Multiple responses subgroup identification with GUIDE gi option</p>
+    <p>Multiple responses subgroup identification using 'GUIDE' 'Gi' option for tree building</p>
     </div>
 
     <pre class="usage"><span class='fu'>MrSFit</span>(
@@ -159,11 +159,38 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>dataframe</th>
-      <td><p>train data frame</p></td>
+      <td><p>The data frame used for subgroup identification in a <code><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></code> format.
+The data frame should contains covaraites, treatment assignment and outcomes. The order of variables does not matter.</p></td>
     </tr>
     <tr>
       <th>role</th>
-      <td><p>role follows GUIDE role</p></td>
+      <td><p>role follows 'GUIDE' role. role should be a <code><a href='https://rdrr.io/r/base/vector.html'>vector</a></code>,
+with same length as <code>dataframe</code>'s column. The role serves for providing usage of each column in <code>dataframe</code>.</p>
+<p>In current implementation, we have folloing avaiable roles.</p><ul>
+<li><p><strong>Covariates roles</strong></p><ul>
+<li><p><strong>c</strong> <strong>C</strong>ategorical variable used for splitting only.</p></li>
+<li><p><strong>f</strong> Numerical variable used only for <strong>f</strong>itting the
+ regression models in the nodes of tree. It will not be used for splitting
+ the nodes.</p></li>
+<li><p><strong>h</strong> Numerical variable always <strong>h</strong>eld in fitting the
+ regression models in the nodes of tree.</p></li>
+<li><p><strong>n</strong> <strong>N</strong>umerical variable used both for splitting the
+ nodes and fitting the node regression model.</p></li>
+<li><p><strong>s</strong> Numerical variable only used for <strong>s</strong>plitting the
+ node. It will not be used for fitting the regression model.</p></li>
+<li><p><strong>x</strong> E<strong>x</strong>clude variable. Variable will not be used in tree building.</p></li>
+</ul></li>
+<li><p><strong>Outcome role</strong></p><ul>
+<li><p><strong>d</strong> <strong>D</strong>ependent variable. If there is only one
+ <strong>d</strong> variable, function will do single response
+ subgroup identification.</p></li>
+</ul></li>
+<li><p><strong>Treatment role</strong></p><ul>
+<li><p><strong>r</strong> Categorical t<strong>R</strong>eatment variable used only for
+ fitting the linear models in the nodes of tree. It is not used for
+ splitting the nodes.</p></li>
+</ul></li>
+</ul></td>
     </tr>
     <tr>
       <th>bestK</th>
@@ -235,9 +262,46 @@
     </tr>
     </table>
 
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>An object of class <code>"guide"</code></p>
+<dt>treeRes</dt><dd><p>Tree structure result.</p></dd>
+<dt>node</dt><dd><p>Predicted node of each observation.</p></dd>
+<dt>imp</dt><dd><p>A raw importance score, can used <code><a href='MrSImp.html'>MrSImp</a></code> for more accurate result.</p></dd>
+<dt>cLevels</dt><dd><p>Categorical features level mapping.</p></dd>
+<dt>tLevels</dt><dd><p>Treatment assignment level mapping.</p></dd>
+<dt>yp</dt><dd><p>Number of outcomes.</p></dd>
+<dt>tp</dt><dd><p>Number of treatment assignment levels.</p></dd>
+<dt>role</dt><dd><p>Role used for data frame.</p></dd>
+<dt>varName</dt><dd><p>Variable names.</p></dd>
+<dt>numName</dt><dd><p>Numerical variable names.</p></dd>
+<dt>catName</dt><dd><p>Categorical variable names.</p></dd>
+<dt>trtName</dt><dd><p>Treatment assignment variable name.</p></dd>
+<dt>nodeMap</dt><dd><p>A map from node id to node information.</p></dd>
+<dt>TrtL</dt><dd><p>Treatment level mapping.</p></dd>
+<dt>Settings</dt><dd><p>Current tree setting.</p></dd>
+<dt>trtNode</dt><dd><p>Treatment effect summary.</p></dd>
+
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>MrSGUIDE Multiple responses subgroup identification</p>
+    <p>This function emploies 'GUIDE' Gi option for tree building, it can provide subgroup identification tree
+and confidence intervals of treatment effect based on bootstrap calibration.</p>
+<p>'Gi' option is testing the interaction between covaraite \(x_i\) and treatment assignment \(z\).
+With in each tree node \(t\), if \(x_i\) is a continuous variable, the function will discretize it into
+four parts as \(h_i\) based on sample quartiles. If \(x_i\) is a categorical variable,
+function will set \(h_i\) = \(x_i\).
+If \(x_i\) contains missing value, the function will add missing as a new level into \(H_i\).
+Then, we test the full model against the main effect model.</p>
+<p>$$H_0 = \beta_0 + \sum\limits_{i=2}^{H}\beta_{hi}I(h_i = i) + \sum\limits_{j=2}^{G}\beta_{zj}I(Z_j = j)$$
+$$H_A = \beta_0 + \sum\limits_{i=2, j=2}\beta_{ij}I(h_i = i, Z_j = j)$$</p>
+<p>Then choose the most significant \(x_i\). The details algorithm can be found in Loh, W.-Y. and Zhou, P. (2020).</p>
+<p>The bootstrap confidence interval of treatment can be fond in Loh et al. (2019).</p>
+    <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
+
+    <p>Loh, W.-Y. and Zhou, P. (2020). The GUIDE approach to subgroup identification.
+In Design and Analysis of Subgroups with Biopharmaceutical Applications, N. Ting, J. C. Cappelleri, S. Ho, and D.-G. Chen (Eds.) Springer, in press.</p>
+<p>Loh, W.-Y., Man, M. and Wang, S. (2019). Subgroups from regression trees with adjustment for prognostic effects and post-selection inference.
+Statistics in Medicine, vol. 38, 545-557. doi:10.1002/sim.7677 <a href='http://pages.stat.wisc.edu/~loh/treeprogs/guide/sm19.pdf'>http://pages.stat.wisc.edu/~loh/treeprogs/guide/sm19.pdf</a></p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>MrSGUIDE</span>)
@@ -285,6 +349,7 @@
 #&gt;         z.0    0.167    0.149
 #&gt;         z.1    -0.037    0.209
 #&gt;     - - - - - - - - - - - - - - </div><div class='input'>
+
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

@@ -155,7 +155,60 @@
     </tr>
     </table>
 
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
+    <p>print tree information into console</p>
+
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>MrSGUIDE</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span>(<span class='fl'>1234</span>)
+
+<span class='no'>N</span> <span class='kw'>=</span> <span class='fl'>200</span>
+<span class='no'>np</span> <span class='kw'>=</span> <span class='fl'>3</span>
+
+<span class='no'>numX</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span>(<span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='no'>N</span> * <span class='no'>np</span>), <span class='no'>N</span>, <span class='no'>np</span>) <span class='co'>## numerical features</span>
+<span class='no'>gender</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>'Male'</span>, <span class='st'>'Female'</span>), <span class='no'>N</span>, <span class='kw'>replace</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+<span class='no'>country</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>'US'</span>, <span class='st'>'UK'</span>, <span class='st'>'China'</span>, <span class='st'>'Japan'</span>), <span class='no'>N</span>, <span class='kw'>replace</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+
+<span class='no'>z</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>1</span>), <span class='no'>N</span>, <span class='kw'>replace</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>) <span class='co'># Binary treatment assignment</span>
+
+<span class='no'>y1</span> <span class='kw'>&lt;-</span> <span class='no'>numX</span>[, <span class='fl'>1</span>] + <span class='fl'>1</span> * <span class='no'>z</span> * (<span class='no'>gender</span> <span class='kw'>==</span> <span class='st'>'Female'</span>) + <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='no'>N</span>)
+<span class='no'>y2</span> <span class='kw'>&lt;-</span> <span class='no'>numX</span>[, <span class='fl'>2</span>] + <span class='fl'>2</span> * <span class='no'>z</span> * (<span class='no'>gender</span> <span class='kw'>==</span> <span class='st'>'Female'</span>) + <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='no'>N</span>)
+
+<span class='no'>train</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(<span class='no'>numX</span>, <span class='no'>gender</span>, <span class='no'>country</span>, <span class='no'>z</span>, <span class='no'>y1</span>, <span class='no'>y2</span>)
+<span class='no'>role</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='st'>'n'</span>, <span class='fl'>3</span>), <span class='st'>'c'</span>, <span class='st'>'c'</span>, <span class='st'>'r'</span>, <span class='st'>'d'</span>, <span class='st'>'d'</span>)
+
+<span class='no'>mrsobj</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='MrSFit.html'>MrSFit</a></span>(<span class='kw'>dataframe</span> <span class='kw'>=</span> <span class='no'>train</span>, <span class='kw'>role</span> <span class='kw'>=</span> <span class='no'>role</span>)
+<span class='fu'>printTree</span>(<span class='no'>mrsobj</span>, <span class='kw'>digits</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>details</span><span class='kw'>=</span><span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; ID: 1, gender = { Female, NA }
+#&gt;     ID: 2, Size: 118 [Terminal]
+#&gt;     Outcome Models: 
+#&gt;         y1        Est        SE
+#&gt;         X1    1.02
+#&gt;         z.0    -0.18    0.13
+#&gt;         z.1    1    0.19
+#&gt;     - - - - - - - - - - - - - - 
+#&gt;         y2        Est        SE
+#&gt;         X2    1.19
+#&gt;         z.0    -0.06    0.13
+#&gt;         z.1    2.06    0.18
+#&gt;     - - - - - - - - - - - - - - 
+#&gt; ID: 1, gender = { Male }
+#&gt;     ID: 3, Size: 82 [Terminal]
+#&gt;     Outcome Models: 
+#&gt;         y1        Est        SE
+#&gt;         X1    0.96
+#&gt;         z.0    0.2    0.14
+#&gt;         z.1    -0.23    0.2
+#&gt;     - - - - - - - - - - - - - - 
+#&gt;         y2        Est        SE
+#&gt;         X2    0.97
+#&gt;         z.0    0.17    0.15
+#&gt;         z.1    -0.04    0.21
+#&gt;     - - - - - - - - - - - - - - </div><div class='input'><span class='fu'>printTree</span>(<span class='no'>mrsobj</span>, <span class='kw'>digits</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>details</span><span class='kw'>=</span><span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; ID: 1, gender = { Female, NA }
+#&gt;     ID: 2, Size: 118 [Terminal]
+#&gt; ID: 1, gender = { Male }
+#&gt;     ID: 3, Size: 82 [Terminal]</div><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

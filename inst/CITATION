@@ -26,6 +26,6 @@ citEntry(entry="Article",
          textVersion =
          paste("Loh, W.-Y., Man, M. and Wang, S. (2019).",
                "Subgroups from regression trees with adjustment for prognostic effects and post-selection inference.",
-               "Statistics in Medicine, vol. 38, 545-557. DOI: 10.1198/10.1002/sim.7677"),
+               "Statistics in Medicine, vol. 38, 545-557. DOI: 10.1002/sim.7677"),
 	 header = "If bootstrap confidence interval is used additionally cite:"
 )

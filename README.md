@@ -1,6 +1,6 @@
 # MrSGUIDE
 
-**M**ultiple **R**esponse **S**ubgroup Identification in GUIDE
+**M**ultiple **R**esponse **S**ubgroup Identification using GUIDE algorithm.
 
 The current package is still under heavily development.
 

@@ -2,7 +2,7 @@
 % Please edit documentation in R/mrsguide.R
 \name{MrSFit}
 \alias{MrSFit}
-\title{MrSGUIDE fit function}
+\title{Multiple responses subgroup identification}
 \usage{
 MrSFit(
   dataframe,
@@ -27,9 +27,45 @@ MrSFit(
 )
 }
 \arguments{
-\item{dataframe}{train data frame}
+\item{dataframe}{The data frame used for subgroup identification in a \code{\link[base]{data.frame}} format.
+The data frame should contains covaraites, treatment assignment and outcomes. The order of variables does not matter.}
 
-\item{role}{role follows GUIDE role}
+\item{role}{role follows 'GUIDE' role. role should be a \code{\link[base]{vector}},
+with same length as \code{dataframe}'s column. The role serves for providing usage of each column in \code{dataframe}.
+
+In current implementation, we have folloing avaiable roles.
+\itemize{
+\item{\strong{Covariates roles}}
+\itemize{
+\item \strong{c} \strong{C}ategorical variable used for splitting only.
+\item
+ \strong{f} Numerical variable used only for \strong{f}itting the
+ regression models in the nodes of tree. It will not be used for splitting
+ the nodes.
+\item
+ \strong{h} Numerical variable always \strong{h}eld in fitting the
+ regression models in the nodes of tree.
+\item
+ \strong{n} \strong{N}umerical variable used both for splitting the
+ nodes and fitting the node regression model.
+ \item
+ \strong{s} Numerical variable only used for \strong{s}plitting the
+ node. It will not be used for fitting the regression model.
+ \item
+ \strong{x} E\strong{x}clude variable. Variable will not be used in tree building.
+ }
+ \item{\strong{Outcome role}}
+ \itemize{
+ \item
+   \strong{d} \strong{D}ependent variable. If there is only one
+ \strong{d} variable, function will do single response
+ subgroup identification.}
+ \item{\strong{Treatment role}}
+ \itemize{
+ \item \strong{r} Categorical t\strong{R}eatment variable used only for
+ fitting the linear models in the nodes of tree. It is not used for
+ splitting the nodes.}
+}}
 
 \item{bestK}{number of covariates in the regression model}
 
@@ -65,11 +101,45 @@ MrSFit(
 
 \item{remove}{whether to remove extra files}
 }
+\value{
+An object of class \code{"guide"}
+\item{treeRes}{Tree structure result.}
+\item{node}{Predicted node of each observation.}
+\item{imp}{A raw importance score, can used \code{\link[MrSGUIDE]{MrSImp}} for more accurate result.}
+\item{cLevels}{Categorical features level mapping.}
+\item{tLevels}{Treatment assignment level mapping.}
+\item{yp}{Number of outcomes.}
+\item{tp}{Number of treatment assignment levels.}
+\item{role}{Role used for data frame.}
+\item{varName}{Variable names.}
+\item{numName}{Numerical variable names.}
+\item{catName}{Categorical variable names.}
+\item{trtName}{Treatment assignment variable name.}
+\item{nodeMap}{A map from node id to node information.}
+\item{TrtL}{Treatment level mapping.}
+\item{Settings}{Current tree setting.}
+\item{trtNode}{Treatment effect summary.}
+}
 \description{
-Multiple responses subgroup identification with GUIDE gi option
+Multiple responses subgroup identification using 'GUIDE' 'Gi' option for tree building
 }
 \details{
-MrSGUIDE Multiple responses subgroup identification
+This function emploies 'GUIDE' Gi option for tree building, it can provide subgroup identification tree
+and confidence intervals of treatment effect based on bootstrap calibration.
+
+'Gi' option is testing the interaction between covaraite \eqn{x_i} and treatment assignment \eqn{z}.
+With in each tree node \eqn{t}, if \eqn{x_i} is a continuous variable, the function will discretize it into
+four parts as \eqn{h_i} based on sample quartiles. If \eqn{x_i} is a categorical variable,
+function will set \eqn{h_i} = \eqn{x_i}.
+If \eqn{x_i} contains missing value, the function will add missing as a new level into \eqn{H_i}.
+Then, we test the full model against the main effect model.
+
+\deqn{H_0 = \beta_0 + \sum\limits_{i=2}^{H}\beta_{hi}I(h_i = i) + \sum\limits_{j=2}^{G}\beta_{zj}I(Z_j = j)}
+\deqn{H_A = \beta_0 + \sum\limits_{i=2, j=2}\beta_{ij}I(h_i = i, Z_j = j)}
+
+Then choose the most significant \eqn{x_i}. The details algorithm can be found in Loh, W.-Y. and Zhou, P. (2020).
+
+The bootstrap confidence interval of treatment can be fond in Loh et al. (2019).
 }
 \examples{
 library(MrSGUIDE)
@@ -93,7 +163,12 @@ role <- c(rep('n', 3), 'c', 'c', 'r', 'd', 'd')
 mrsobj <- MrSFit(dataframe = train, role = role)
 printTree(mrsobj)
 
+
 }
-\author{
-Peigen Zhou
+\references{
+Loh, W.-Y. and Zhou, P. (2020). The GUIDE approach to subgroup identification.
+In Design and Analysis of Subgroups with Biopharmaceutical Applications, N. Ting, J. C. Cappelleri, S. Ho, and D.-G. Chen (Eds.) Springer, in press.
+
+Loh, W.-Y., Man, M. and Wang, S. (2019). Subgroups from regression trees with adjustment for prognostic effects and post-selection inference.
+Statistics in Medicine, vol. 38, 545-557. doi:10.1002/sim.7677 \url{http://pages.stat.wisc.edu/~loh/treeprogs/guide/sm19.pdf}
 }

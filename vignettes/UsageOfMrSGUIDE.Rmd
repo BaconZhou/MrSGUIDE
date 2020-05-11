@@ -91,7 +91,7 @@ printTree(mrsobj = mrsobj)
 You can also set `detail = FALSE` to hide the detail.
 
 ```{r quick-example-print-detailF}
-printTree(mrsobj = mrsobj, details = F)
+printTree(mrsobj = mrsobj, details = FALSE)
 ```
 
 `MrSGUIDE` also provide `plotTree()` function which used following packages:
@@ -105,7 +105,7 @@ The return object is a list contains three items:
 2. A data frame used for plotting `nodeTreat`
 3. A node statistic plot `trtPlot` (require, `ggplot2`)
  
-```{r check-packages, eval=F}
+```{r check-packages, eval=FALSE}
 for (pack in c('visNetwork', 'ggplot2')) {
   if(pack %in% rownames(installed.packages()) == FALSE) {install.packages(pack)}
 }
@@ -146,11 +146,11 @@ writeTex(mrsobj, file = 'test.tex')
 
 The `test.tex` file should be compiled via `LaTex + dvips + ps2pdf`.
 
-```{bash, eval=F}
+```{bash, eval=FALSE}
 $ cat test.tex
 ```
 
-```{latex, eval=F}
+```{latex, eval=FALSE}
 \documentclass[12pt]{article}
  %File creation date:2020-05-07 12:08:51
 \usepackage{pstricks,pst-node,pst-tree}
@@ -171,7 +171,7 @@ $ cat test.tex
 \end{document}
 ```
 
-```{bash, eval=F}
+```{bash, eval=FALSE}
 $ latex test.tex
 $ dvips test.dvi
 $ ps2pdf test.ps

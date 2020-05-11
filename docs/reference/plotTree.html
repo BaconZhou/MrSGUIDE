@@ -207,7 +207,47 @@
     </tr>
     </table>
 
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
+    <p>A list contains plot figure</p>
+<dt>treeplot</dt><dd><p>The tree plot uses <code><a href='https://rdrr.io/pkg/visNetwork/man/visNetwork.html'>visNetwork</a></code> function.</p></dd>
+<dt>nodeTreat</dt><dd><p>A data frame contain each elements used for tree plot.</p></dd>
+<dt>trtPlot</dt><dd><p>A treatment effects plot of each node.</p></dd>
+
+
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>MrSGUIDE</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span>(<span class='fl'>1234</span>)
+
+<span class='no'>N</span> <span class='kw'>=</span> <span class='fl'>200</span>
+<span class='no'>np</span> <span class='kw'>=</span> <span class='fl'>3</span>
+
+<span class='no'>numX</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span>(<span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='no'>N</span> * <span class='no'>np</span>), <span class='no'>N</span>, <span class='no'>np</span>) <span class='co'>## numerical features</span>
+<span class='no'>gender</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>'Male'</span>, <span class='st'>'Female'</span>), <span class='no'>N</span>, <span class='kw'>replace</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+<span class='no'>country</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>'US'</span>, <span class='st'>'UK'</span>, <span class='st'>'China'</span>, <span class='st'>'Japan'</span>), <span class='no'>N</span>, <span class='kw'>replace</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+
+<span class='no'>z</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>1</span>), <span class='no'>N</span>, <span class='kw'>replace</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>) <span class='co'># Binary treatment assignment</span>
+
+<span class='no'>y1</span> <span class='kw'>&lt;-</span> <span class='no'>numX</span>[, <span class='fl'>1</span>] + <span class='fl'>1</span> * <span class='no'>z</span> * (<span class='no'>gender</span> <span class='kw'>==</span> <span class='st'>'Female'</span>) + <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='no'>N</span>)
+<span class='no'>y2</span> <span class='kw'>&lt;-</span> <span class='no'>numX</span>[, <span class='fl'>2</span>] + <span class='fl'>2</span> * <span class='no'>z</span> * (<span class='no'>gender</span> <span class='kw'>==</span> <span class='st'>'Female'</span>) + <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='no'>N</span>)
+
+<span class='no'>train</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(<span class='no'>numX</span>, <span class='no'>gender</span>, <span class='no'>country</span>, <span class='no'>z</span>, <span class='no'>y1</span>, <span class='no'>y2</span>)
+<span class='no'>role</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='st'>'n'</span>, <span class='fl'>3</span>), <span class='st'>'c'</span>, <span class='st'>'c'</span>, <span class='st'>'r'</span>, <span class='st'>'d'</span>, <span class='st'>'d'</span>)
+
+<span class='no'>mrsobj</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='MrSFit.html'>MrSFit</a></span>(<span class='kw'>dataframe</span> <span class='kw'>=</span> <span class='no'>train</span>, <span class='kw'>role</span> <span class='kw'>=</span> <span class='no'>role</span>)
+<span class='no'>plotObj</span> <span class='kw'>&lt;-</span> <span class='fu'>plotTree</span>(<span class='no'>mrsobj</span>)
+<span class='co'>#plotObj$treePlot</span>
+<span class='no'>plotObj</span>$<span class='no'>nodeTreat</span> <span class='co'>## node information</span></div><div class='output co'>#&gt;      Estimate       SE Assignment Outcome Node    Quantity       ymin      ymax
+#&gt; 2    0.995726 0.189337        z.1      y1    2 Node: 2; y1  0.6246255 1.3668265
+#&gt; 21   2.062110 0.180745        z.1      y2    2 Node: 2; y2  1.7078498 2.4163702
+#&gt; 22  -0.227258 0.200356        z.1      y1    3 Node: 3; y1 -0.6199558 0.1654398
+#&gt; 211 -0.036876 0.208765        z.1      y2    3 Node: 3; y2 -0.4460554 0.3723034
+#&gt;     zalpha
+#&gt; 2     1.96
+#&gt; 21    1.96
+#&gt; 22    1.96
+#&gt; 211   1.96</div><div class='input'><span class='no'>plotObj</span>$<span class='no'>trtPlot</span> <span class='co'>## treatment effect plot</span></div><div class='img'><img src='plotTree-1.png' alt='' width='700' height='433' /></div><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

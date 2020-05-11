@@ -6,6 +6,7 @@
 #' @param x original character vector
 #' @param levels the unique value form x, where the index is the output integer vector value
 #' @return integer vector
+#' @noRd
 characterToInteger <- function(x, levels) {
     .Call(`_MrSGUIDE_characterToInteger`, x, levels)
 }
@@ -16,6 +17,7 @@ characterToInteger <- function(x, levels) {
 #'
 #' @param numX numerical dataframe
 #' @return numerical matrix
+#' @noRd
 dataFramToNumeric <- function(numX) {
     .Call(`_MrSGUIDE_dataFramToNumeric`, numX)
 }
@@ -27,7 +29,7 @@ dataFramToNumeric <- function(numX) {
 #' @param charX character dataframe or factor dataframe
 #' @param levels, the desired levels for each character vector
 #' @return list intX the integer matrix x, with corresponding levels.
-#'
+#' @noRd
 characterDict <- function(charX, levels) {
     .Call(`_MrSGUIDE_characterDict`, charX, levels)
 }
@@ -62,6 +64,8 @@ characterDict <- function(charX, levels) {
 #' @param nodeName file same for each node
 #' @param bootName file save bootstrap calibrate alpha
 #' @param impName important variable file name
+#' @noRd
+#'
 GiStepWisePure <- function(numX, catX, Y, trt, splitIndex, fitIndex, holdIndex, bestK, maxDepth, minData, minTrt, batchNum, CVFold, CVSE, bootNum, alpha, faster, display, varName, treeName, nodeName, bootName, impName) {
     invisible(.Call(`_MrSGUIDE_GiStepWisePure`, numX, catX, Y, trt, splitIndex, fitIndex, holdIndex, bestK, maxDepth, minData, minTrt, batchNum, CVFold, CVSE, bootNum, alpha, faster, display, varName, treeName, nodeName, bootName, impName))
 }

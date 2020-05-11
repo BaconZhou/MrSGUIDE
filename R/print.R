@@ -24,6 +24,8 @@
 #' @param clevels categorical variables' levels
 #' @param ... pass to cat
 #'
+#' @noRd
+#'
 #'
 print_node <- function(node, depth = 0, digits = 3,
                        long = TRUE, yName, trtName,
@@ -103,6 +105,31 @@ print_node <- function(node, depth = 0, digits = 3,
 #' @param details whether to print fitting details
 #' @param ... parameter pass to \code{print_node}
 #'
+#' @return print tree information into console
+#'
+#' @examples
+#' library(MrSGUIDE)
+#' set.seed(1234)
+#'
+#' N = 200
+#' np = 3
+#'
+#' numX <- matrix(rnorm(N * np), N, np) ## numerical features
+#' gender <- sample(c('Male', 'Female'), N, replace = TRUE)
+#' country <- sample(c('US', 'UK', 'China', 'Japan'), N, replace = TRUE)
+#'
+#' z <- sample(c(0, 1), N, replace = TRUE) # Binary treatment assignment
+#'
+#' y1 <- numX[, 1] + 1 * z * (gender == 'Female') + rnorm(N)
+#' y2 <- numX[, 2] + 2 * z * (gender == 'Female') + rnorm(N)
+#'
+#' train <- data.frame(numX, gender, country, z, y1, y2)
+#' role <- c(rep('n', 3), 'c', 'c', 'r', 'd', 'd')
+#'
+#' mrsobj <- MrSFit(dataframe = train, role = role)
+#' printTree(mrsobj, digits = 2, details=TRUE)
+#' printTree(mrsobj, digits = 2, details=FALSE)
+#'
 #' @export
 printTree <- function(mrsobj, digits = 3, details = TRUE, ...) {
     print_node(mrsobj$treeRes, depth = 0, digits, details,
@@ -115,6 +142,32 @@ printTree <- function(mrsobj, digits = 3, details = TRUE, ...) {
 #' @param file latex filename
 #' @param digits digits pass to coefficient
 #' @param ... parameters pass to cat function
+#'
+#' @return write txt file into disk
+#'
+#' @examples
+#' \dontrun{
+#' library(MrSGUIDE)
+#' set.seed(1234)
+#'
+#' N = 200
+#' np = 3
+#'
+#' numX <- matrix(rnorm(N * np), N, np) ## numerical features
+#' gender <- sample(c('Male', 'Female'), N, replace = TRUE)
+#' country <- sample(c('US', 'UK', 'China', 'Japan'), N, replace = TRUE)
+#'
+#' z <- sample(c(0, 1), N, replace = TRUE) # Binary treatment assignment
+#'
+#' y1 <- numX[, 1] + 1 * z * (gender == 'Female') + rnorm(N)
+#' y2 <- numX[, 2] + 2 * z * (gender == 'Female') + rnorm(N)
+#'
+#' train <- data.frame(numX, gender, country, z, y1, y2)
+#' role <- c(rep('n', 3), 'c', 'c', 'r', 'd', 'd')
+#'
+#' mrsobj <- MrSFit(dataframe = train, role = role)
+#' writeTex(mrsobj, 'test.tex')
+#' }
 #'
 #' @export
 writeTex <- function(mrsobj, file, digits = 3, ...) {

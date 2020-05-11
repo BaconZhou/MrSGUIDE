@@ -22,6 +22,12 @@
 #' @param impName important variable file name
 #'
 #'
+#' @return A list contains importance score variable names and roles
+#' \item{imp}{Importance score data frame}
+#' \item{role}{Role for each variable}
+#' \item{Settings}{Settings used to build the tree}
+#'
+#'
 #' @importFrom utils read.table write.table
 #'
 #' @examples
@@ -43,7 +49,8 @@
 #' train <- data.frame(numX, gender, country, z, y1, y2)
 #' role <- c(rep('n', 3), 'c', 'c', 'r', 'd', 'd')
 #'
-#' mrsobj <- MrSImp(dataframe = train, role = role, B = 3)
+#' mrsobj <- MrSImp(dataframe = train, role = role, B = 10)
+#' mrsobj$imp
 #'
 #'
 #' @export
@@ -117,7 +124,7 @@ MrSImp <- function(dataframe, role, B = 100, bestK = 1,
         file.remove(nodeName, treeName, impName)
     }
 
-    imp = pmax(impO$V1 - rowMeans(imp_baseline, na.rm=T), 0)
+    imp = pmax(impO$V1 - rowMeans(imp_baseline, na.rm=TRUE), 0)
     impRes <- data.frame(Importance = imp, Feature = newVar)
     impRes <- impRes[order(impRes[,1]), ]
 
