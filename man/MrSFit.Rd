@@ -124,7 +124,7 @@ An object of class \code{"guide"}
 Multiple responses subgroup identification using 'GUIDE' 'Gi' option for tree building
 }
 \details{
-This function emploies 'GUIDE' Gi option for tree building, it can provide subgroup identification tree
+This function uses 'GUIDE' Gi option for tree building, it can provide subgroup identification tree
 and confidence intervals of treatment effect based on bootstrap calibration.
 
 'Gi' option is testing the interaction between covariate \eqn{x_i} and treatment assignment \eqn{z}.

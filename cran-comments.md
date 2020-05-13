@@ -48,3 +48,4 @@ I think it says ok...
      - printTree.Rd: \value
      - writeTex.Rd: \value
 7. remove some functions export, since they should not be used directly by users.
+8. remove \dontrun{} block

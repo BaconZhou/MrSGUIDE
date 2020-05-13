@@ -22,7 +22,7 @@ write txt file into disk
 Write Latex file for GUIDE regression Tree
 }
 \examples{
-\dontrun{
+
 library(MrSGUIDE)
 set.seed(1234)
 
@@ -43,6 +43,6 @@ role <- c(rep('n', 3), 'c', 'c', 'r', 'd', 'd')
 
 mrsobj <- MrSFit(dataframe = train, role = role)
 writeTex(mrsobj, 'test.tex')
-}
+
 
 }

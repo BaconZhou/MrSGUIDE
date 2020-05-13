@@ -146,7 +146,7 @@ printTree <- function(mrsobj, digits = 3, details = TRUE, ...) {
 #' @return write txt file into disk
 #'
 #' @examples
-#' \dontrun{
+#'
 #' library(MrSGUIDE)
 #' set.seed(1234)
 #'
@@ -167,7 +167,7 @@ printTree <- function(mrsobj, digits = 3, details = TRUE, ...) {
 #'
 #' mrsobj <- MrSFit(dataframe = train, role = role)
 #' writeTex(mrsobj, 'test.tex')
-#' }
+#'
 #'
 #' @export
 writeTex <- function(mrsobj, file, digits = 3, ...) {
