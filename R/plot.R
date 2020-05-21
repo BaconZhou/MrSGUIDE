@@ -217,7 +217,7 @@ plotTree <- function(mrsobj, digits = 3, height = "600px", width = "100%",
 }") %>%
             visNetwork::visExport()
     } else {
-        cat("Package \"visNetwork\" needed for this function to work better. Please install it.")
+        warning("Package \"visNetwork\" needed for this function to work better. Please install it.")
         tree <- NULL
     }
 
@@ -240,7 +240,7 @@ plotTree <- function(mrsobj, digits = 3, height = "600px", width = "100%",
                                                            ymax = "ymax"), data = treatNode, width=0.1, size=1)
         }
     } else {
-        cat("Package \"ggplot2\" needed to plot treatment effect with node. Please install it.")
+        warning("Package \"ggplot2\" needed to plot treatment effect with node. Please install it.")
         trtPlot <- NULL
     }
 

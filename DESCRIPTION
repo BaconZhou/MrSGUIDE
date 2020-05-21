@@ -3,8 +3,8 @@ Type: Package
 Title: Multiple Responses Subgroup Identification using 'GUIDE' Algorithm
 Version: 0.1.0
 Date: 2020-05-04
-Authors@R: c(person(given ="Peigen", family = "Zhou", role = c("aut", "cre"), email = "pzhou9@wisc.edu"),
-             person(given = "Wei-Yin", family = "Loh", role = c("aut"), email= "loh@stat.wisc.edu"))
+Authors@R: c(person(given ="Peigen", family = "Zhou", role = c("aut", "cre"), email = "pzhou9@wisc.edu", comment = c(ORCID = "0000-0003-4609-0374")),
+             person(given = "Wei-Yin", family = "Loh", role = c("aut"), email= "loh@stat.wisc.edu", comment = c(ORCID = "0000-0001-6983-2495")))
 Maintainer: Peigen Zhou <pzhou9@wisc.edu>
 Description: An R implementation of 'GUIDE' style algorithm focusing on subgroup identification problem 
             under multiple responses of Loh et al. (2019) <doi:10.1002/widm.1326>. This package is intended for use 

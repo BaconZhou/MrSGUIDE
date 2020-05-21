@@ -166,8 +166,9 @@ printTree <- function(mrsobj, digits = 3, details = TRUE, ...) {
 #' role <- c(rep('n', 3), 'c', 'c', 'r', 'd', 'd')
 #'
 #' mrsobj <- MrSFit(dataframe = train, role = role)
-#' # writeTex(mrsobj, 'test.tex')
-#'
+#' \dontshow{.old_wd <- setwd(tempdir())}
+#' writeTex(mrsobj, 'test.tex')
+#' \dontshow{setwd(.old_wd)}
 #'
 #' @export
 writeTex <- function(mrsobj, file, digits = 3, ...) {

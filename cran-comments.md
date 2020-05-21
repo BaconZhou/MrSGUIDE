@@ -49,3 +49,8 @@ I think it says ok...
      - writeTex.Rd: \value
 7. remove some functions export, since they should not be used directly by users.
 8. remove \dontrun{} block
+9. In print.R/writeTex.R, added \dontshow{.old_wd <- setwd(tempdir())} and \dontshow{setwd(.old_wd)} around the writting function.
+10. Changed plot.R `cat` to `warining`.
+
+
+
