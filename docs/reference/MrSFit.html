@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">MrSGUIDE</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.1</span>
       </span>
     </div>
 
@@ -267,7 +267,7 @@ with same length as <code>dataframe</code>'s column. The role serves for providi
     <p>An object of class <code>"guide"</code></p>
 <dt>treeRes</dt><dd><p>Tree structure result.</p></dd>
 <dt>node</dt><dd><p>Predicted node of each observation.</p></dd>
-<dt>imp</dt><dd><p>A raw importance score, can used <code><a href='MrSImp.html'>MrSImp</a></code> for more accurate result.</p></dd>
+<dt>imp</dt><dd><p>A raw importance score, can used <code><a href='https://rdrr.io/pkg/MrSGUIDE/man/MrSImp.html'>MrSImp</a></code> for more accurate result.</p></dd>
 <dt>cLevels</dt><dd><p>Categorical features level mapping.</p></dd>
 <dt>tLevels</dt><dd><p>Treatment assignment level mapping.</p></dd>
 <dt>yp</dt><dd><p>Number of outcomes.</p></dd>
@@ -322,8 +322,8 @@ Statistics in Medicine, vol. 38, 545-557. doi:10.1002/sim.7677 <a href='http://p
 <span class='no'>train</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(<span class='no'>numX</span>, <span class='no'>gender</span>, <span class='no'>country</span>, <span class='no'>z</span>, <span class='no'>y1</span>, <span class='no'>y2</span>)
 <span class='no'>role</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='st'>'n'</span>, <span class='fl'>3</span>), <span class='st'>'c'</span>, <span class='st'>'c'</span>, <span class='st'>'r'</span>, <span class='st'>'d'</span>, <span class='st'>'d'</span>)
 
-<span class='no'>mrsobj</span> <span class='kw'>&lt;-</span> <span class='fu'>MrSFit</span>(<span class='kw'>dataframe</span> <span class='kw'>=</span> <span class='no'>train</span>, <span class='kw'>role</span> <span class='kw'>=</span> <span class='no'>role</span>)
-<span class='fu'><a href='printTree.html'>printTree</a></span>(<span class='no'>mrsobj</span>)</div><div class='output co'>#&gt; ID: 1, gender = { Female, NA }
+<span class='no'>mrsobj</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/MrSGUIDE/man/MrSFit.html'>MrSFit</a></span>(<span class='kw'>dataframe</span> <span class='kw'>=</span> <span class='no'>train</span>, <span class='kw'>role</span> <span class='kw'>=</span> <span class='no'>role</span>)
+<span class='fu'><a href='https://rdrr.io/pkg/MrSGUIDE/man/printTree.html'>printTree</a></span>(<span class='no'>mrsobj</span>)</div><div class='output co'>#&gt; ID: 1, gender = { Female, NA }
 #&gt;     ID: 2, Size: 118 [Terminal]
 #&gt;     Outcome Models: 
 #&gt;         y1        Est        SE

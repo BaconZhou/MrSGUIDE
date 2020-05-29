@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">MrSGUIDE</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.1</span>
       </span>
     </div>
 
@@ -174,9 +174,9 @@
 <span class='no'>train</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(<span class='no'>numX</span>, <span class='no'>gender</span>, <span class='no'>country</span>, <span class='no'>z</span>, <span class='no'>y1</span>, <span class='no'>y2</span>)
 <span class='no'>role</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='st'>'n'</span>, <span class='fl'>3</span>), <span class='st'>'c'</span>, <span class='st'>'c'</span>, <span class='st'>'r'</span>, <span class='st'>'d'</span>, <span class='st'>'d'</span>)
 
-<span class='no'>mrsobj</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='MrSFit.html'>MrSFit</a></span>(<span class='kw'>dataframe</span> <span class='kw'>=</span> <span class='no'>train</span>, <span class='kw'>role</span> <span class='kw'>=</span> <span class='no'>role</span>)
+<span class='no'>mrsobj</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/MrSGUIDE/man/MrSFit.html'>MrSFit</a></span>(<span class='kw'>dataframe</span> <span class='kw'>=</span> <span class='no'>train</span>, <span class='kw'>role</span> <span class='kw'>=</span> <span class='no'>role</span>)
 <span class='no'>newX</span> <span class='kw'>=</span> <span class='no'>train</span>[<span class='fl'>1</span>:<span class='fl'>10</span>,]
-<span class='fu'>predictTree</span>(<span class='no'>mrsobj</span>, <span class='no'>newX</span>, <span class='kw'>type</span><span class='kw'>=</span><span class='st'>'outcome'</span>)</div><div class='output co'>#&gt;    node         y1          y2
+<span class='fu'><a href='https://rdrr.io/pkg/MrSGUIDE/man/predictTree.html'>predictTree</a></span>(<span class='no'>mrsobj</span>, <span class='no'>newX</span>, <span class='kw'>type</span><span class='kw'>=</span><span class='st'>'outcome'</span>)</div><div class='output co'>#&gt;    node         y1          y2
 #&gt; 1     2 -1.2358836  0.57827341
 #&gt; 2     2  1.1014766  2.83066375
 #&gt; 3     2  1.1103315  0.22108787
@@ -186,7 +186,7 @@
 #&gt; 7     2  0.2289624  4.19605585
 #&gt; 8     2  0.2577416  3.32595170
 #&gt; 9     2 -0.5779279  0.03892756
-#&gt; 10    3 -0.8608377 -1.08340771</div><div class='input'><span class='fu'>predictTree</span>(<span class='no'>mrsobj</span>, <span class='no'>newX</span>, <span class='kw'>type</span><span class='kw'>=</span><span class='st'>'node'</span>)</div><div class='output co'>#&gt;  [1] 2 2 2 2 3 3 2 2 2 3</div><div class='input'>
+#&gt; 10    3 -0.8608377 -1.08340771</div><div class='input'><span class='fu'><a href='https://rdrr.io/pkg/MrSGUIDE/man/predictTree.html'>predictTree</a></span>(<span class='no'>mrsobj</span>, <span class='no'>newX</span>, <span class='kw'>type</span><span class='kw'>=</span><span class='st'>'node'</span>)</div><div class='output co'>#&gt;  [1] 2 2 2 2 3 3 2 2 2 3</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
