@@ -37,7 +37,7 @@ namespace RegSol {
         const vec& Ypred = this->predict(X, result.beta);
         result.loss = this->getLoss(Y, Ypred);
 
-        result.BIC = (double)n * log(result.loss / (double)n) + (double)p * log(n);
+        result.BIC = (double)n * log(result.loss / (double)n) + (double)p * log((double)n);
         return result;
     }
 
@@ -72,11 +72,11 @@ namespace RegSol {
 
         // assert(X.n_rows == Y.n_elem);
         // assert(p >= hp);
-        
+
         bestInd.resize(hp + K);
         arma::uword minInd = p + 1;
         bestInd.fill(p + 1);
-        
+
         arma::uword nhp = 0;
         for (auto k = 0; k < hp; k ++) {
             if (arma::is_finite(X.col(holdIndex[k]))) {

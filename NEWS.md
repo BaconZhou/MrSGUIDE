@@ -1,3 +1,7 @@
+# MrSGUIDE 0.1.1
+
+- Fix a bug in regresion.cpp
+
 # MrSGUIDE 0.1.0
 
 - Add MrSFit function to build a tree for subgroup identification

@@ -51,6 +51,7 @@ I think it says ok...
 8. remove \dontrun{} block
 9. In print.R/writeTex.R, added \dontshow{.old_wd <- setwd(tempdir())} and \dontshow{setwd(.old_wd)} around the writting function.
 10. Changed plot.R `cat` to `warining`.
+11. fix a bug in regression.cpp about log(int n), cast to log (double n). It fixed the issue in Solaris.
 
 
 
