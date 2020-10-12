@@ -48,6 +48,7 @@
 
     for (term in termNodes) {
         tmp = sapply(nodeMap[[term]][['Trts']], FUN = function(x){x})
+        if (ny == 1) tmp = t(tmp)
         colnames(tmp) = paste0(trtname, tLevels)
         trt = rbind(trt,
                     data.frame(nodeId = gsub('term', '', term),
