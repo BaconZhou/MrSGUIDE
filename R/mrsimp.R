@@ -109,8 +109,9 @@ MrSImp <- function(dataframe, role, B = 100, bestK = 1,
 
     for (i in 1:B) {
         idx = sample(1:N, N)
-        if (NCOL(Y) > 1) Yb = Y[idx,]
-        else Yb = Y[idx]
+        #if (NCOL(Y) > 1) Yb = Y[idx,]
+        #else Yb = Y[idx]
+        Yb = as.matrix(Y[idx,])
         fitB <- .mrs.pure(nX = nX, cX = cXL$intX,
                          Y = Yb, Trt = TrtL$intX,
                          splitIndex = splitIndex, fitIndex = fitIndex,
