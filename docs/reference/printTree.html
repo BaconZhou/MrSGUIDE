@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">MrSGUIDE</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.2</span>
       </span>
     </div>
 
@@ -178,8 +178,8 @@
 <span class='no'>train</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(<span class='no'>numX</span>, <span class='no'>gender</span>, <span class='no'>country</span>, <span class='no'>z</span>, <span class='no'>y1</span>, <span class='no'>y2</span>)
 <span class='no'>role</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='st'>'n'</span>, <span class='fl'>3</span>), <span class='st'>'c'</span>, <span class='st'>'c'</span>, <span class='st'>'r'</span>, <span class='st'>'d'</span>, <span class='st'>'d'</span>)
 
-<span class='no'>mrsobj</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/MrSGUIDE/man/MrSFit.html'>MrSFit</a></span>(<span class='kw'>dataframe</span> <span class='kw'>=</span> <span class='no'>train</span>, <span class='kw'>role</span> <span class='kw'>=</span> <span class='no'>role</span>)
-<span class='fu'><a href='https://rdrr.io/pkg/MrSGUIDE/man/printTree.html'>printTree</a></span>(<span class='no'>mrsobj</span>, <span class='kw'>digits</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>details</span><span class='kw'>=</span><span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; ID: 1, gender = { Female, NA }
+<span class='no'>mrsobj</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='MrSFit.html'>MrSFit</a></span>(<span class='kw'>dataframe</span> <span class='kw'>=</span> <span class='no'>train</span>, <span class='kw'>role</span> <span class='kw'>=</span> <span class='no'>role</span>)
+<span class='fu'>printTree</span>(<span class='no'>mrsobj</span>, <span class='kw'>digits</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>details</span><span class='kw'>=</span><span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; ID: 1, gender = { Female, NA }
 #&gt;     ID: 2, Size: 118 [Terminal]
 #&gt;     Outcome Models: 
 #&gt;         y1        Est        SE
@@ -204,7 +204,7 @@
 #&gt;         X2    0.97
 #&gt;         z.0    0.17    0.15
 #&gt;         z.1    -0.04    0.21
-#&gt;     - - - - - - - - - - - - - - </div><div class='input'><span class='fu'><a href='https://rdrr.io/pkg/MrSGUIDE/man/printTree.html'>printTree</a></span>(<span class='no'>mrsobj</span>, <span class='kw'>digits</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>details</span><span class='kw'>=</span><span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; ID: 1, gender = { Female, NA }
+#&gt;     - - - - - - - - - - - - - - </div><div class='input'><span class='fu'>printTree</span>(<span class='no'>mrsobj</span>, <span class='kw'>digits</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>details</span><span class='kw'>=</span><span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; ID: 1, gender = { Female, NA }
 #&gt;     ID: 2, Size: 118 [Terminal]
 #&gt; ID: 1, gender = { Male }
 #&gt;     ID: 3, Size: 82 [Terminal]</div><div class='input'>

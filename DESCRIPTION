@@ -1,8 +1,8 @@
 Package: MrSGUIDE
 Type: Package
 Title: Multiple Responses Subgroup Identification using 'GUIDE' Algorithm
-Version: 0.1.1
-Date: 2020-05-29
+Version: 0.1.2
+Date: 2020-10-12
 Authors@R: c(person(given ="Peigen", family = "Zhou", role = c("aut", "cre"), email = "pzhou9@wisc.edu", comment = c(ORCID = "0000-0003-4609-0374")),
              person(given = "Wei-Yin", family = "Loh", role = c("aut"), email= "loh@stat.wisc.edu", comment = c(ORCID = "0000-0001-6983-2495")))
 Maintainer: Peigen Zhou <pzhou9@wisc.edu>

@@ -1,3 +1,7 @@
+# MrSGUIDE 0.1.2
+
+- Fix a bug in both regression and importance variable, when y is single response.
+
 # MrSGUIDE 0.1.1
 
 - Fix a bug in regresion.cpp

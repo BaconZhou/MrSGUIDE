@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">MrSGUIDE</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.2</span>
       </span>
     </div>
 
@@ -179,9 +179,9 @@
 <span class='no'>train</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(<span class='no'>numX</span>, <span class='no'>gender</span>, <span class='no'>country</span>, <span class='no'>z</span>, <span class='no'>y1</span>, <span class='no'>y2</span>)
 <span class='no'>role</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='st'>'n'</span>, <span class='fl'>3</span>), <span class='st'>'c'</span>, <span class='st'>'c'</span>, <span class='st'>'r'</span>, <span class='st'>'d'</span>, <span class='st'>'d'</span>)
 
-<span class='no'>mrsobj</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/MrSGUIDE/man/MrSFit.html'>MrSFit</a></span>(<span class='kw'>dataframe</span> <span class='kw'>=</span> <span class='no'>train</span>, <span class='kw'>role</span> <span class='kw'>=</span> <span class='no'>role</span>)
+<span class='no'>mrsobj</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='MrSFit.html'>MrSFit</a></span>(<span class='kw'>dataframe</span> <span class='kw'>=</span> <span class='no'>train</span>, <span class='kw'>role</span> <span class='kw'>=</span> <span class='no'>role</span>)
 <span class='no'>.old_wd</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/getwd.html'>setwd</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempdir</a></span>())
-<span class='fu'><a href='https://rdrr.io/pkg/MrSGUIDE/man/writeTex.html'>writeTex</a></span>(<span class='no'>mrsobj</span>, <span class='st'>'test.tex'</span>)
+<span class='fu'>writeTex</span>(<span class='no'>mrsobj</span>, <span class='st'>'test.tex'</span>)
 <span class='fu'><a href='https://rdrr.io/r/base/getwd.html'>setwd</a></span>(<span class='no'>.old_wd</span>)</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

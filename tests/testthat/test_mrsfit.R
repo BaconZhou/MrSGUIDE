@@ -12,10 +12,11 @@ test_that("test MrSFit for single responses", {
     z <- sample(c(0, 1), N, replace = TRUE) # Binary treatment assignment
 
     y1 <- numX[, 1] + 1 * z * (gender == 'Female') + rnorm(N)
-    y2 <- numX[, 2] + 2 * z * (gender == 'Female') + rnorm(N)
+    # y2 <- numX[, 2] + 2 * z * (gender == 'Female') + rnorm(N)
+    # train <- data.frame(numX, gender, country, z, y1, y2)
+    train <- data.frame(numX, gender, country, z, y1)
 
-    train <- data.frame(numX, gender, country, z, y1, y2)
-    role <- c(rep('n', 3), 'c', 'c', 'r', 'd', 'd')
-
-    mrsobj <- MrSFit(dataframe = train, role = role)
+    # role <- c(rep('n', 3), 'c', 'c', 'r', 'd', 'd')
+    role <- c(rep('n', 3), 'c', 'c', 'r', 'd')
+    mrsobj <- MrSGUIDE::MrSImp(dataframe = train, role = role)
 })

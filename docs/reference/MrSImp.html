@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">MrSGUIDE</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.2</span>
       </span>
     </div>
 
@@ -235,7 +235,7 @@
 <span class='no'>train</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(<span class='no'>numX</span>, <span class='no'>gender</span>, <span class='no'>country</span>, <span class='no'>z</span>, <span class='no'>y1</span>, <span class='no'>y2</span>)
 <span class='no'>role</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='st'>'n'</span>, <span class='fl'>3</span>), <span class='st'>'c'</span>, <span class='st'>'c'</span>, <span class='st'>'r'</span>, <span class='st'>'d'</span>, <span class='st'>'d'</span>)
 
-<span class='no'>mrsobj</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/MrSGUIDE/man/MrSImp.html'>MrSImp</a></span>(<span class='kw'>dataframe</span> <span class='kw'>=</span> <span class='no'>train</span>, <span class='kw'>role</span> <span class='kw'>=</span> <span class='no'>role</span>, <span class='kw'>B</span> <span class='kw'>=</span> <span class='fl'>10</span>)
+<span class='no'>mrsobj</span> <span class='kw'>&lt;-</span> <span class='fu'>MrSImp</span>(<span class='kw'>dataframe</span> <span class='kw'>=</span> <span class='no'>train</span>, <span class='kw'>role</span> <span class='kw'>=</span> <span class='no'>role</span>, <span class='kw'>B</span> <span class='kw'>=</span> <span class='fl'>10</span>)
 <span class='no'>mrsobj</span>$<span class='no'>imp</span></div><div class='output co'>#&gt;   Importance Feature
 #&gt; 1 0.0000e+00      X1
 #&gt; 3 0.0000e+00      X3
