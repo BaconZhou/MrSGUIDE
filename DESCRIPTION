@@ -12,7 +12,7 @@ Description: An R implementation of 'GUIDE' style algorithm focusing on subgroup
 License: GPL-3
 URL: http://www.stat.wisc.edu/~loh/guide.html,
      https://baconzhou.github.io/MrSGUIDE/,
-     http://pages.stat.wisc.edu/~loh/treeprogs/guide/LZ19.pdf,
+     http://pages.stat.wisc.edu/~loh/treeprogs/guide/LZ20.pdf,
      http://pages.stat.wisc.edu/~loh/treeprogs/guide/sm19.pdf
 BugReports: https://github.com/baconzhou/mrsguide/issues
 LinkingTo: Rcpp, RcppArmadillo, BH
