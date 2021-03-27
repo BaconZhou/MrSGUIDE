@@ -6,13 +6,17 @@ The current package is still under heavily development.
 
 For subgroup identification use [GUIDE](http://pages.stat.wisc.edu/~loh/guide.html) algorithm.
 
+**NOTE**
+
+**The importance scoring method is different from [GUIDE](http://pages.stat.wisc.edu/~loh/guide.html) algorithm. Please see our latest paper [Variable importance score](https://arxiv.org/abs/2102.07765) about importance score and use [GUIDE](http://pages.stat.wisc.edu/~loh/guide.html) directly for this task.**
+
 Here are the links and paper for reference:
 
 Loh, W.-Y. and Zhou, P. (2020), [The GUIDE approach to subgroup identification](http://www.stat.wisc.edu/~loh/treeprogs/guide/LZ20.pdf). In Design and Analysis of Subgroups with Biopharmaceutical Applications, N. Ting, J. C. Cappelleri, S. Ho, and D.-G. Chen (Eds.) Springer, in press.
 
 Loh, W.-Y., Cao, L. and Zhou, P. (2019), [Subgroup identification for precision medicine: a comparative review of thirteen methods](http://www.stat.wisc.edu/~loh/treeprogs/guide/wires19.pdf), Wiley Interdisciplinary Reviews: Data Mining and Knowledge Discovery, vol. 9, 5, e1326. [DOI](http://dx.doi.org/10.1002/widm.1326)
 
-Loh, W.-Y., Man, M. and Wang, S. (2019), [Subgroups from regression trees with adjustment for prognostic effects and po3st-selection inference](http://pages.stat.wisc.edu/~loh/treeprogs/guide/sm19.pdf), Statistics in Medicine, vol. 38, 545-557. [DOI](https://onlinelibrary.wiley.com/doi/10.1002/sim.7677)
+Loh, W.-Y., Man, M. and Wang, S. (2019), [Subgroups from regression trees with adjustment for prognostic effects and post-selection inference](http://pages.stat.wisc.edu/~loh/treeprogs/guide/sm19.pdf), Statistics in Medicine, vol. 38, 545-557. [DOI](https://onlinelibrary.wiley.com/doi/10.1002/sim.7677)
 
 Loh, W.-Y., Fu, H., Man, M., Champion, V. and Yu, M. (2016), [Identification of subgroups with differential treatment effects for longitudinal and multiresponse variables](http://www.stat.wisc.edu/~loh/treeprogs/guide/LFMCY16.pdf), Statistics in Medicine, vol. 35, 4837-4855. [DOI](https://onlinelibrary.wiley.com/doi/full/10.1002/sim.7020)
 
